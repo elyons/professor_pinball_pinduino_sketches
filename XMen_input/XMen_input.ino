@@ -309,7 +309,7 @@ void backgroundChase() {
   updatePinStates();
   delay(200);
   updatePinStates();
-  colorWipe(255,0,0,50);
+  colorWipe(150, 150, 255,50);
   updatePinStates();
   fadeOut(200);
   updatePinStates();
