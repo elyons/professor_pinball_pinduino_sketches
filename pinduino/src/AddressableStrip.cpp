@@ -12,13 +12,7 @@ AddressableStrip::AddressableStrip(int num, int pin)
 //  clear();// this is causing the Arduino to crash.  Perhaps where I have it placed in terms of order in the library?
 }
 
-void AddressableStrip::setColorVars(int r, int g, int b)
-{
-  _r = r;
-  _g = g;
-  _b = b;
-}
-
+//not being used this way.  Strip LEDS are declared when object is substaniated
 void AddressableStrip::setNumLEDs(int num)
 {
   _numLEDs = num;
@@ -29,6 +23,7 @@ int AddressableStrip::getNumLEDs()
   return _numLEDs;
 }
 
+//initilize
 Adafruit_NeoPixel* AddressableStrip::strip()
 {
    // Adafruit_NeoPixel (# of LEDs, Signal Pin, Refresh Rate)
@@ -40,6 +35,7 @@ Adafruit_NeoPixel* AddressableStrip::strip()
    return _strip; 
 }
 
+//convert named colors (e.g., "red") to RGB (e.g., 255,0,0)
 void AddressableStrip::color2RGB(String color, int &r, int &g, int &b)
 {
   r=0;
@@ -114,23 +110,9 @@ void AddressableStrip::color2RGB(String color, int &r, int &g, int &b)
     g=0;
     b=255;
   }
- setColorVars(r, g, b);
 }
 
-void AddressableStrip::setColor(String color)
-{
-  int r = 0;
-  int g = 0;
-  int b = 0;
-  color2RGB(color, r, g, b);
-  
-}
-
-void AddressableStrip::setRGB(int r, int g, int b)
-{
-  setColorVars(r, g, b);
-}
-
+//set entire strip one color based on RGB values
 void AddressableStrip::colorRGB(int r, int g, int b, int brightness) {
   if (brightness < 1) {brightness = 1;}
   if (brightness > 255) {brightness = 255;}
@@ -147,11 +129,13 @@ void AddressableStrip::colorRGB(int r, int g, int b, int brightness) {
   _strip->show();
 }
 
+//clear strip  turn off all colors
 void AddressableStrip::clear()
 {
   colorRGB(0,0,0,1);
 }
 
+//set entire strip one color based on names color
 void AddressableStrip::color(String color, int brightness)
 {
   int r = 0;
@@ -161,7 +145,7 @@ void AddressableStrip::color(String color, int brightness)
   colorRGB(r, g, b, brightness); 
 }
 
-
+//fade in strip to a named color
 void AddressableStrip::fadeIn(String color, float time)
 {
   int r = 0;
@@ -171,6 +155,7 @@ void AddressableStrip::fadeIn(String color, float time)
   fadeInRGB(r,g,b,time);
 }
 
+//fade in strip to an RGB color
 void AddressableStrip::fadeInRGB(int r, int g, int b, float time)
 {
   time = time/256;
@@ -185,6 +170,7 @@ void AddressableStrip::fadeInRGB(int r, int g, int b, float time)
   _strip->show();
 }
 
+//fade out strip
 void AddressableStrip::fadeOut(float steps)
 {
   if (steps < 1){steps=1;}
@@ -200,6 +186,7 @@ void AddressableStrip::fadeOut(float steps)
   clear();
 }
 
+//draw a band on the LED strip at position x of a given span with an RGB color.  Center of band is brightest and fades to either end
 void AddressableStrip::RGBBand(int r, int g, int b, int x, int pos) {
     if (r <0 ) {r=0;}
     if (g <0 ) {g=0;}
@@ -227,6 +214,7 @@ void AddressableStrip::RGBBand(int r, int g, int b, int x, int pos) {
   _strip->show();
 }
 
+//generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
 void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir) {
   int pos;
   int numP = _strip->numPixels();
@@ -262,11 +250,85 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
   }
 }
 
-void AddressableStrip::chase2color(String color1, String color2, float span, int time, int dir)
+//generate a band of light that move from one end of the strip to the other that starts at one named color and ends at another named color
+void AddressableStrip::chase2Color(String color1, String color2, float span, int time, int dir)
 {
   int r1,g1,b1;
   int r2,g2,b2;
   color2RGB(color1, r1, g1, b1);
   color2RGB(color2, r2, g2, b2);
   chase2RGB(r1, g1, b1, r2, g2, b2, span, time, dir);
+}
+
+//generate a band of light that moves from one end of the strip to the other using RGB color
+void AddressableStrip::chaseRGB(int r, int g, int b, int span, int time, int dir)
+{
+  chase2RGB(r,g,b,r,g,b,span, time, dir);
+}
+
+//generate a band of light that moves from one end of the strip to the other using RGB color
+void AddressableStrip::chaseColor(String color, float span, int time, int dir)
+{
+  int r,g,b;
+  color2RGB(color,r,g,b);
+  chaseRGB(r,g,b,span,time,dir);
+}
+
+//start at a point x with one RGB color and then spread to both ends of strip fading to second RGB color
+void AddressableStrip::spreadInFromPoint2RGB (int start_led, float r1, float g1, float b1, float r2, float g2, float b2, int time) 
+{
+  int N_LEDS = _strip->numPixels();
+  //Figure out the distance from the furthest end
+  int middle_led = N_LEDS/2;
+  int num_positions = 0;  // number of positions between the start_led and the furthest end of strip
+  if (start_led < middle_led) {num_positions = N_LEDS-start_led+1;}
+  else {num_positions = start_led+1;}
+
+  //calcuate color changes
+  float rcs = abs(r1-r2)/num_positions;
+  if (r2 > r1){rcs=rcs*-1;}
+  float gcs = abs(g1-g2)/num_positions;
+  if (g2 > g1){gcs=gcs*-1;}
+  float bcs = abs(b1-b2)/num_positions;
+  if (b2 > b1){bcs=bcs*-1;}
+
+  //time between turning LEDs on 
+  int expand_time = time/num_positions;
+  
+  _strip->setBrightness(255);
+  for(int i=0; i<num_positions; i++) {
+    float r = r1;
+    float g = g1;
+    float b = b1;
+    r = r1-(rcs*i);
+    g = g1-(gcs*i);
+    b = b1-(bcs*i); 
+    //updatePinStates();
+    _strip->setPixelColor(start_led + i, r, g, b);
+    _strip->setPixelColor(start_led - i, r, g, b);
+    _strip->show();
+    delay(expand_time);
+  }
+} 
+
+//start at a point x with one named color and then spread to both ends of strip fading to second named color
+void AddressableStrip::spreadInFromPoint2Color (int start_led, String color1, String color2, int time) 
+{
+  int r1,g1,b1;
+  int r2,g2,b2;
+  color2RGB(color1, r1, g1, b1);
+  color2RGB(color2, r2, g2, b2);
+  spreadInFromPoint2RGB(start_led, r1, g1, b1, r2, g2, b2, time);
+}
+
+void AddressableStrip::spreadInFromPointRGB (int start_led, float r, float g, float b, int time)
+{
+  spreadInFromPoint2RGB(start_led, r, g, b, r, g, b, time);
+}
+
+void AddressableStrip::spreadInFromPointColor (int start_led, String color, int time)
+{
+  int r,g,b;
+  color2RGB(color, r, g, b);
+  spreadInFromPointRGB(start_led, r, g, b, time);
 }

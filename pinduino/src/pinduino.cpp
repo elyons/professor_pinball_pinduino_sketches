@@ -136,8 +136,11 @@ void pinduino::testRGBStrip4()
 }
 void pinduino::testAdrLED (AddressableStrip* strip)
 {
-  strip->chase2color("orange", "purple", 10, 10, 1);
-  strip->chase2color("purple", "green", 10, 10, -1);
+  strip->chase2Color("orange", "purple", 10, 10, 1);
+  strip->chase2Color("purple", "green", 10, 10, -1);
+  strip->chaseColor("green", 10, 10, 1);
+  strip->chaseColor("blue", 10, 10, -1);
+  
   strip->color("red", 255);
   delay(500);
   strip->color("green", 255);
