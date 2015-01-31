@@ -8,7 +8,6 @@
 #define RGBStrip_h
 
 #include <Arduino.h>
-#include <RGBStrip.h>
 
 class RGBStrip
 {
@@ -27,6 +26,12 @@ class RGBStrip
     int _pin1;
     int _pin2;
     int _pin3;
+
+    int _r;
+    int _g;
+    int _b;
+    void setColorVars(int r, int g, int b);
+    void color2RGB(String color, int &r, int &g, int &b);
 };
 
 #endif

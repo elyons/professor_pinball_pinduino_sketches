@@ -1,11 +1,6 @@
 #include "Arduino.h"
 #include "RGBStrip.h"
 
-int _r;
-int _g;
-int _b;
-
-
 RGBStrip::RGBStrip(int pin1, int pin2, int pin3)
 {
   //Blue channel
@@ -31,14 +26,14 @@ void RGBStrip::clear()
   digitalWrite(_pin3, 0);
 }
 
-void set_color_vars(int r, int g, int b)
+void RGBStrip::setColorVars(int r, int g, int b)
 {
  _r = r;
  _g = g;
  _b = b;
 }
 
-void color2RGB(String color, int &r, int &g, int &b)
+void RGBStrip::color2RGB(String color, int &r, int &g, int &b)
 {
   r=0;
   g=0;
@@ -76,7 +71,7 @@ void color2RGB(String color, int &r, int &g, int &b)
     g=1;
     b=1;
   }
- set_color_vars(r, g, b);
+ setColorVars(r, g, b);
 }
 
 void RGBStrip::set(String color)
