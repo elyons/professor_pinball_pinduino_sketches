@@ -37,20 +37,28 @@ class AddressableStrip
     void fadeOut(float steps);
 
     //Note: to write
-    void fade RGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time);
-    void fade color2Color(String color1, String Color2, float time);
+    void fadeRGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time);
+    void fadeColor2Color(String color1, String Color2, float time);
 
-
-    void RGBBand(int r, int g, int b, int x, int pos);
+    void RGBBand(int pos, int r, int g, int b, int span);
     void chase2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir);
     void chase2Color(String color1, String color2, float span, int time, int dir);
     void chaseRGB(int r, int g, int b, int span, int time, int dir);
-    void chaseColor(String color, float span, int time, int dir);
-    void spreadInFromPoint2RGB (int start_led, float r1, float g1, float b1, float r2, float g2, float b2, int time);
-    void spreadInFromPoint2Color (int start_led, String color1, String color2, int time);
-    void spreadInFromPointRGB (int start_led, float r, float g, float b, int time);
-    void spreadInFromPointColor (int start_led, String color, int time);
+    void chase(String color, float span, int time, int dir);
+    void spreadInFromPoint2RGB (int pos, float r1, float g1, float b1, float r2, float g2, float b2, int time);
+    void spreadInFromPoint2Color (int pos, String color1, String color2, int time);
+    void spreadInFromPointRGB (int pos, float r, float g, float b, int time);
+    void spreadInFromPoint (int pos, String color, int time);
+    void spreadOutFromPoint (int pos, float time);
+    void spreadOutToPoint (int pos, float time);
+    void explosionRGB(int pos, int r, int g, int b, int span);
+    void explosion(int pos, String color, int span);
 
+    //Rainbow effect
+    void rainbow(int wait);
+    void rainbowCycle(int wait);
+    int Wheel(int WheelPos);
+    
 
   private:
     int _pin; //data pin 
