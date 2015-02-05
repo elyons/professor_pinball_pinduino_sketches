@@ -9,29 +9,25 @@
 #include <pinduino.h>
 #include <RGBStrip.h>;
 #include <AddressableStrip.h>
-
-
-//Note: are these being released as global vars into the parent program?
-//RGBStrip* RGB1;
-//RGBStrip* RGB2;
-//RGBStrip* RGB3;
-//RGBStrip* RGB4;
-
-//AddressableStrip* ALED1;
-//AddressableStrip* ALED2;
-//AddressableStrip* ALED3;
-
+#include <pinduinoPins.h>
 
 pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
 {
- RGB1 = new RGBStrip(11,12,13); // pins 11,12,13 
- RGB2 = new RGBStrip(8,9,10); // pins 8,9,10 
- RGB3 = new RGBStrip(5,6,7); // pins 5,6,7 
- RGB4 = new RGBStrip(2,3,4); // pins 2,3,4 
+	_pinState = new pinduinoPins();
 
- ALED1 = new AddressableStrip(aledNum1, A15);
- ALED2 = new AddressableStrip(aledNum2, A14);
- ALED3 = new AddressableStrip(aledNum3, A13);
+	RGB1 = new RGBStrip(11,12,13); // pins 11,12,13 
+ 	RGB2 = new RGBStrip(8,9,10); // pins 8,9,10 
+ 	RGB3 = new RGBStrip(5,6,7); // pins 5,6,7 
+ 	RGB4 = new RGBStrip(2,3,4); // pins 2,3,4 
+
+ 	ALED1 = new AddressableStrip(aledNum1, A15, _pinState);
+ 	ALED2 = new AddressableStrip(aledNum2, A14, _pinState);
+ 	ALED3 = new AddressableStrip(aledNum3, A13, _pinState);
+}
+
+pinduinoPins* pinduino::pinState()
+{
+  return _pinState;
 }
 
 RGBStrip* pinduino::rgbLED1 ()
