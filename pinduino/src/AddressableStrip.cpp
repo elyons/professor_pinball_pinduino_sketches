@@ -1,11 +1,13 @@
 #include <Arduino.h>
 #include <AddressableStrip.h>
 #include <Adafruit_NeoPixel.h>
+#include <pinduinoPins.h>
 
-AddressableStrip::AddressableStrip(int num, int pin)
+AddressableStrip::AddressableStrip(int num, int pin, pinduinoPins* pinState)
 {
   //Data channel
   pinMode(pin, OUTPUT);
+	_pinState=pinState;
   _pin = pin;
   _numLEDs = num;
   _strip = new Adafruit_NeoPixel(_numLEDs, _pin, NEO_GRB + NEO_KHZ800);
@@ -162,6 +164,7 @@ void AddressableStrip::fadeInRGB(int r, int g, int b, float time)
   colorRGB(r,g,b,1);
   if (time < 1) {time = 0;}
   for (int i = 1; i < 256; i++) {
+		_pinState->updatePinStates();
     if (time) {delay(time);}
     _strip->setBrightness(i);
     _strip->show();
@@ -178,6 +181,7 @@ void AddressableStrip::fadeOut(float steps)
   float brightStep = origBrightness/steps; 
   
   for (int i=0; i<steps; i++) {
+		_pinState->updatePinStates();
     int brightness = origBrightness-(brightStep+brightStep*i);
     if (brightness < 1) {brightness=1;}
     _strip->setBrightness(brightness);
@@ -229,6 +233,7 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
   if (b2 > b1){bcs=bcs*-1;}
   
   for (int i = 0; i < numP+span*2; i++) {
+		_pinState->updatePinStates();
     float r = r1;
     float g = g1;
     float b = b1;
@@ -297,13 +302,13 @@ void AddressableStrip::spreadInFromPoint2RGB (int pos, float r1, float g1, float
   
   _strip->setBrightness(255);
   for(int i=0; i<num_positions; i++) {
+		_pinState->updatePinStates();
     float r = r1;
     float g = g1;
     float b = b1;
     r = r1-(rcs*i);
     g = g1-(gcs*i);
     b = b1-(bcs*i); 
-    //updatePinStates();
     _strip->setPixelColor(pos + i, r, g, b);
     _strip->setPixelColor(pos - i, r, g, b);
     _strip->show();
@@ -346,12 +351,14 @@ void AddressableStrip::spreadOutFromPoint (int pos, float time) {
   //time between turning LEDs on 
   float expand_time = time/num_positions;
   
-  for(int i=0; i<num_positions; i++) {
-     // Serial.println(i);
-      _strip->setPixelColor(pos + i, 0, 0, 0);
-      _strip->setPixelColor(pos - i, 0, 0, 0);
-      _strip->show();
-      delay(expand_time);
+  for(int i=0; i<num_positions; i++) 
+	{
+		_pinState->updatePinStates();
+    // Serial.println(i);
+    _strip->setPixelColor(pos + i, 0, 0, 0);
+    _strip->setPixelColor(pos - i, 0, 0, 0);
+    _strip->show();
+    delay(expand_time);
   }
 }
 
@@ -367,11 +374,13 @@ void AddressableStrip::spreadOutToPoint (int pos, float time) {
   //time between turning LEDs on 
   int expand_time = time/num_positions;
   
-  for(int i=num_positions; i>0; i--) {
-      _strip->setPixelColor(pos + i, 0, 0, 0);
-      _strip->setPixelColor(pos - i, 0, 0, 0);
-      _strip->show();
-      delay(expand_time);
+  for(int i=num_positions; i>0; i--) 
+	{
+		_pinState->updatePinStates();
+    _strip->setPixelColor(pos + i, 0, 0, 0);
+    _strip->setPixelColor(pos - i, 0, 0, 0);
+    _strip->show();
+    delay(expand_time);
   }
 }
 
@@ -420,7 +429,9 @@ void AddressableStrip::rainbow(int wait)
   int i, j; 
   _strip->setBrightness(255);
   for(j=0; j<256; j++) {
+		_pinState->updatePinStates();
     for(i=0; i<_strip->numPixels(); i++) {
+		  _pinState->updatePinStates();
       _strip->setPixelColor(_strip->numPixels()-i, Wheel((i+j) & 255));
     }
     _strip->show();
@@ -434,7 +445,9 @@ void AddressableStrip::rainbowCycle(int wait)
   int i, j; 
   _strip->setBrightness(255);
   for(j=0; j<256; j++) { 
+		_pinState->updatePinStates();
     for(i=0; i < _strip->numPixels(); i++) {
+		  _pinState->updatePinStates();
       _strip->setPixelColor(_strip->numPixels()-i, Wheel(((i * 256 / _strip->numPixels()) + j*2) & 255));
     }
     _strip->show();
