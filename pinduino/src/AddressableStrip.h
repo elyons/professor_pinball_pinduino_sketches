@@ -9,13 +9,14 @@
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
+#include <pinduinoPins.h>
 
 class AddressableStrip
 {
   public:
     //Constructor
     //initialize strip for appropriate data pin
-    AddressableStrip(int num, int pin);
+    AddressableStrip(int num, int pin, pinduinoPins* pinState);
 
     void setNumLEDs(int num);
     int getNumLEDs();
@@ -64,6 +65,7 @@ class AddressableStrip
     int _pin; //data pin 
     int _numLEDs = 0; // number of LEDs in strip;
     Adafruit_NeoPixel* _strip; 
+		pinduinoPins* _pinState;
 };
 
 #endif
