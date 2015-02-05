@@ -10,6 +10,7 @@
 #include <Arduino.h>
 #include <RGBStrip.h>
 #include <AddressableStrip.h>
+#include <pinduinoPins.h>
 class pinduino
 {
   protected:
@@ -17,6 +18,9 @@ class pinduino
   public:
     //Constructor
     pinduino(int num1, int num2, int num3);
+		
+    //functions for controlling 12V RGB strips
+		pinduinoPins* pinState();
 
     //functions for controlling 12V RGB strips
     RGBStrip* rgbLED1();
@@ -42,12 +46,16 @@ class pinduino
     void testAdrLED4();
      
   private:
-    int _pin;
+		//internal object for monitoring pinball machine states
+		pinduinoPins* _pinState;
+
+		//internal objects for RGB strip control`
     RGBStrip* RGB1;
     RGBStrip* RGB2;
     RGBStrip* RGB3;
     RGBStrip* RGB4;
 
+		//internal objects for AssressableStrip control
     AddressableStrip* ALED1;
     AddressableStrip* ALED2;
     AddressableStrip* ALED3;
