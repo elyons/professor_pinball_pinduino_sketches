@@ -24,7 +24,6 @@ pinduinoPins::pinduinoPins()
 {
 }
 
-//helps with debugging
 void pinduinoPins::reset()
 {
 	int i;
@@ -34,9 +33,23 @@ void pinduinoPins::reset()
 	}
 }
 
+void pinduinoPins::resetPin(int pin)
+{
+	_pinStates[pin] = 0;
+}
+
 int pinduinoPins::get(int pin)
 {
 	return _pinStates[pin];
+}
+
+int pinduinoPins::any()
+{
+	for (int i = 0; i < _numPins; i = i + 1)
+	{
+		if (_pinStates[i]){return 1;}
+	}
+	return 0;
 }
 
 int pinduinoPins::J7 (int pin)
@@ -72,6 +85,7 @@ int pinduinoPins::numPins()
 	return _numPins;
 }
 
+//helps with debugging
 void pinduinoPins::print() 
 {
 	int i;
