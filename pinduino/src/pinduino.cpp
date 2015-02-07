@@ -7,7 +7,7 @@
 
 #include <Arduino.h>
 #include <pinduino.h>
-#include <RGBStrip.h>;
+#include <RGBStrip.h>
 #include <AddressableStrip.h>
 #include <pinduinoPins.h>
 
