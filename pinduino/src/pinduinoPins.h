@@ -17,9 +17,13 @@ class pinduinoPins
     pinduinoPins();
 		
 		//Arduino pin functions
-		void resetPinStates();
-		void printPinStates();
-		void updatePinStates();
+		void reset();
+		void print();
+		void update();
+		int get(int pin);
+		int numPins();
+		int J6(int pin);
+		int J7(int pin);
 
   private:
 		//internal array for input pins getting signal from pinball machine
