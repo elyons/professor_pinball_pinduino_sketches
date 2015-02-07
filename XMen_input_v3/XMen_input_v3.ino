@@ -1,6 +1,6 @@
-//Eric Lyons 2014
+//Eric Lyons 2015
 //Note to self:  Play more pinball!
-//Interfaced for pinduino v0.2
+//Interfaced for pinduino shield v0.2
 //Uses pinduino library
 
 #include <pinduino.h>
@@ -12,8 +12,6 @@ int aLEDNum2 = 0;
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
-
-
 
 // pin 0:  Flash: Pop Bumper Fl. (BLK-BRN)
 // pin 1:  Orbit Diverter (BLK-RED)
@@ -48,7 +46,7 @@ void loop(){
   if (bg_chase_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
 }
@@ -57,16 +55,10 @@ void checkPinStates(){
   int trigger =0;
   
   if ( pd.pinState()->J6(1) ){
-//    for (int i = 0; i < 7; i = i + 1) {
-//      explosion (255,random(100)+50,0, random(5)+5, random(strip.numPixels()), 100);
-//    }
-//    trigger =1;
   }
   if ( pd.pinState()->J6(2) ){ 
   }
- if ( pd.pinState()->J6(3) ){ 
-//      spreadInFromPoint(N_LEDS,255, 0, 0, 200, 100);
-//      spreadOutToPoint(0,255, 0, 0, 300);
+  if ( pd.pinState()->J6(3) ){ 
     pd.adrLED1()->chase2RGB(0,0,255, 255,255,255,N_LEDS/6, 0, -1);
     trigger =1;
   }
@@ -89,14 +81,9 @@ void checkPinStates(){
     pd.adrLED1()->color("yellow", 255);
     delay(20);
     pd.adrLED1()->clear();
-//      stripFade(255, 0, 0, 200, 10);
-//      completeChase2(255,0,0, 255,255,0,strip.numPixels()/4, 3, -1);
     trigger =1;
   }
   if ( pd.pinState()->J6(8) ){ 
-//      colorWipe(255, 0, 0, 100, 255);
-//      stripFade(255, 0, 0, 300, 10);
-//      completeChase2(255,0,0, 255,255,0,strip.numPixels()/4, 3, -1);
     pd.adrLED1()->color("red", 255);
     delay(20);
     trigger =1;
@@ -104,31 +91,28 @@ void checkPinStates(){
   if ( pd.pinState()->J7(6) ){ 
       trigger =1;
   }
-  if ( pd.pinState()->J7(4) ){
-//      stripFade(255, 255, 0, 200, 10);
-      pd.adrLED1()->chase2Color("yellow", "blue",N_LEDS/4, 0, 1);
-      trigger =1;
-  }
-  if ( pd.pinState()->J7(3) ){ 
-//      spreadInFromPoint(N_LEDS,255, 0, 0, 200, 100);
- //     spreadOutToPoint(0,255, 0, 0, 300);
-      pd.adrLED1()->chase2Color("red", "blue",N_LEDS/8, 0, 1);
-      trigger =1;
-  }
   if ( pd.pinState()->J7(2) ){
       pd.adrLED1()->chase2Color("blue", "yellow", N_LEDS/8, 0, -1);
       trigger=1;
   }
-  if ( pd.pinState()->J7(10) ){
+  if ( pd.pinState()->J7(3) ){ 
+      pd.adrLED1()->chase2Color("red", "blue",N_LEDS/8, 0, 1);
+      trigger =1;
   }
-  if ( pd.pinState()->J7(9) ){
+  if ( pd.pinState()->J7(4) ){
+      pd.adrLED1()->chase2Color("yellow", "blue",N_LEDS/4, 0, 1);
+      trigger =1;
+  }
+  if ( pd.pinState()->J7(7) ){
   }
   if ( pd.pinState()->J7(8) ){
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "red", "blue", 0);
     pd.adrLED1()->fadeOut(100);
     trigger=1;
   }
-  if ( pd.pinState()->J7(7) ){
+  if ( pd.pinState()->J7(9) ){
+  }
+  if ( pd.pinState()->J7(10) ){
   }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
