@@ -164,7 +164,7 @@ void AddressableStrip::fadeInRGB(int r, int g, int b, float time)
   colorRGB(r,g,b,1);
   if (time < 1) {time = 0;}
   for (int i = 1; i < 256; i++) {
-		_pinState->updatePinStates();
+		_pinState->update();
     if (time) {delay(time);}
     _strip->setBrightness(i);
     _strip->show();
@@ -181,7 +181,7 @@ void AddressableStrip::fadeOut(float steps)
   float brightStep = origBrightness/steps; 
   
   for (int i=0; i<steps; i++) {
-		_pinState->updatePinStates();
+		_pinState->update();
     int brightness = origBrightness-(brightStep+brightStep*i);
     if (brightness < 1) {brightness=1;}
     _strip->setBrightness(brightness);
@@ -233,7 +233,7 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
   if (b2 > b1){bcs=bcs*-1;}
   
   for (int i = 0; i < numP+span*2; i++) {
-		_pinState->updatePinStates();
+		_pinState->update();
     float r = r1;
     float g = g1;
     float b = b1;
@@ -302,7 +302,7 @@ void AddressableStrip::spreadInFromPoint2RGB (int pos, float r1, float g1, float
   
   _strip->setBrightness(255);
   for(int i=0; i<num_positions; i++) {
-		_pinState->updatePinStates();
+		_pinState->update();
     float r = r1;
     float g = g1;
     float b = b1;
@@ -353,7 +353,7 @@ void AddressableStrip::spreadOutFromPoint (int pos, float time) {
   
   for(int i=0; i<num_positions; i++) 
 	{
-		_pinState->updatePinStates();
+		_pinState->update();
     // Serial.println(i);
     _strip->setPixelColor(pos + i, 0, 0, 0);
     _strip->setPixelColor(pos - i, 0, 0, 0);
@@ -376,7 +376,7 @@ void AddressableStrip::spreadOutToPoint (int pos, float time) {
   
   for(int i=num_positions; i>0; i--) 
 	{
-		_pinState->updatePinStates();
+		_pinState->update();
     _strip->setPixelColor(pos + i, 0, 0, 0);
     _strip->setPixelColor(pos - i, 0, 0, 0);
     _strip->show();
@@ -429,9 +429,9 @@ void AddressableStrip::rainbow(int wait)
   int i, j; 
   _strip->setBrightness(255);
   for(j=0; j<256; j++) {
-		_pinState->updatePinStates();
+		_pinState->update();
     for(i=0; i<_strip->numPixels(); i++) {
-		  _pinState->updatePinStates();
+		  _pinState->update();
       _strip->setPixelColor(_strip->numPixels()-i, Wheel((i+j) & 255));
     }
     _strip->show();
@@ -445,9 +445,9 @@ void AddressableStrip::rainbowCycle(int wait)
   int i, j; 
   _strip->setBrightness(255);
   for(j=0; j<256; j++) { 
-		_pinState->updatePinStates();
+		_pinState->update();
     for(i=0; i < _strip->numPixels(); i++) {
-		  _pinState->updatePinStates();
+		  _pinState->update();
       _strip->setPixelColor(_strip->numPixels()-i, Wheel(((i * 256 / _strip->numPixels()) + j*2) & 255));
     }
     _strip->show();
