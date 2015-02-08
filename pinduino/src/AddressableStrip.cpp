@@ -25,6 +25,26 @@ int AddressableStrip::getNumLEDs()
   return _numLEDs;
 }
 
+AddressableStrip* AddressableStrip::next()
+{
+	return _next;
+}
+
+void AddressableStrip::setNext(AddressableStrip* strip)
+{
+	_next = strip;
+}
+
+AddressableStrip* AddressableStrip::previous()
+{
+	return _previous;
+}
+
+void AddressableStrip::setPrevious(AddressableStrip* strip)
+{
+	_previous = strip;
+}
+
 //initilize
 Adafruit_NeoPixel* AddressableStrip::strip()
 {
