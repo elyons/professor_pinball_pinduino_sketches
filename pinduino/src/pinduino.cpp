@@ -130,6 +130,46 @@ void pinduino::testRGBStrip4()
 {
   testRGBStrip(RGB4);
 }
+
+
+void pinduino::testSpeakerAdrLED (AddressableStrip* strip)
+{
+  //chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED)
+  strip->chase2RGBCont(255,0,0,  255,0,0, 10, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 10, 20, -1, 0, 23);
+
+
+/*TWS: KISS Removing Extraneous Code for Testing.  Code works
+  for (int i = 0; i < 10; i = i + 1){
+	strip->chase("blue", 10, 10, 1);
+  }
+  for (int i = 0; i < 10; i = i + 1){
+	strip->chase("blue", 10, 10, -1);
+  }
+  
+  strip->chase("orange", 10, 10, -1);
+  strip->chase("red", 10, 10, 1);
+  strip->chase("white", 10, 10, -1);
+  
+  for (int i = 0; i < 10; i = i + 1){
+    strip->chase2Color("orange", "blue", 10, 10, 1);
+	strip->chase2Color("blue", "orange", 10, 10, 1);
+  }
+
+  for (int i = 0; i < 10; i = i + 1){
+    strip->chase2Color("orange", "blue", 10, 10, -1);
+	strip->chase2Color("blue", "orange", 10, 10, -1);
+  }
+*/  
+}
+
+void pinduino::testSpeakerAdrLED1()
+{
+  testSpeakerAdrLED(ALED1);
+  
+}
+
+
 void pinduino::testAdrLED (AddressableStrip* strip)
 {
   strip->chase("green", 10, 10, 1);
@@ -249,3 +289,5 @@ void pinduino::testAdrLED3()
 {
   testAdrLED(ALED3);
 }
+
+

@@ -39,11 +39,16 @@ class pinduino
     void testRGBStrip3();
     void testRGBStrip4();
 
-    void testAdrLED(AddressableStrip* strip);
+  	void testSpeakerAdrLED(AddressableStrip* strip);
+	void testSpeakerAdrLED1();
+
+	void testAdrLED(AddressableStrip* strip);
     void testAdrLED1();
     void testAdrLED2();
     void testAdrLED3();
     void testAdrLED4();
+	
+	
      
   private:
 		//internal object for monitoring pinball machine states

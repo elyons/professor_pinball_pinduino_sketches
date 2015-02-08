@@ -211,8 +211,60 @@ void AddressableStrip::RGBBand(int pos, int r, int g, int b, int span) {
     if (r1 >255 ) {r1=255;}
     if (g1 >255 ) {g1=255;}
     if (b1 >255 ) {b1=255;}
+	  
     if (pos+i > -1) {_strip->setPixelColor(pos+i, r1, g1, b1);}
     if (pos-i > -1) {_strip->setPixelColor(pos-i, r1, g1, b1);}
+  }
+  _strip->setBrightness(255);
+  _strip->show();
+}
+
+//TWS: Continuous Band with start and stop positions
+//draw a band of width 2xspan on the LED strip at position pos of a given span with an RGB color.  Center of band is brightest and fades to either end
+void AddressableStrip::RGBBandCont(int pos, int r, int g, int b, int span, int startLED, int endLED) {
+    if (r <0 ) {r=0;}
+    if (g <0 ) {g=0;}
+    if (b <0 ) {b=0;}
+    if (r >255 ) {r=255;}
+    if (g >255 ) {g=255;}
+    if (b >255 ) {b=255;}
+  double s = 100/span;
+  for(int i=0; i<span; i++) {
+    double V = (i*s/100);
+    V = sqrt(V);
+    int r1 = r-V*r;
+    int g1 = g-V*g;
+    int b1 = b-V*b;
+    if (r1 <=0 ) {r1=0;}
+    if (g1 <=0 ) {g1=0;}
+    if (b1 <=0 ) {b1=0;}
+    if (r1 >255 ) {r1=255;}
+    if (g1 >255 ) {g1=255;}
+    if (b1 >255 ) {b1=255;}
+	
+	// TWS: For cycling/continuous loops, need to compare pos+i and pos-i with max and min value of LED Strip.  
+    if (pos+i > -1) 
+	{
+		if (pos+i > endLED)
+		{
+		_strip->setPixelColor(startLED, r1, g1, b1);
+		}
+		else
+		{
+		_strip->setPixelColor(pos+i, r1, g1, b1);
+		}
+	}
+    if (pos-i > -1) 
+	{
+		if (pos-i < startLED)
+		{
+		_strip->setPixelColor(endLED-i, r1,g1,b1);
+		}
+		else
+		{
+		_strip->setPixelColor(pos-i, r1, g1, b1);
+		}
+	}
   }
   _strip->setBrightness(255);
   _strip->show();
@@ -252,6 +304,49 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
     }
     if (dir > 0) {pos--;}
     else {pos++;}
+  }
+}
+
+//generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
+void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED) {
+  int pos;
+  int numP = _strip->numPixels();
+  if (dir > 0) { pos=numP+span;} 
+  else  { pos=0-span;} 
+  //color step size
+  float rcs = abs(r1-r2)/(numP);
+  if (r2 > r1){rcs=rcs*-1;}
+  float gcs = abs(g1-g2)/(numP);
+  if (g2 > g1){gcs=gcs*-1;}
+  float bcs = abs(b1-b2)/(numP);
+  if (b2 > b1){bcs=bcs*-1;}
+  
+  for (int i = 0; i < numP+span*2; i++) {
+		_pinState->update();
+    float r = r1;
+    float g = g1;
+    float b = b1;
+    if (i > span) {
+      r = r1-(rcs*(i-span));
+      g = g1-(gcs*(i-span));
+      b = b1-(bcs*(i-span)); 
+    }
+    RGBBandCont (pos, r,g,b,span,startLED, endLED);
+    if (time){delay(time);}
+    // Rather than being sneaky and erasing just the tail pixel,
+    // it's easier to erase it all and draw a new one next time.
+    for(int j=startLED; j<= endLED; j++) 
+    {
+	_strip->setPixelColor(j, 0,0,0);
+    }
+    if (dir > 0) 
+	{
+		if (pos < startLED){pos = endLED;}else{pos--;}
+	}
+    else 
+	{
+		if (pos > endLED) {pos = startLED;}else{pos++;}
+	}
   }
 }
 
