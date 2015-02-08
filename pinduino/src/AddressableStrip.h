@@ -20,6 +20,11 @@ class AddressableStrip
 
     void setNumLEDs(int num);
     int getNumLEDs();
+		AddressableStrip* next();
+		void setNext(AddressableStrip* strip);
+		AddressableStrip* previous();
+		void setPrevious(AddressableStrip* strip);
+
 
     // Adafruit_NeoPixel (# of LEDs, Signal Pin, Refresh Rate)
     Adafruit_NeoPixel* strip();
@@ -68,6 +73,9 @@ class AddressableStrip
     int _numLEDs = 0; // number of LEDs in strip;
     Adafruit_NeoPixel* _strip; 
 		pinduinoPins* _pinState;
+		AddressableStrip* _next;
+		AddressableStrip* _previous;
+
 };
 
 #endif
