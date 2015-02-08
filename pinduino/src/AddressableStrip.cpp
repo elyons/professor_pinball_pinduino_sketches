@@ -242,7 +242,8 @@ void AddressableStrip::RGBBand(int pos, int r, int g, int b, int span) {
 //TWS: Continuous Band with start and stop positions
 //draw a band of width 2xspan on the LED strip at position pos of a given span with an RGB color.  Center of band is brightest and fades to either end
 void AddressableStrip::RGBBandCont(int pos, int r, int g, int b, int span, int startLED, int endLED) {
-    if (r <0 ) {r=0;}
+	int numP = _strip->numPixels();
+	if (r <0 ) {r=0;}
     if (g <0 ) {g=0;}
     if (b <0 ) {b=0;}
     if (r >255 ) {r=255;}
@@ -262,29 +263,26 @@ void AddressableStrip::RGBBandCont(int pos, int r, int g, int b, int span, int s
     if (g1 >255 ) {g1=255;}
     if (b1 >255 ) {b1=255;}
 	
-	// TWS: For cycling/continuous loops, need to compare pos+i and pos-i with max and min value of LED Strip.  
-    if (pos+i > -1) 
-	{
-		if (pos+i > endLED)
+
+	if (pos+i >= startLED+numP)
 		{
-		_strip->setPixelColor(startLED, r1, g1, b1);
+		_strip->setPixelColor((pos+i-numP), r1, g1, b1);
 		}
-		else
+	else
 		{
 		_strip->setPixelColor(pos+i, r1, g1, b1);
 		}
-	}
-    if (pos-i > -1) 
-	{
-		if (pos-i < startLED)
+
+	
+    
+	if (pos-i < startLED) 
 		{
-		_strip->setPixelColor(endLED-i, r1,g1,b1);
+		_strip->setPixelColor(numP+pos-i,r1,g1,b1);
 		}
-		else
+	else
 		{
 		_strip->setPixelColor(pos-i, r1, g1, b1);
 		}
-	}
   }
   _strip->setBrightness(255);
   _strip->show();
@@ -329,10 +327,21 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
 
 //generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
 void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED) {
-  int pos;
+  // TWS: Initialized POS to 0 for cont circle testing.
+  int pos = 0;
   int numP = _strip->numPixels();
-  if (dir > 0) { pos=numP+span;} 
-  else  { pos=0-span;} 
+  
+  // TWS: Removed this for continuous circle testing.
+  if (dir > 0) 
+  { 
+	pos=startLED+numP;
+  } 
+  else  
+  { 
+	pos=startLED;
+  } 
+  
+  
   //color step size
   float rcs = abs(r1-r2)/(numP);
   if (r2 > r1){rcs=rcs*-1;}
@@ -341,7 +350,7 @@ void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, flo
   float bcs = abs(b1-b2)/(numP);
   if (b2 > b1){bcs=bcs*-1;}
   
-  for (int i = 0; i < numP+span*2; i++) {
+  for (int i = startLED; i < startLED+numP; i++) {
 		_pinState->update();
     float r = r1;
     float g = g1;
@@ -351,21 +360,36 @@ void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, flo
       g = g1-(gcs*(i-span));
       b = b1-(bcs*(i-span)); 
     }
-    RGBBandCont (pos, r,g,b,span,startLED, endLED);
+    RGBBandCont (pos, r,g,b,span,startLED, startLED+numP);
     if (time){delay(time);}
     // Rather than being sneaky and erasing just the tail pixel,
     // it's easier to erase it all and draw a new one next time.
-    for(int j=startLED; j<= endLED; j++) 
+    for(int j=startLED; j < (startLED+numP); j++) 
     {
 	_strip->setPixelColor(j, 0,0,0);
     }
     if (dir > 0) 
 	{
-		if (pos < startLED){pos = endLED;}else{pos--;}
+		if (pos > startLED)
+		{
+			pos--;
+		}
+		else
+		{
+			pos = startLED + numP;
+		}
 	}
     else 
 	{
-		if (pos > endLED) {pos = startLED;}else{pos++;}
+		if (pos < (startLED + numP)) 
+		{
+			pos++;
+		}
+		else
+		{
+			pos = startLED;
+		}
+		
 	}
   }
 }

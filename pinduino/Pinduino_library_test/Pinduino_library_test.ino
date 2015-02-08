@@ -15,7 +15,7 @@ void setup()
 
 void loop()
 {
-// pd.testSpeakerAdrLED1();
- pd.testAdrLED1();
+ pd.testSpeakerAdrLED1();
+// pd.testAdrLED1();
 }
 
