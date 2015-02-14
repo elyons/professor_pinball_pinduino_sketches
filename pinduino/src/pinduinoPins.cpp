@@ -66,6 +66,18 @@ int pinduinoPins::J7 (int pin)
 	return 0;
 }
 
+void pinduinoPins::resetJ7 (int pin)
+{
+	if (pin == 2) { resetPin(8);}
+	else if (pin == 3) { resetPin(9);}
+	else if (pin == 4) { resetPin(10);}
+	else if (pin == 6) { resetPin(11);}
+	else if (pin == 7) { resetPin(12);}
+	else if (pin == 8) { resetPin(13);}
+	else if (pin == 9) { resetPin(14);}
+	else if (pin == 10) { resetPin(15);}
+}
+
 int pinduinoPins::J6 (int pin)
 {
 	if (pin == 1) { return get(0);}
@@ -78,6 +90,18 @@ int pinduinoPins::J6 (int pin)
 	else if (pin == 8) { return get(7);}
 	//default
 	return 0;
+}
+
+void pinduinoPins::resetJ6 (int pin)
+{
+	if (pin == 1) { resetPin(0);}
+	else if (pin == 2) { resetPin(1);}
+	else if (pin == 3) { resetPin(2);}
+	else if (pin == 4) { resetPin(3);}
+	else if (pin == 5) { resetPin(4);}
+	else if (pin == 6) { resetPin(5);}
+	else if (pin == 7) { resetPin(6);}
+	else if (pin == 8) { resetPin(7);}
 }
 
 int pinduinoPins::numPins()
