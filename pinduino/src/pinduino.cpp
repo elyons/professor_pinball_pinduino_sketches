@@ -142,32 +142,72 @@ void pinduino::testRGBStrip4()
 void pinduino::testSpeakerAdrLED (AddressableStrip* strip)
 {
   //chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED)
-  strip->chase2RGBCont(255,0,0,  255,0,0, 10, 20, -1, 0, 23);
-  strip->chase2RGBCont(255,0,0,  255,0,0, 10, 20, -1, 0, 23);
-
-
-/*TWS: KISS Removing Extraneous Code for Testing.  Code works
-  for (int i = 0; i < 10; i = i + 1){
-	strip->chase("blue", 10, 10, 1);
-  }
-  for (int i = 0; i < 10; i = i + 1){
-	strip->chase("blue", 10, 10, -1);
-  }
   
-  strip->chase("orange", 10, 10, -1);
-  strip->chase("red", 10, 10, 1);
-  strip->chase("white", 10, 10, -1);
-  
-  for (int i = 0; i < 10; i = i + 1){
-    strip->chase2Color("orange", "blue", 10, 10, 1);
-	strip->chase2Color("blue", "orange", 10, 10, 1);
-  }
+  // Slow Red/Blue
+  strip->chase2RGBCont(255,0,0,  0,0,255, 6, 100, -1, 0, 23);
+  strip->chase2RGBCont(0,0,255,  255,0,0, 6, 100, -1, 0, 23);
 
-  for (int i = 0; i < 10; i = i + 1){
-    strip->chase2Color("orange", "blue", 10, 10, -1);
-	strip->chase2Color("blue", "orange", 10, 10, -1);
-  }
-*/  
+  strip->chase2RGBCont(255,0,0,  0,0,255, 6, 100, 1, 0, 23);
+  strip->chase2RGBCont(0,0,255,  255,0,0, 6, 100, 1, 0, 23);
+
+  // Fast Red/Blue
+  strip->chase2RGBCont(255,0,0,  0,0,255, 6, 10, -1, 0, 23);
+  strip->chase2RGBCont(0,0,255,  255,0,0, 6, 10, -1, 0, 23);
+
+  strip->chase2RGBCont(255,0,0,  0,0,255, 6, 10, 1, 0, 23);
+  strip->chase2RGBCont(0,0,255,  255,0,0, 6, 10, 1, 0, 23);
+  
+  // Fast cylon Red
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0,  255,0,0, 1, 20,  1, 0, 23);
+  
+  //Speed Up!
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 100, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 80, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 60, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 40, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 20, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 20, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, 1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 20, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 40, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 60, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 80, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 100, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,0,0, 1, 100, -1, 0, 23);
+  strip->chase2RGBCont(255,0,0, 255,255,255, 1, 10, -1, 0, 23);
+  strip->chase2RGBCont(255,255,255, 10,10,10, 1, 10, -1, 0, 23);
+
+  
+  
 }
 
 void pinduino::testSpeakerAdrLED1()
