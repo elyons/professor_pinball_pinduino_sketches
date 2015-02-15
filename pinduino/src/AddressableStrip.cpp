@@ -193,6 +193,40 @@ void AddressableStrip::fadeInRGB(int r, int g, int b, float time)
   _strip->show();
 }
 
+//fade strip from RGB color to another RGB color
+void AddressableStrip::fadeRGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time)
+{
+  time = time/256;
+  colorRGB(r1,g1,b1,250);
+  if (time < 1) {time = 0;}
+  //calcuate color changes
+	float rcs = abs(r1-r2)/256;
+	if (r2 > r1){rcs=rcs*-1;}
+	float gcs = abs(g1-g2)/256;
+	if (g2 > g1){gcs=gcs*-1;}
+	float bcs = abs(b1-b2)/256;
+	if (b2 > b1){bcs=bcs*-1;}
+  for (int i = 1; i < 256; i++) {
+		_pinState->update();
+    if (time) {delay(time);}
+    float r = r1-(rcs*i);
+    float g = g1-(gcs*i);
+	  float b = b1-(bcs*i);
+    colorRGB(r,g,b,250);
+		_strip->show();
+  }
+}
+
+//fade strip from color to another color
+void AddressableStrip::fadeColor2Color(String color1, String color2, float time)
+{
+ int r1,g1,b1;
+ int r2,g2,b2;
+ color2RGB(color1, r1, g1, b1);
+ color2RGB(color2, r2, g2, b2);
+ fadeRGB2RGB(r1, g1, b1, r2, g2, b2, time);
+}
+
 //fade out strip
 void AddressableStrip::fadeOut(float steps)
 {
