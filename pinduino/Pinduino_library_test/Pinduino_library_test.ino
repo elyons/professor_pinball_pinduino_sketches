@@ -1,7 +1,7 @@
 #include <pinduino.h>
-// int N_LEDS = 151;
-int N_LEDS = 24;
-int R_START = 82;
+int N_LEDS = 220;
+//int N_LEDS = 24;
+int R_START = 110;
 
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
@@ -15,7 +15,7 @@ void setup()
 
 void loop()
 {
- pd.testSpeakerAdrLED1();
-// pd.testAdrLED1();
+// pd.testSpeakerAdrLED1();
+ pd.testAdrLED1Alpha();
 }
 

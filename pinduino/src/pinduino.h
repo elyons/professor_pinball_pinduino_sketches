@@ -48,6 +48,10 @@ class pinduino
     void testAdrLED3();
     void testAdrLED4();
 	
+	void testAdrLEDAlpha(AddressableStrip* strip);
+    void testAdrLED1Alpha();
+    void testAdrLED2Alpha();
+    void testAdrLED3Alpha();
 	
      
   private:

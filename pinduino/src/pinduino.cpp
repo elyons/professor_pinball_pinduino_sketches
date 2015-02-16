@@ -322,6 +322,25 @@ void pinduino::testAdrLED (AddressableStrip* strip)
   delay(500);
 }
 
+void pinduino::testAdrLEDAlpha (AddressableStrip* strip)
+{
+  strip->bullet("red", 10, 1, 1);
+  strip->bullet("red", 10, 1, -1);
+  strip->bullet("blue", 10, 1, 1);
+  strip->bullet("blue", 10, 1, -1);
+  strip->bullet2Color("red", "blue", 10, 1, 1);
+  strip->bullet2Color("blue", "red", 10, 1, -1);
+  strip->bullet2Color("blue", "white", 10, 1, 1);
+  strip->bullet2Color("white", "blue", 10, 1, -1);
+  strip->bullet2Color("red", "white", 10, 1, 1);
+  strip->bullet2Color("white", "red", 10, 1, -1);
+  strip->bullet2Color("orange", "red", 10, 1, 1);
+  strip->bullet2Color("red", "orange", 10, 1, -1);
+  strip->bullet2Color("white", "blue", 10, 1, 1);
+  strip->bullet2Color("blue", "white", 10, 1, -1);
+  
+}
+
 void pinduino::testAdrLED1()
 {
   testAdrLED(ALED1);
@@ -336,5 +355,18 @@ void pinduino::testAdrLED3()
 {
   testAdrLED(ALED3);
 }
+void pinduino::testAdrLED1Alpha()
+{
+  testAdrLEDAlpha(ALED1);
+}
 
+void pinduino::testAdrLED2Alpha()
+{
+  testAdrLEDAlpha(ALED2);
+}
+
+void pinduino::testAdrLED3Alpha()
+{
+  testAdrLEDAlpha(ALED3);
+}
 

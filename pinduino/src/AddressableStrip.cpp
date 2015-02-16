@@ -273,6 +273,8 @@ void AddressableStrip::RGBBand(int pos, int r, int g, int b, int span) {
   _strip->show();
 }
 
+
+
 //TWS: Continuous Band with start and stop positions
 //draw a band of width 2xspan on the LED strip at position pos of a given span with an RGB color.  Center of band is brightest and fades to either end
 void AddressableStrip::RGBBandCont(int pos, int r, int g, int b, int span, int startLED, int endLED) {
@@ -358,6 +360,8 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
     else {pos++;}
   }
 }
+
+
 
 //generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
 void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED) {
@@ -451,6 +455,7 @@ void AddressableStrip::chase(String color, float span, int time, int dir)
   color2RGB(color,r,g,b);
   chaseRGB(r,g,b,span,time,dir);
 }
+
 
 //start at a point x with one RGB color and then spread to both ends of strip fading to second RGB color
 void AddressableStrip::spreadInFromPoint2RGB (int pos, float r1, float g1, float b1, float r2, float g2, float b2, int time) 
@@ -643,3 +648,138 @@ int AddressableStrip::Wheel(int WheelPos)
   }
 }
 
+
+/* 
+TWS: Feb 15 2015  Bullet Functions
+*/
+
+//RGBBullet -- draw a band of width 1xspan on the LED strip at position pos of a given span with an RGB color.  Front of band (at pos) is brightest and fades to end.
+void AddressableStrip::RGBBullet(int pos, int r, int g, int b, int span, int dir) {
+	int numP = _strip->numPixels();
+    if (r <0 ) {r=0;}
+    if (g <0 ) {g=0;}
+    if (b <0 ) {b=0;}
+    if (r >255 ) {r=255;}
+    if (g >255 ) {g=255;}
+    if (b >255 ) {b=255;}
+  double s = 100/span;
+  for(int i=0; i<=span; i++) {
+    double V = (i*s/100);
+    V = sqrt(V);
+    int r1 = r-V*r;
+    int g1 = g-V*g;
+    int b1 = b-V*b;
+    if (r1 <=0 ) {r1=0;}
+    if (g1 <=0 ) {g1=0;}
+    if (b1 <=0 ) {b1=0;}
+    if (r1 >255 ) {r1=255;}
+    if (g1 >255 ) {g1=255;}
+    if (b1 >255 ) {b1=255;}
+	if (dir >= 0) 
+		{  
+		if (pos+i > -121) 
+			{
+			if ((pos+i >= 0) && (pos+i < numP)){_strip->setPixelColor(pos+i, r1, g1, b1);}
+			if ((pos+i+30 >= 0) && (pos+i+30 < numP)){_strip->setPixelColor(pos+i+30, r1, g1, b1);}
+			if ((pos+i+60 >= 0) && (pos+i+60 < numP)){_strip->setPixelColor(pos+i+60, r1, g1, b1);}
+			if ((pos+i+90 >= 0) && (pos+i+90 < numP)){_strip->setPixelColor(pos+i+90, r1, g1, b1);}
+			if ((pos+i+120 >= 0) && (pos+i+120 < numP)){_strip->setPixelColor(pos+i+120, r1, g1, b1);}
+			}
+		if (pos+i >=span)
+			{
+			_strip->setPixelColor(pos+i+1, 0,0,0);
+			_strip->setPixelColor(pos+i+31, 0,0,0);
+			_strip->setPixelColor(pos+i+61, 0,0,0);		
+			_strip->setPixelColor(pos+i+91, 0,0,0);
+			_strip->setPixelColor(pos+i+121, 0,0,0);				
+			}
+		}
+	else
+		{
+		if (pos-i > -1) 
+			{
+			if ((pos-i >= 0) && (pos-i < numP)){_strip->setPixelColor(pos-i, r1, g1, b1);}
+			if ((pos-i-30 >= 0) && (pos-i-30 < numP)){_strip->setPixelColor(pos-i-30, r1, g1, b1);}
+			if ((pos-i-60 >= 0) && (pos-i-60 < numP)){_strip->setPixelColor(pos-i-60, r1, g1, b1);}
+			if ((pos-i-90 >= 0) && (pos-i-90 < numP)){_strip->setPixelColor(pos-i-90, r1, g1, b1);}
+			if ((pos-i-120 >= 0) && (pos-i-120 < numP)){_strip->setPixelColor(pos-i-120, r1, g1, b1);}
+			}
+		if (pos+i >=span)
+			{
+			_strip->setPixelColor(pos-i-1, 0,0,0);
+			_strip->setPixelColor(pos-i-31, 0,0,0);
+			_strip->setPixelColor(pos-i-61, 0,0,0);		
+			_strip->setPixelColor(pos+i-91, 0,0,0);
+			_strip->setPixelColor(pos+i-121, 0,0,0);			
+			}
+		}
+	
+  }
+  _strip->setBrightness(255);
+  _strip->show();
+}
+
+//bullet2RGB -- generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
+void AddressableStrip::bullet2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir) {
+  int pos;
+  int numP = _strip->numPixels();
+  if (dir > 0) { pos=numP+span;} 
+  else  { pos=0-span;} 
+  //color step size
+  float rcs = abs(r1-r2)/(numP);
+  if (r2 > r1){rcs=rcs*-1;}
+  float gcs = abs(g1-g2)/(numP);
+  if (g2 > g1){gcs=gcs*-1;}
+  float bcs = abs(b1-b2)/(numP);
+  if (b2 > b1){bcs=bcs*-1;}
+  
+  for (int i = 0; i < numP+span*2+120; i++) {
+		_pinState->update();
+    float r = r1;
+    float g = g1;
+    float b = b1;
+    if (i > span) {
+      r = r1-(rcs*(i-span));
+      g = g1-(gcs*(i-span));
+      b = b1-(bcs*(i-span)); 
+    }
+    RGBBullet (pos, r,g,b,span,dir);
+    if (time){delay(time);}
+    // Rather than being sneaky and erasing just the tail pixel,
+    // it's easier to erase it all and draw a new one next time.
+    for(int j=-span; j<= span; j++) 
+    {
+      _strip->setPixelColor(pos+j, 0,0,0);
+    }
+    if (dir > 0) {pos--;}
+    else {pos++;}
+  }
+}
+
+//bullet -- generate a band of light that moves from one end of the strip to the other using RGB color
+void AddressableStrip::bullet(String color, float span, int time, int dir)
+{
+  int r,g,b;
+  color2RGB(color,r,g,b);
+  bulletRGB(r,g,b,span,time,dir);
+}
+
+//bulletRGB -- generate a band of light that moves from one end of the strip to the other using RGB color
+void AddressableStrip::bulletRGB(int r, int g, int b, int span, int time, int dir)
+{
+  bullet2RGB(r,g,b,r,g,b,span, time, dir);
+}
+
+//bullet2Color -- generate a band of light that move from one end of the strip to the other that starts at one named color and ends at another named color
+void AddressableStrip::bullet2Color(String color1, String color2, float span, int time, int dir)
+{
+  int r1,g1,b1;
+  int r2,g2,b2;
+  color2RGB(color1, r1, g1, b1);
+  color2RGB(color2, r2, g2, b2);
+  bullet2RGB(r1, g1, b1, r2, g2, b2, span, time, dir);
+}
+
+/*
+TWS: Feb 15 2015 End Bullet Functions
+*/
