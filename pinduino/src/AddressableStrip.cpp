@@ -780,6 +780,106 @@ void AddressableStrip::bullet2Color(String color1, String color2, float span, in
   bullet2RGB(r1, g1, b1, r2, g2, b2, span, time, dir);
 }
 
+//Matrix2RGB -- generate randomly N bands of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
+void AddressableStrip::Matrix2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir) {
+  int pos;
+ 
+  
+  int numP = _strip->numPixels();
+  if (dir > 0) 
+	{ 
+	// This is where I have to put in the positions for the RNG
+	pos=numP+span;
+	} 
+  else  
+	{ 
+	pos=0-span;
+	} 
+	
+	
+  //color step size
+  float rcs = abs(r1-r2)/(numP);
+  if (r2 > r1){rcs=rcs*-1;}
+  float gcs = abs(g1-g2)/(numP);
+  if (g2 > g1){gcs=gcs*-1;}
+  float bcs = abs(b1-b2)/(numP);
+  if (b2 > b1){bcs=bcs*-1;}
+  
+  for (int i = 0; i < numP+span*2+120; i++) {
+  // this is what I have to change to make the matrix effect
+ 
+		_pinState->update();
+    float r = r1;
+    float g = g1;
+    float b = b1;
+    if (i > span) {
+      r = r1-(rcs*(i-span));
+      g = g1-(gcs*(i-span));
+      b = b1-(bcs*(i-span)); 
+    }
+    RGBMatrix (pos, r,g,b,span,dir);
+    if (time){delay(time);}
+    // Rather than being sneaky and erasing just the tail pixel,
+    // it's easier to erase it all and draw a new one next time.
+    for(int j=-span; j<= span; j++) 
+    {
+      _strip->setPixelColor(pos+j, 0,0,0);
+    }
+    if (dir > 0) {pos--;}
+    else {pos++;}
+  }
+}
+
+// Generate several RGB Matrices
+void AddressableStrip::RGBMatrix(int rows, int r, int g, int b, int span, int dir) {
+	int numP = _strip->numPixels();
+	int numPixPerRow = numP/rows;
+	int row1start = 0;
+	int row2start = row1start + numPixPerRow;
+	int row3start = row2start + numPixPerRow;
+	int row4start = row3start + numPixPerRow;
+	int row5start = row4start + numPixPerRow;
+	
+	// Row 1
+	int rand1 = rand() % numPixPerRow;
+	int rand2 = rand() % numPixPerRow;
+	int rand3 = rand() % numPixPerRow;
+	
+    if (r <0 ) {r=0;}
+    if (g <0 ) {g=0;}
+    if (b <0 ) {b=0;}
+    if (r >255 ) {r=255;}
+    if (g >255 ) {g=255;}
+    if (b >255 ) {b=255;}
+  double s = 100/span;
+  for(int i=0; i<=span; i++) {
+    double V = (i*s/100);
+    V = sqrt(V);
+    int r1 = r-V*r;
+    int g1 = g-V*g;
+    int b1 = b-V*b;
+    if (r1 <=0 ) {r1=0;}
+    if (g1 <=0 ) {g1=0;}
+    if (b1 <=0 ) {b1=0;}
+    if (r1 >255 ) {r1=255;}
+    if (g1 >255 ) {g1=255;}
+    if (b1 >255 ) {b1=255;}
+	if (dir >= 0) 
+		{  
+		if (rand1+i >= row1start) 
+			{
+			if ((rand1+i >= 0) && (rand1+i < row2start)){_strip->setPixelColor(rand1+i, r1, g1, b1);}
+			}
+		if (rand1+i >=span)
+			{
+			_strip->setPixelColor(rand1+i+1, 0,0,0);				
+			}
+		}
+
+  }
+  _strip->setBrightness(255);
+  _strip->show();
+}
 /*
 TWS: Feb 15 2015 End Bullet Functions
 */

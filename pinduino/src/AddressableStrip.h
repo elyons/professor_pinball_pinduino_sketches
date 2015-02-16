@@ -75,8 +75,8 @@ class AddressableStrip
     void bullet2Color(String color1, String color2, float span, int time, int dir);
     void bulletRGB(int r, int g, int b, int span, int time, int dir);
     void bullet(String color, float span, int time, int dir);
-
-    
+	void RGBMatrix(int rows, int r, int g, int b, int span, int dir);
+    void Matrix2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir);
 
   private:
     int _pin; //data pin 
