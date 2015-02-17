@@ -308,9 +308,6 @@ void AddressableStrip::RGBBandCont(int pos, int r, int g, int b, int span, int s
 		{
 		_strip->setPixelColor(pos+i, r1, g1, b1);
 		}
-
-	
-    
 	if (pos-i < startLED) 
 		{
 		_strip->setPixelColor(numP+pos-i,r1,g1,b1);
@@ -372,13 +369,12 @@ void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, flo
   // TWS: Removed this for continuous circle testing.
   if (dir > 0) 
   { 
-	pos=startLED+numP;
+	  pos=startLED+numP;
   } 
   else  
   { 
-	pos=startLED;
+	  pos=startLED;
   } 
-  
   
   //color step size
   float rcs = abs(r1-r2)/(numP);
@@ -404,34 +400,40 @@ void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, flo
     // it's easier to erase it all and draw a new one next time.
     for(int j=startLED; j < (startLED+numP); j++) 
     {
-	_strip->setPixelColor(j, 0,0,0);
+	    _strip->setPixelColor(j, 0,0,0);
     }
     if (dir > 0) 
-	{
-		if (pos > startLED)
-		{
-			pos--;
-		}
-		else
-		{
-			pos = startLED + numP;
-		}
-	}
+	  {
+		  if (pos > startLED)
+		  {
+			  pos--;
+		  }
+		  else
+		  {
+			  pos = startLED + numP;
+		  }
+	  }
     else 
-	{
-		if (pos < (startLED + numP)) 
-		{
-			pos++;
-		}
-		else
-		{
-			pos = startLED;
-		}
-		
-	}
+	  {
+		  if (pos < (startLED + numP)) 
+		  {
+			  pos++;
+		  }
+		  else
+		  {
+			  pos = startLED;
+		  }
+	  }
   }
 }
 
+void AddressableStrip::chase2ColorCont(String color1, String color2, float span, int time, int dir, int startLED, int endLED) {
+  int r1,g1,b1;
+	int r2,g2,b2;
+	color2RGB(color1, r1, g1, b1);
+	color2RGB(color2, r2, g2, b2);
+  chase2RGBCont(r1, g1, b1, r2, g2, b2, span, time, dir, startLED, endLED);
+}
 //generate a band of light that move from one end of the strip to the other that starts at one named color and ends at another named color
 void AddressableStrip::chase2Color(String color1, String color2, float span, int time, int dir)
 {
