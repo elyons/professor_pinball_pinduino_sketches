@@ -42,7 +42,7 @@ class AddressableStrip
     void fadeInRGB(int r, int g, int b, float time);
     void fadeOut(float steps);
 
-    //Note: to write
+		//Need to test
     void fadeRGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time);
     void fadeColor2Color(String color1, String Color2, float time);
     void RGBBand(int pos, int r, int g, int b, int span);
@@ -66,16 +66,17 @@ class AddressableStrip
     int Wheel(int WheelPos);
 
 	//Continuous Loop Functions -- TWS: Feb 15 2015
-	void chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED);
-	void RGBBandCont(int pos, int r, int g, int b, int span, int startLED, int endLED);
+	  void chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED);
+	  void chase2ColorCont(String Color1, String Color2, float span, int time, int dir, int startLED, int endLED);
+		void RGBBandCont(int pos, int r, int g, int b, int span, int startLED, int endLED);
 	
 	//Multiple Bullet Effects --  TWS: Feb 15 2015
-	void RGBBullet(int pos, int r, int g, int b, int span, int dir);
-	void bullet2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir);
+	  void RGBBullet(int pos, int r, int g, int b, int span, int dir);
+	  void bullet2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir);
     void bullet2Color(String color1, String color2, float span, int time, int dir);
     void bulletRGB(int r, int g, int b, int span, int time, int dir);
     void bullet(String color, float span, int time, int dir);
-	void RGBMatrix(int rows, int r, int g, int b, int span, int dir);
+	  void RGBMatrix(int rows, int r, int g, int b, int span, int dir);
     void Matrix2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir);
 
   private:
