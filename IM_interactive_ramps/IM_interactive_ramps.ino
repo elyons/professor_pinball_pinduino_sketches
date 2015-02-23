@@ -21,7 +21,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
 // J6-7:  Flash Left Ramp Bottom (BLK-VIO)
 // J6-8:  Flash Right ramp bottom (BLK-GRY)
 // J7-6:  Flash: pop bumper (VIO-WHT)
-// J7-7:  Flash: Left ramp top (VIO-GRN)
+// J7-7:  Flash: Left rampex top (VIO-GRN)
 // J7-8:  Flash: War Machine front (VIO-BLU)
 // J7-9:  Flash: Monger Center Lane (VIO-BLK)
 // pin 9:  Iron Monger Motor (VIO-ORG)
@@ -94,9 +94,9 @@ void checkPinStates(){
     trigger =1;
   }
   if ( pd.pinState()->J7(6) ){ //pops
-    for (int i = 0; i < 7; i = i + 1) {
+    for (int i = 0; i < 14; i = i + 1) {
       pd.adrLED1()->explosionRGB (random(N_LEDS), 255,random(100)+50,0, random(10)+5);
-      pd.adrLED1()->fadeOut(100);
+      pd.adrLED1()->fadeOut(50);
     }
     trigger =1;
   }
