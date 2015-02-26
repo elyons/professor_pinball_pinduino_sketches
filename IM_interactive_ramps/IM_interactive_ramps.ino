@@ -5,7 +5,6 @@
 
 #include <pinduino.h>
 int N_LEDS = 88;
-
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
 int aLEDNum3 = 0;
