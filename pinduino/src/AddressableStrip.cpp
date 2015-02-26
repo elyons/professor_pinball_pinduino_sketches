@@ -593,7 +593,7 @@ void AddressableStrip::explosionRGB(int pos, int r, int g, int b, int span)
   }
   _strip->setBrightness(255);
   _strip->show();
-  fadeOut(100);
+  fadeOut(50);
 }
 
 void AddressableStrip::explosion (int pos, String color, int span)
