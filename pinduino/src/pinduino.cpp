@@ -11,6 +11,11 @@
 #include <AddressableStrip.h>
 #include <pinduinoPins.h>
 
+pinduino::pinduino()
+{
+	pinduino(0,0,0);
+}
+
 pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
 {
 	_pinState = new pinduinoPins();
