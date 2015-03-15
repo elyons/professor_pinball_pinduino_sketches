@@ -71,6 +71,8 @@ class pinduino
     AddressableStrip* ALED1;
     AddressableStrip* ALED2;
     AddressableStrip* ALED3;
+    
+    void init(int aledNum1, int aledNum2, int aledNum3);
 };
 
 
