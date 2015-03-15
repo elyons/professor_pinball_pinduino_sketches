@@ -16,7 +16,10 @@ class pinduino
   protected:
 
   public:
-    //Constructor
+  	//Constructor with no parameters
+  	pinduino();
+  	
+    //Overloaded Constructor for addressable strips
     pinduino(int num1, int num2, int num3);
 		
     //functions for controlling 12V RGB strips
