@@ -11,7 +11,16 @@
 #include <AddressableStrip.h>
 #include <pinduinoPins.h>
 
+pinduino::pinduino()
+{
+	init(0,0,0);
+}
 pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
+{
+	init(aledNum1, aledNum2, aledNum3);
+}
+
+void pinduino::init(int aledNum1, int aledNum2, int aledNum3)
 {
 	_pinState = new pinduinoPins();
 
@@ -23,13 +32,14 @@ pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
  	ALED1 = new AddressableStrip(aledNum1, A15, _pinState);
  	ALED2 = new AddressableStrip(aledNum2, A14, _pinState);
  	ALED3 = new AddressableStrip(aledNum3, A13, _pinState);
-	
+
 	ALED1->setNext(ALED2);
 	ALED1->setPrevious(ALED3);
 	ALED2->setNext(ALED3);
 	ALED2->setPrevious(ALED1);
 	ALED3->setNext(ALED1);
 	ALED3->setPrevious(ALED2);
+
 }
 
 pinduinoPins* pinduino::pinState()
