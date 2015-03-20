@@ -47,7 +47,7 @@ int pinduinoPins::any()
 {
 	for (int i = 0; i < _numPins; i = i + 1)
 	{
-		if (_pinStates[i]){return 1;}
+		if (_pinStates[i] and !i==15){return 1;}//skipping J7-10 due to noise in some systems
 	}
 	return 0;
 }
@@ -127,7 +127,7 @@ void pinduinoPins::update()
 	for (i = 0; i < _numPins; i = i + 1) 
 	{
 		int state = digitalRead(_pins[i]);
-		if (state == 1 and i != 15) //skipping J7 Pin 10 as it senses noise on some sysems 
+		if (state == 1) 
 		{ //circuit being checked has been activated
 			_pinStates[i] = _pinStates[i] + 1;
 		}
