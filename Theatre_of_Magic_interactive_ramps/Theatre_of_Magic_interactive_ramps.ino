@@ -92,16 +92,16 @@ void background() {
       if (pd.pinState()->any()) {skip =1;}
       if (!skip) {delay(10);}
   }  
-  pd.adrLED1()->spreadInFromPoint2Color(R_START,"yellow", "red", 1000);
+  if (!skip) {pd.adrLED1()->spreadInFromPoint2Color(R_START,"yellow", "red", 1000);}
   if (pd.pinState()->any()) {skip =1;}
   for (int i=0; i<200; i=i+1){
       pd.pinState()->update();
       if (pd.pinState()->any()) {skip =1;}
       if (!skip) {delay(10);}
   }  
-  pd.adrLED1()->chase2Color("yellow", "red",2*N_LEDS, 0, 1);
+  if (!skip) {pd.adrLED1()->chase2Color("yellow", "red",2*N_LEDS, 0, 1);}
   if (pd.pinState()->any()) {skip =1;}
-  pd.adrLED1()->spreadInFromPoint2Color(R_START,"red", "yellow", 1000);
+  if (!skip) {pd.adrLED1()->spreadInFromPoint2Color(R_START,"red", "yellow", 1000);}
   if (pd.pinState()->any()) {skip =1;}
   for (int i=0; i<200; i=i+1){
       pd.pinState()->update();
