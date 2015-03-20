@@ -18,6 +18,11 @@ class RGBStrip
 
     //functions for controlling 12V RGB strips
     void set(String color);
+    
+    //Parameters are a RGB value from 0-255
+    void set(byte r, byte g, byte b);
+    
+    
     void clear();
     void fadeIn(String color, float time);
     void fadeOut(float time);

@@ -40,36 +40,36 @@ void RGBStrip::color2RGB(String color, int &r, int &g, int &b)
   b=0;
   if (color.equalsIgnoreCase("red"))
   {
-    r=1;
+    r=255;
   }
   else if (color.equalsIgnoreCase("green"))
   {
-    g=1;
+    g=255;
   }
   else if (color.equalsIgnoreCase("blue"))
   {
-    b=1;
+    b=255;
   }
   else if (color.equalsIgnoreCase("yellow"))
   {
-    r=1;
-    g=1;
+    r=255;
+    g=255;
   }
   else if (color.equalsIgnoreCase("purple"))
   {
-    r=1;
-    b=1;
+    r=255;
+    b=255;
   }
   else if (color.equalsIgnoreCase("cyan"))
   {
-    b=1;
-    g=1;
+    b=255;
+    g=255;
   }
   else if (color.equalsIgnoreCase("white"))
   {
-    r=1;
-    g=1;
-    b=1;
+    r=255;
+    g=255;
+    b=255;
   }
  setColorVars(r, g, b);
 }
@@ -81,9 +81,27 @@ void RGBStrip::set(String color)
   int b = 0;
   color2RGB(color, r, g, b);
   
-  digitalWrite(_pin1, b);
-  digitalWrite(_pin2, r);
-  digitalWrite(_pin3, g);
+  set(r, g, b);
+}  
+void RGBStrip::set(byte r, byte g, byte b)
+{
+  if (b == 255) {
+  	digitalWrite(_pin1, b);
+  } else {
+  	analogWrite(_pin1, b);
+  }
+  
+  if (r == 255) {
+  	digitalWrite(_pin2, r);
+  } else {
+  	analogWrite(_pin2, r);
+  }
+  
+  if (g == 255) {
+		digitalWrite(_pin3, g);
+  } else {
+		analogWrite(_pin3, g);
+  }
 }
 
 void RGBStrip::fadeIn(String color, float time)
@@ -95,9 +113,9 @@ void RGBStrip::fadeIn(String color, float time)
   color2RGB(color, r, g, b);
 
   for (int i = 0; i < 256; i++) { 
-    analogWrite(_pin1, b*i);
-    analogWrite(_pin2, r*i);
-    analogWrite(_pin3, g*i);
+    analogWrite(_pin1, b/255*i);
+    analogWrite(_pin2, r/255*i);
+    analogWrite(_pin3, g/255*i);
     delay(time);
   } 
 }
@@ -109,9 +127,9 @@ void RGBStrip::fadeOut(float time)
   int b = _b;
   time = time/256;
   for (int i = 255; i > -1; i--) { 
-    analogWrite(_pin1, b*i);
-    analogWrite(_pin2, r*i);
-    analogWrite(_pin3, g*i);
+    analogWrite(_pin1, b/255*i);
+    analogWrite(_pin2, r/255*i);
+    analogWrite(_pin3, g/255*i);
     delay(time);
   } 
 
