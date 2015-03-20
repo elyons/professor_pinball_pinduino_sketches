@@ -127,7 +127,7 @@ void pinduinoPins::update()
 	for (i = 0; i < _numPins; i = i + 1) 
 	{
 		int state = digitalRead(_pins[i]);
-		if (state == 1) 
+		if (state == 1 and i != 15) //skipping J7 Pin 10 as it senses noise on some sysems 
 		{ //circuit being checked has been activated
 			_pinStates[i] = _pinStates[i] + 1;
 		}
