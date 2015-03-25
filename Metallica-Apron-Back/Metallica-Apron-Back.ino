@@ -45,24 +45,30 @@ void checkPinStates(){
      trigger =1;
   }
   if ( pd.pinState()->J6(2) ){ 
-     pd.adrLED1()->color("purple", 150);
+     pd.adrLED1()->color("purple", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
   if ( pd.pinState()->J6(3) ){ 
-    pd.adrLED1()->fadeColor2Color ("white", "yellow", 100);
-    pd.adrLED1()->fadeColor2Color ("yellow", "red", 100);
-    pd.adrLED1()->fadeOut(500);
-    trigger=1;
+     pd.adrLED1()->color("blue", 255);
+     delay(50);
+     pd.adrLED1()->clear();
+     delay(50);
+     trigger =1; 
+//    pd.adrLED1()->fadeColor2Color ("white", "orange", 100);
+//    pd.adrLED1()->fadeColor2Color("orange","red",100);
+//    pd.adrLED1()->fadeOut(500);
+//    trigger =1;   
   }
   if ( pd.pinState()->J6(4) ){
-    pd.adrLED1()->fadeColor2Color ("white", "orange", 100);
-    pd.adrLED1()->fadeColor2Color("orange","red",100);
-    pd.adrLED1()->fadeOut(500);
-    trigger =1;  
- }
+     pd.adrLED1()->color("red", 255);
+     delay(50);
+     pd.adrLED1()->clear();
+     delay(50);
+     trigger =1; 
+  }
   if ( pd.pinState()->J6(5) ){ 
     pd.adrLED1()->clear();
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "yellow", "red", 200);
@@ -76,16 +82,20 @@ void checkPinStates(){
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
-    trigger =1;
   }
   if ( pd.pinState()->J6(7) ){
-    pd.adrLED1()->clear();
-    pd.adrLED1()->fadeIn("white", 100);
-    delay(50);
-   pd.adrLED1()->fadeColor2Color("white","red",100);
-    delay(50);
-    pd.adrLED1()->fadeOut(300);
-    trigger =1;
+     pd.adrLED1()->color("red", 255);
+     delay(50);
+     pd.adrLED1()->clear();
+     delay(50);
+     trigger =1;
+//    pd.adrLED1()->clear();
+//    pd.adrLED1()->fadeIn("white", 100);
+//    delay(50);
+//   pd.adrLED1()->fadeColor2Color("white","red",100);
+//    delay(50);
+//    pd.adrLED1()->fadeOut(300);
+//    trigger =1;
   }
   if ( pd.pinState()->J6(8) ){ 
     pd.adrLED1()->fadeIn("red",100);
