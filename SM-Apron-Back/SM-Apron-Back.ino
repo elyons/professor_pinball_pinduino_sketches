@@ -18,7 +18,7 @@ unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 
 void setup() {
-  Serial.begin(115200);
+//  Serial.begin(115200);
   pd.adrLED1()->clear();
   pd.adrLED2()->clear();
   pd.adrLED3()->clear();
@@ -29,7 +29,7 @@ void loop(){
   if (bg_chase_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
 }
