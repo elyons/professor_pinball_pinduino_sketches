@@ -5,7 +5,7 @@
 
 #include <pinduino.h>
 int N_LEDS = 28;
-int R_START = 13;
+int R_START = 14;
 
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
