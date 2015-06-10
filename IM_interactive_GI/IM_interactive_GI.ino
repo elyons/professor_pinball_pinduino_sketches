@@ -6,7 +6,7 @@
 /// ---=====  NOTE ====---
 /// The LED string I used had the red and green channels switched.  
 /// No idea why
-/// So:
+/// So: adrLED1
 /// Green -> red
 /// Red -> green
 /// Purple -> cyan
@@ -14,10 +14,10 @@
 
 
 #include <pinduino.h>
-int N_LEDS = 25;
+int N_LEDS = 30;
 int aLEDNum1 = N_LEDS;
-int aLEDNum2 = 0;
-int aLEDNum3 = 0;
+int aLEDNum2 = N_LEDS;
+int aLEDNum3 = 1;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
 
@@ -41,6 +41,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int bgWhiteTime = 50;
 String chaseColor = "red"; // var to hold bg chase color
 
 void setup() {
@@ -55,63 +56,81 @@ void loop(){
 //  if (bg_chase_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime) {
+    pd.adrLED1()->color("white", 255);
+    pd.adrLED2()->color("white", 255);
+  }
 }
 
 void checkPinStates(){
   int trigger =0;
   
   if ( pd.pinState()->J6(1) ){
-    pd.adrLED1()->fadeIn("cyan", 300);
-    pd.adrLED1()->fadeOut(300);
-    delay(500);
+//    pd.adrLED1()->color("blue", 1);
+//    pd.adrLED2()->color("purple", 1);
+//    pd.fadeInAllAdr(200);
+//    delay(200);
+//    pd.fadeOutAllAdr(200);
+      pd.adrLED2()->fadeIn("purple", 300);
+      delay(120);
+      pd.adrLED2()->fadeOut(300);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(2) ){
-    pd.adrLED1()->color("yellow", 255);
+    pd.adrLED1()->color("blue", 255);
+    pd.adrLED2()->color("red", 255);
     delay(500);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(3) ){ 
     pd.adrLED1()->color("green", 255);
+    pd.adrLED2()->color("cyan", 255);    
     delay(500);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(4) ){ //Monger chest
   }
   if ( pd.pinState()->J6(5) ){ // whiplash
-    pd.adrLED1()->color("purple", 255);
+    pd.adrLED1()->color("white", 255);
+    pd.adrLED2()->color("cyan", 255);
     delay(500);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(6) ){ // Make VI
     pd.adrLED1()->color("blue", 255);
+    pd.adrLED2()->color("white", 255);
     delay(500);
     trigger = 1; }
   if ( pd.pinState()->J6(7) ){ //Left ramp bottom
-    pd.adrLED1()->color("green", 255);
+    pd.adrLED1()->color("red", 255);
+    pd.adrLED2()->color("red", 255);
     delay(500);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(8) ){ //Right ramp bottom
-    pd.adrLED1()->color("green", 255);
+    pd.adrLED1()->color("red", 255);
+    pd.adrLED2()->color("red", 255);
     delay(500);
-    trigger = 1; 
+    trigger = 1;
   }
   if ( pd.pinState()->J7(6) ){ //pops
     pd.adrLED1()->color("green", 255);
-    delay(500);
+    pd.adrLED2()->color("white", 255);
+    delay(50);
     trigger = 1; 
   }
   if ( pd.pinState()->J7(7) ){ //Left ramp top
-    pd.adrLED1()->color("yellow", 255);
+    pd.adrLED1()->color("white", 255);
+    pd.adrLED2()->color("red", 255);
     delay(500);
     trigger = 1; 
   }
   if ( pd.pinState()->J7(8) ){//War Machine front
     pd.adrLED1()->color("green", 255);
+    pd.adrLED2()->color("cyan", 255);
     delay(500);
     trigger = 1; 
   }
@@ -120,13 +139,16 @@ void checkPinStates(){
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
-   pd.adrLED1()->clear();
+//   pd.adrLED1()->clear();
+//   pd.adrLED2()->clear();
    pd.pinState()->reset();
    trigger =0;
    bg_chase_on = 0;
    timeLastEvent = millis();
   }
-   pd.adrLED1()->color("white", 255);
+//   delay(100);
+//   pd.adrLED1()->color("white", 255);
+//   pd.adrLED2()->color("white", 255);
 
 //end function checkPinStates
 }
@@ -135,45 +157,66 @@ void checkPinStates(){
 
 void backgroundChase() {
     pd.adrLED1()->color("white", 255);
+    pd.adrLED2()->color("white", 255);
     delay(10000);
     int delay_time = 100;
     int fade_time = 200;
     for (int i=0; i<4; i=i+1) {     
       pd.adrLED1()->color("white", 255);
+      pd.adrLED2()->color("white", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("green", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("red", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("blue", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("blue", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("red", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("green", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("yellow", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("yellow", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("purple", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("cyan", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       pd.adrLED1()->color("cyan", 255);
+      pd.adrLED2()->fadeOut(fade_time);
+      pd.adrLED2()->color("purple", 255);
       delay(delay_time);
       pd.adrLED1()->fadeOut(fade_time);
       delay_time = delay_time * 1.25;
       fade_time = fade_time * 1.25;
     }
     pd.adrLED1()->color("white", 255);
+    pd.adrLED2()->color("white", 255);
     delay(1000);
-    pd.adrLED1()->fadeColor2Color("white", "red", 5000);
+    pd.adrLED1()->fadeColor2Color("white", "green", 5000);
+    pd.adrLED2()->fadeColor2Color("white", "red", 5000);
     delay(1000);
-    pd.adrLED1()->fadeColor2Color("red", "blue", 5000);
+    pd.adrLED1()->fadeColor2Color("green", "blue", 5000);
+    pd.adrLED2()->fadeColor2Color("red", "blue", 5000);
     delay(1000);
-    pd.adrLED1()->fadeColor2Color("blue", "green", 5000);
+    pd.adrLED1()->fadeColor2Color("blue", "red", 5000);
+    pd.adrLED2()->fadeColor2Color("blue", "green", 5000);
     delay(1000);
-    pd.adrLED1()->fadeColor2Color("green", "red", 5000);
+    pd.adrLED1()->fadeColor2Color("red", "green", 5000);
+    pd.adrLED2()->fadeColor2Color("green", "red", 5000);
     delay(1000);
-    pd.adrLED1()->chase2Color("red", "blue", 50,  100,  -1);
-    pd.adrLED1()->chase2Color("blue", "green", 50,  100,  1);
+    pd.adrLED1()->chase2Color("green", "blue", 50,  100,  -1);
+    pd.adrLED2()->chase2Color("red", "blue", 50,  100,  -1);
+    pd.adrLED1()->chase2Color("blue", "red", 50,  100,  1);
+    pd.adrLED2()->chase2Color("blue", "green", 50,  100,  1);
   }
 
