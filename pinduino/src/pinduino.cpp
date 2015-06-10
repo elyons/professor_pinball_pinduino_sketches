@@ -13,7 +13,7 @@
 
 pinduino::pinduino()
 {
-	init(0,0,0);
+	init(1,1,1);
 }
 pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
 {
@@ -80,6 +80,67 @@ AddressableStrip* pinduino::adrLED2 ()
 AddressableStrip* pinduino::adrLED3 ()
 {
  return ALED3;
+}
+
+//fade out all addressable strips
+void pinduino::fadeOutAllAdr(float steps)
+{
+  if (steps < 1){steps=1;}
+  uint8_t origBrightness1 = ALED1->strip()->getBrightness();
+  uint8_t origBrightness2 = ALED2->strip()->getBrightness();
+  uint8_t origBrightness3 = ALED3->strip()->getBrightness();
+
+  float brightStep1 = origBrightness1/steps; 
+  float brightStep2 = origBrightness2/steps; 
+  float brightStep3 = origBrightness3/steps; 
+  
+  for (int i=0; i<steps; i++) {
+        _pinState->update();
+        int brightness1 = origBrightness1-(brightStep1+brightStep1*i);
+        if (brightness1 < 1) {brightness1=1;}
+        ALED1->strip()->setBrightness(brightness1);
+        ALED1->strip()->show();
+
+        int brightness2 = origBrightness2-(brightStep2+brightStep2*i);
+        if (brightness2 < 1) {brightness2=1;}
+        ALED2->strip()->setBrightness(brightness2);
+        ALED2->strip()->show();
+
+        int brightness3 = origBrightness1-(brightStep3+brightStep3*i);
+        if (brightness3 < 1) {brightness3=1;}
+        ALED3->strip()->setBrightness(brightness3);
+        ALED3->strip()->show();
+  }
+  ALED1->clear();
+  ALED2->clear();
+  ALED3->clear();
+}
+
+//fade in all addressable strips
+//note that strip colors must be previously set.  
+//E.g.,:  ALED1->color("red", 1);  //brightness of 1
+void pinduino::fadeInAllAdr(float steps)
+{
+  if (steps <= 0) {steps = 0.1;}
+  float brightStep = 256/steps;
+  for (int i = 1; i < steps; i++) {
+    float brightness = brightStep*i;
+    if (brightness<1) {brightness = 1;}
+    _pinState->update();
+    ALED1->strip()->setBrightness(brightness);
+    ALED1->strip()->show();
+    ALED2->strip()->setBrightness(brightness);
+    ALED2->strip()->show();
+    ALED3->strip()->setBrightness(brightness);
+    ALED3->strip()->show();
+  }
+  ALED1->strip()->setBrightness(255);
+  ALED1->strip()->show();
+  ALED2->strip()->setBrightness(255);
+  ALED2->strip()->show();
+  ALED3->strip()->setBrightness(255);
+  ALED3->strip()->show();
+
 }
 
 void pinduino::testRGBStrip(RGBStrip* strip)
