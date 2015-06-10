@@ -7,7 +7,7 @@ AddressableStrip::AddressableStrip(int num, int pin, pinduinoPins* pinState)
 {
   //Data channel
   pinMode(pin, OUTPUT);
-	_pinState=pinState;
+  _pinState=pinState;
   _pin = pin;
   _numLEDs = num;
   _strip = new Adafruit_NeoPixel(_numLEDs, _pin, NEO_GRB + NEO_KHZ800);
@@ -235,7 +235,7 @@ void AddressableStrip::fadeOut(float steps)
   float brightStep = origBrightness/steps; 
   
   for (int i=0; i<steps; i++) {
-		_pinState->update();
+	_pinState->update();
     int brightness = origBrightness-(brightStep+brightStep*i);
     if (brightness < 1) {brightness=1;}
     _strip->setBrightness(brightness);
