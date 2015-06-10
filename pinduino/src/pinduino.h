@@ -36,6 +36,13 @@ class pinduino
     AddressableStrip* adrLED2();    
     AddressableStrip* adrLED3();    
 
+    //functions that affect multiple AddressableStrips simultaneously
+    
+    //fade out all strips
+    void fadeOutAllAdr(float steps);
+    //fade in all strips (note, colors on strips need to be set first using ALED1->color("red",1);)
+    void fadeInAllAdr(float steps);
+
     void testRGBStrip(RGBStrip* strip);
     void testRGBStrip1();
     void testRGBStrip2();
@@ -59,7 +66,7 @@ class pinduino
      
   private:
 		//internal object for monitoring pinball machine states
-		pinduinoPins* _pinState;
+	pinduinoPins* _pinState;
 
 		//internal objects for RGB strip control`
     RGBStrip* RGB1;
