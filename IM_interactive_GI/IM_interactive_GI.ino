@@ -30,7 +30,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
 // J6-7:  Flash Left Ramp Bottom (BLK-VIO)
 // J6-8:  Flash Right ramp bottom (BLK-GRY)
 // J7-6:  Flash: pop bumper (VIO-WHT)
-// J7-7:  Flash: Left rampex top (VIO-GRN)
+// J7-7:  Flash: Left ramp top (VIO-GRN)
 // J7-8:  Flash: War Machine front (VIO-BLU)
 // J7-9:  Flash: Monger Center Lane (VIO-BLK)
 // pin 9:  Iron Monger Motor (VIO-ORG)
@@ -82,7 +82,7 @@ void checkPinStates(){
   if ( pd.pinState()->J6(2) ){
     pd.adrLED1()->color("blue", 255);
     pd.adrLED2()->color("red", 255);
-    delay(500);
+    delay(1200);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(3) ){ 
@@ -97,6 +97,9 @@ void checkPinStates(){
     pd.adrLED1()->color("white", 255);
     pd.adrLED2()->color("cyan", 255);
     delay(500);
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
+    delay(900);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(6) ){ // Make VI
@@ -107,13 +110,13 @@ void checkPinStates(){
   if ( pd.pinState()->J6(7) ){ //Left ramp bottom
     pd.adrLED1()->color("red", 255);
     pd.adrLED2()->color("red", 255);
-    delay(500);
+    delay(1200);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(8) ){ //Right ramp bottom
     pd.adrLED1()->color("red", 255);
     pd.adrLED2()->color("red", 255);
-    delay(500);
+    delay(1200);
     trigger = 1;
   }
   if ( pd.pinState()->J7(6) ){ //pops
@@ -123,9 +126,9 @@ void checkPinStates(){
     trigger = 1; 
   }
   if ( pd.pinState()->J7(7) ){ //Left ramp top
-    pd.adrLED1()->color("white", 255);
-    pd.adrLED2()->color("red", 255);
-    delay(500);
+    pd.adrLED1()->color("yellow", 255);
+    pd.adrLED2()->color("blue", 255);
+    delay(1200);
     trigger = 1; 
   }
   if ( pd.pinState()->J7(8) ){//War Machine front
