@@ -54,13 +54,10 @@ void checkPinStates(){
     pd.pinState()->resetJ6(4);  
   }
   if ( pd.pinState()->J6(5) ){
-    for (int i =0; i <  pd.pinState()->J6(5); i++) {
-      pd.adrLED1()->color("yellow",200);
-      delay(30); 
-      pd.adrLED1()->clear();
-      pd.pinState()->update();
-      delay(30); 
-    }
+    pd.adrLED1()->color("yellow",100);
+    delay(50); 
+    pd.adrLED1()->clear();
+    pd.pinState()->update();
     trigger =1;
     pd.pinState()->resetJ6(5);  
 
