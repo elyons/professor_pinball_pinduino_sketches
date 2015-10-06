@@ -45,7 +45,7 @@ void loop(){
     pd.pinState()->update();
   }
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
   if (millis()-timeLastEvent > bgWhiteTime) {
@@ -82,15 +82,14 @@ void checkPinStates(){
     zuse = 1;
    }
    
-   if ( pd.pinState()->J6(2) && !pd.pinState()->J6(3) ){//quora
-//    pd.adrLED1()->color("red", 255);
+   if ( pd.pinState()->J6(2) && !pd.pinState()->J6(3) && ! pd.pinState()->J6(5)){//quora
 //    Serial.print( pd.pinState()->J6(2));
 //    Serial.print (" ");
 //    Serial.println( pd.pinState()->J6(3));
-    
-    pd.adrLED2()->color("green", 255);
+    pd.adrLED1()->color("yellow", 255);
+    pd.adrLED2()->color("blue", 255);
     delay(300);
-    pd.adrLED2()->fadeOut(500);
+    pd.fadeOutAllAdr(300);
     trigger = 1; 
   }
    if (pd.pinState()->J6(2) && pd.pinState()->J6(3) && pd.pinState()->J6(7) && pd.pinState()->J6(8) 
