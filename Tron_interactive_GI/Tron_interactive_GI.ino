@@ -86,10 +86,10 @@ void checkPinStates(){
 //    Serial.print( pd.pinState()->J6(2));
 //    Serial.print (" ");
 //    Serial.println( pd.pinState()->J6(3));
-    pd.adrLED1()->color("yellow", 255);
     pd.adrLED2()->color("blue", 255);
-    delay(300);
-    pd.fadeOutAllAdr(300);
+    pd.adrLED1()->fadeColor2Color("blue", "red",50);
+//    delay(300);
+    pd.fadeOutAllAdr(200);
     trigger = 1; 
   }
    if (pd.pinState()->J6(2) && pd.pinState()->J6(3) && pd.pinState()->J6(7) && pd.pinState()->J6(8) 
