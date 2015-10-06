@@ -42,6 +42,7 @@ class pinduino
     void fadeOutAllAdr(float steps);
     //fade in all strips (note, colors on strips need to be set first using ALED1->color("red",1);)
     void fadeInAllAdr(float steps);
+	  void fadeAllAdrRGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time);
 
     void testRGBStrip(RGBStrip* strip);
     void testRGBStrip1();
