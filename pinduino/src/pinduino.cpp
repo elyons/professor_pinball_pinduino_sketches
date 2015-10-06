@@ -181,6 +181,50 @@ void pinduino::fadeAllAdrColor2Color(String color1, String color2, float time) {
 	fadeAllAdrRGB2RGB(r1, g1, b1, r2, g2, b2, time);
 }
 
+void pinduino::chaseAllAdr2RGB (float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir) {
+	int pos;
+	int numP = ALED1->strip()->numPixels();
+	if (ALED2->strip()->numPixels() > numP) {numP = ALED2->strip()->numPixels();}
+	if (ALED3->strip()->numPixels() > numP) {numP = ALED3->strip()->numPixels();}
+  if (dir >0) {pos = numP+span;}
+	else { pos = 0-span;}
+	float rcs = abs(r1-r2)/(numP);
+	if (r2 > r1){rcs=rcs*-1;}
+	float gcs = abs(g1-g2)/(numP);
+	if (g2 > g1){gcs=gcs*-1;}
+	float bcs = abs(b1-b2)/(numP);
+	if (b2 > b1){bcs=bcs*-1;}
+ 	for (int i = 0; i < numP+span*2; i++) {
+	 	_pinState->update();
+		float r = r1;
+		float g = g1;
+		float b = b1;
+		if (i > span) {
+			r = r1-(rcs*(i-span));
+			g = g1-(gcs*(i-span));
+			b = b1-(bcs*(i-span));
+		}
+  	if (pos < ALED1->strip()->numPixels()+span+1) {ALED1->RGBBand(pos, r, g, b, span);}
+  	if (pos < ALED2->strip()->numPixels()+span+1) {ALED2->RGBBand(pos, r, g, b, span);}
+  	if (pos < ALED3->strip()->numPixels()+span+1) {ALED3->RGBBand(pos, r, g, b, span);}
+		if (time){delay(time);}
+		for(int j=-span; j<= span; j++) {
+			if (pos < ALED1->strip()->numPixels()+span) {ALED1->strip()->setPixelColor(pos+j, 0,0,0);}
+			if (pos < ALED2->strip()->numPixels()+span) {ALED2->strip()->setPixelColor(pos+j, 0,0,0);}
+			if (pos < ALED3->strip()->numPixels()+span) {ALED3->strip()->setPixelColor(pos+j, 0,0,0);}
+		}
+		if (dir > 0) {pos--;}
+		else{pos++;}
+	}
+}
+
+void pinduino::chaseAllAdr2Color (String color1, String color2, float span, int time, int dir){
+	int r1,g1,b1;
+	int r2,g2,b2;
+	ALED1->color2RGB(color1, r1, g1, b1);
+	ALED2->color2RGB(color2, r2, g2, b2);
+  chaseAllAdr2RGB(r1, g1, b1, r2, g2, b2, span, time, dir);
+}
 
 void pinduino::testRGBStrip(RGBStrip* strip)
 {
