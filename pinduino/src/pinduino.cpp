@@ -173,6 +173,13 @@ void pinduino::fadeAllAdrRGB2RGB(float r1, float g1, float b1, float r2, float g
 	}
 }
 
+void pinduino::fadeAllAdrColor2Color(String color1, String color2, float time) {
+ 	int r1,g1,b1;
+ 	int r2,g2,b2;
+ 	ALED1->color2RGB(color1, r1, g1, b1);
+	ALED1->color2RGB(color2, r2, g2, b2);
+	fadeAllAdrRGB2RGB(r1, g1, b1, r2, g2, b2, time);
+}
 
 
 void pinduino::testRGBStrip(RGBStrip* strip)
