@@ -143,6 +143,38 @@ void pinduino::fadeInAllAdr(float steps)
 
 }
 
+void pinduino::fadeAllAdrRGB2RGB(float r1, float g1, float b1, float r2, float g2, float b2, float time) {
+	time = time/256;
+	ALED1->colorRGB(r1, g1, b1, 250);
+	ALED2->colorRGB(r1, g1, b1, 250);
+	ALED3->colorRGB(r1, g1, b1, 250);
+	ALED1->strip()->show();
+	ALED2->strip()->show();
+	ALED3->strip()->show();
+	if (time < 1) {time = 0;}
+	float rcs = abs(r1-r2)/256;
+	if (r2 > r1){rcs=rcs*-1;}
+	float gcs = abs(g1-g2)/256;
+	if (g2 > g1){gcs=gcs*-1;}
+	float bcs = abs(b1-b2)/256;
+	if (b2 > b1){bcs=bcs*-1;}
+	for (int i = 1; i < 256; i++) {
+		_pinState->update();
+		if (time) {delay(time);}
+		float r = r1-(rcs*i);
+		float g = g1-(gcs*i);
+		float b = b1-(bcs*i);
+		ALED1->colorRGB(r, g, b, 250);
+		ALED2->colorRGB(r, g, b, 250);
+		ALED3->colorRGB(r, g, b, 250);
+ 		ALED1->strip()->show();
+		ALED2->strip()->show();
+		ALED3->strip()->show();
+	}
+}
+
+
+
 void pinduino::testRGBStrip(RGBStrip* strip)
 {
   strip->set("red");
