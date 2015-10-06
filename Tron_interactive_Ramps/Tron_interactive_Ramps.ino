@@ -6,8 +6,8 @@
 
 #include <pinduino.h>
 int N_LEDS = 150;
-int aLEDNum1 = 120;
-int aLEDNum2 = 120;
+int aLEDNum1 = 85;
+int aLEDNum2 = 100;
 int aLEDNum3 = 1;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
@@ -78,11 +78,12 @@ void checkPinStates(){
 //    Serial.print( pd.pinState()->J6(2));
 //    Serial.print (" ");
 //    Serial.println( pd.pinState()->J6(3));
-    pd.adrLED1()->color("green", 1);    
-    pd.adrLED2()->color("green", 1);
-    pd.fadeInAllAdr(100);    
-    delay(300);
-    pd.fadeOutAllAdr(100);
+    pd.chaseAllAdr2Color("blue", "green", 11, 0, 1);
+//    pd.adrLED1()->color("green", 1);    
+//    pd.adrLED2()->color("green", 1);
+//    pd.fadeInAllAdr(100);    
+//    delay(300);
+//    pd.fadeOutAllAdr(100);
     trigger = 1; 
    }
 
@@ -106,9 +107,9 @@ void checkPinStates(){
   } 
   
   if ( pd.pinState()->J6(5) ){ // recognizer
-    pd.adrLED1()->color("red", 255);
-    pd.adrLED2()->color("red", 255);
-    pd.fadeOutAllAdr(100);
+    pd.chaseAllAdr2Color("red", "orange", 5, 0, 1);
+//    pd.chaseAllAdr2Color("blue", "orange", 20, 0, 1);
+//    pd.chaseAllAdr2Color("orange", "blue", 20, 0, 1);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(6) && !disc_motor){ // Disc motor
