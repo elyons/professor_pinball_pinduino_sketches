@@ -6,7 +6,7 @@
 
 #include <pinduino.h>
 int N_LEDS = 150;
-int aLEDNum1 = 85;
+int aLEDNum1 = 81;
 int aLEDNum2 = 100;
 int aLEDNum3 = 1;
 
@@ -46,6 +46,7 @@ void loop(){
   }
   if (!pd.pinState()->J6(6) && millis()-timeLastEvent > disc_motor_wait) { disc_motor=0;}
   if ( millis()-timeLastEvent > zuse_wait) { zuse=0;}
+  if ( millis()-timeLastEvent > 2000){pd.pinState()->reset();} // reset pin states if nothing has been triggered for 2 seconds
 
 }
 
@@ -61,15 +62,32 @@ void checkPinStates(){
   if ( !zuse && pd.pinState()->J6(4) && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) { // zuse
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
-    delay(30);
-    for (int i=0; i<3; i=i+1) {
-      pd.adrLED1()->color("blue", 255);
-      pd.adrLED2()->color("blue", 255);
-      delay(30);
-      pd.adrLED1()->clear();
-      pd.adrLED2()->clear();
-      delay(30);
-    }  
+    pd.chaseAllAdr2RGBFromPoint (50, 0,0,255, 255,255,255, 7, 0);
+//    pd.adrLED1()->chase2RGBFromPoint(50, 0,0,255, 255,0,0, 10, 1);
+//    delay(1000);
+//    pd.adrLED2()->chase2RGBFromPoint(50,  0,0,255, 0,255,0, 10, 1);
+//    delay(1000);
+//    pd.adrLED1()->chase2RGBFromPoint(50, 0,0,255, 255,0,0, 10, 1);
+//    delay(1000);
+//    pd.adrLED2()->chase2RGBFromPoint(50,  0,0,255, 0,255,0, 10, 1);
+//    delay(1000);
+//    pd.adrLED1()->chase2RGB(255,0,0, 0,255,0, 10, 1, 1);
+//    delay(1000);
+//    pd.adrLED1()->chase2RGB(255,0,0, 0,255,0, 10, 1, -1);
+//    delay(1000);
+//    pd.adrLED2()->chase2RGB(255,0,0, 0,255,0, 10, 1, 1);
+//    delay(1000);
+//    pd.adrLED2()->chase2RGB(255,0,0, 0,255,0, 10, 1, -1);
+//    delay(1000);
+//    delay(30);
+//    for (int i=0; i<3; i=i+1) {
+//      pd.adrLED1()->color("blue", 255);
+//      pd.adrLED2()->color("blue", 255);
+//      delay(30);
+//      pd.adrLED1()->clear();
+//      pd.adrLED2()->clear();
+//      delay(30);
+//    }  
     trigger =1;
     zuse = 1;
    }
@@ -78,7 +96,7 @@ void checkPinStates(){
 //    Serial.print( pd.pinState()->J6(2));
 //    Serial.print (" ");
 //    Serial.println( pd.pinState()->J6(3));
-    pd.chaseAllAdr2Color("blue", "green", 11, 0, 1);
+    pd.chaseAllAdr2Color("green", "blue", 11, 0, 1);
 //    pd.adrLED1()->color("green", 1);    
 //    pd.adrLED2()->color("green", 1);
 //    pd.fadeInAllAdr(100);    
@@ -90,20 +108,27 @@ void checkPinStates(){
    if (pd.pinState()->J6(2) && pd.pinState()->J6(3) && pd.pinState()->J6(7) && pd.pinState()->J6(8) 
      && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) {// disc open and hit
     for (int i=0; i<2; i=i+1) {     
-      pd.adrLED1()->clear();
-      pd.adrLED2()->clear();
-      delay(50);
-      pd.adrLED1()->color("blue",255);
-      pd.adrLED2()->color("red",255);
-      delay(50);
-      pd.adrLED1()->clear();
-      pd.adrLED2()->clear();
-      delay(50);
-      pd.adrLED1()->color("red",255);
-      pd.adrLED2()->color("blue",255);
-      delay(50);
-      trigger = 1;
+      pd.adrLED1()->spreadInFromPoint(pd.adrLED1()->strip()->numPixels(), "red", 1);
+      pd.adrLED2()->spreadInFromPoint(pd.adrLED1()->strip()->numPixels(), "blue", 1);
+      delay (1000);
+      pd.fadeOutAllAdr(200);
+
+//      pd.fadeAllAdrColor2Color("red", "yellow",0);
+//      pd.fadeAllAdrColor2Color("yellow", "red",0);
+//      pd.adrLED1()->clear();
+//      pd.adrLED2()->clear();
+//      delay(50);
+//      pd.adrLED1()->color("blue",255);
+//      pd.adrLED2()->color("red",255);
+//      delay(50);
+//      pd.adrLED1()->clear();
+//      pd.adrLED2()->clear();
+//      delay(50);
+//      pd.adrLED1()->color("red",255);
+//      pd.adrLED2()->color("blue",255);
+//      delay(50);
     }    
+    trigger = 1;
   } 
   
   if ( pd.pinState()->J6(5) ){ // recognizer
@@ -114,15 +139,15 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J6(6) && !disc_motor){ // Disc motor
     //want this to run when the disc starts up
-    pd.adrLED1()->chase2Color("red", "red", 10, 10, 1);
-    pd.adrLED1()->chase2Color("red", "red", 10, 10, -1);
-    pd.adrLED2()->chase2Color("blue", "blue", 10, 10, 1);
-    pd.adrLED2()->chase2Color("blue", "blue", 10, 10, -1);
-    pd.adrLED1()->color("red", 1);
-    pd.adrLED2()->color("blue", 1);
-    pd.fadeInAllAdr(255);
+    pd.adrLED1()->chase2Color("red", "red", 10, 5, 1);
+    pd.adrLED2()->chase2Color("blue", "blue", 10, 5, 1);
+    pd.adrLED1()->spreadInFromPoint(pd.adrLED1()->strip()->numPixels(), "red", 1);
+    pd.adrLED2()->spreadInFromPoint(pd.adrLED1()->strip()->numPixels(), "blue", 1);
+//    pd.adrLED1()->color("red", 255);
+//    pd.adrLED2()->color("blue", 255);
+//    pd.fadeInAllAdr(50);
     delay (300);
-    pd.fadeOutAllAdr(255);
+    pd.fadeOutAllAdr(50);
     disc_motor=1;
     trigger = 1; 
   }
