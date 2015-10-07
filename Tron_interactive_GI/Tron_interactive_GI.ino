@@ -54,6 +54,7 @@ void loop(){
   }
   if (!pd.pinState()->J6(6) && millis()-timeLastEvent > disc_motor_wait) { disc_motor=0;}
   if ( millis()-timeLastEvent > zuse_wait) { zuse=0;}
+  if ( millis()-timeLastEvent > 2000){pd.pinState()->reset();} // reset pin states if nothing has been triggered for 2 seconds
 
 }
 
@@ -94,16 +95,22 @@ void checkPinStates(){
   }
    if (pd.pinState()->J6(2) && pd.pinState()->J6(3) && pd.pinState()->J6(7) && pd.pinState()->J6(8) 
      && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) {// disc open and hit
-    for (int i=0; i<4; i=i+1) {     
-      pd.adrLED1()->clear();
-      pd.adrLED2()->clear();
-      delay(50);
-      pd.adrLED1()->color("blue",255);
-      pd.adrLED2()->color("red",255);
-      delay(50);
-      trigger = 1;
-    }    
+ //    pd.adrLED1()->fadeColor2Color("green", "yellow",50);
+     for (int i=0; i<3; i=i+1) {
+       pd.fadeAllAdrColor2Color("green", "yellow",50);
+       pd.fadeAllAdrColor2Color("yellow", "red",50);
+     }
+//    for (int i=0; i<4; i=i+1) {     
+//      pd.adrLED1()->clear();
+//      pd.adrLED2()->clear();
+//      delay(50);
+//      pd.adrLED1()->color("blue",255);
+//      pd.adrLED2()->color("red",255);
+//      delay(50);
+//    }    
+    trigger = 1;
   } 
+  
   if ( pd.pinState()->J6(5) ){ // recognizer
     pd.adrLED2()->clear();
     pd.adrLED1()->spreadInFromPoint2Color(20, "green","green", 300);
