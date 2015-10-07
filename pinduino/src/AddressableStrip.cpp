@@ -266,8 +266,8 @@ void AddressableStrip::RGBBand(int pos, int r, int g, int b, int span) {
     if (g1 >255 ) {g1=255;}
     if (b1 >255 ) {b1=255;}
 	  
-    if (pos+i > -1) {_strip->setPixelColor(pos+i, r1, g1, b1);}
-    if (pos-i > -1) {_strip->setPixelColor(pos-i, r1, g1, b1);}
+    if (pos+i > -1 && pos+i < _strip->numPixels()) {_strip->setPixelColor(pos+i, r1, g1, b1);}
+    if (pos-i > -1 && pos+i < _strip->numPixels()) {_strip->setPixelColor(pos-i, r1, g1, b1);}
   }
   _strip->setBrightness(255);
   _strip->show();
@@ -334,17 +334,25 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
   if (g2 > g1){gcs=gcs*-1;}
   float bcs = abs(b1-b2)/(numP);
   if (b2 > b1){bcs=bcs*-1;}
-  
-  for (int i = 0; i < numP+span*2; i++) {
-		_pinState->update();
+
+  for (int i = 0; i < span; i++) {
+  	_pinState->update();
+  	RGBBand (pos, r1,g1,b1,span);
+  	if (time) {delay(time);}
+  	for(int j=-span; j<= span; j++) {
+  	  _strip->setPixelColor(pos+j, 0,0,0);
+  	}  
+    if (dir > 0) {pos--;}
+    else {pos++;}
+  }
+  for (int i = 0; i < numP; i++) {
+	_pinState->update();
     float r = r1;
     float g = g1;
     float b = b1;
-    if (i > span) {
-      r = r1-(rcs*(i-span));
-      g = g1-(gcs*(i-span));
-      b = b1-(bcs*(i-span)); 
-    }
+    r = r1-(rcs*(i));
+    g = g1-(gcs*(i));
+    b = b1-(bcs*(i)); 
     RGBBand (pos, r,g,b,span);
     if (time){delay(time);}
     // Rather than being sneaky and erasing just the tail pixel,
@@ -356,9 +364,68 @@ void AddressableStrip::chase2RGB(float r1, float g1, float b1, float r2, float g
     if (dir > 0) {pos--;}
     else {pos++;}
   }
+  for (int i = 0; i < span; i++) {
+  	_pinState->update();
+  	RGBBand (pos, r2,g2,b2,span);
+  	if (time){delay(time);}
+  	for(int j=-span; j<= span; j++) {
+  	  _strip->setPixelColor(pos+j, 0,0,0);
+  	}  
+    if (dir > 0) {pos--;}
+    else {pos++;}
+  }
 }
 
+//starting from a point, create two bands of light that spread to the ends of the strip
+void AddressableStrip::chase2RGBFromPoint(int pos, float r1, float g1, float b1, float r2, float g2, float b2, int span, int time) {
+  int numP = _strip->numPixels();
+  int max_pos = pos;  //max distance to edge of strip from position pos
+  if (max_pos < numP-pos) {max_pos = numP-pos;}
+  //color step size
+  float rcs = abs(r1-r2)/(max_pos);
+  if (r2 > r1){rcs=rcs*-1;}
+  float gcs = abs(g1-g2)/(max_pos);
+  if (g2 > g1){gcs=gcs*-1;}
+  float bcs = abs(b1-b2)/(max_pos);
+  if (b2 > b1){bcs=bcs*-1;}
+  
+  for (int i = 0; i < max_pos; i++) {
+	_pinState->update();
+	float r = r1;
+	float g = g1;
+	float b = b1;
+	r = r1-(rcs*(i));
+	g = g1-(gcs*(i));
+	b = b1-(bcs*(i)); 
+	RGBBand (pos-i, r,g,b,span);
+	RGBBand (pos+i, r,g,b,span);
+	if (time){delay(time);}
+	// Rather than being sneaky and erasing just the tail pixel,
+	// it's easier to erase it all and draw a new one next time.
+	for(int j=-span; j<= span; j++) 
+	{
+	  _strip->setPixelColor(pos-i+j, 0,0,0);
+	  _strip->setPixelColor(pos+i+j, 0,0,0);
+	}
+  }
+  for (int i = 0; i < span; i++) {
+	_pinState->update();
+	RGBBand (pos-max_pos-i, r2,g2,b2,span);
+	RGBBand (pos+max_pos+i, r2,g2,b2,span);
+	for(int j=-span; j<= span; j++) {
+	  _strip->setPixelColor(pos-max_pos-i+j, 0,0,0);
+	  _strip->setPixelColor(pos+max_pos+i+j, 0,0,0);
+	}   
+  }	
+}
 
+void AddressableStrip::chase2ColorFromPoint(int pos, String color1, String color2, int span, int time){
+  int r1,g1,b1;
+  int r2,g2,b2;
+  color2RGB(color1, r1, g1, b1);
+  color2RGB(color2, r2, g2, b2);
+  chase2RGBFromPoint(pos, r1, g1, b1, r2, g2, b2, span, time);
+}
 
 //generate a band of light that move from one end of the strip to the other that starts at one RGB color and ends at another RGB color
 void AddressableStrip::chase2RGBCont(float r1, float g1, float b1, float r2, float g2, float b2, float span, int time, int dir, int startLED, int endLED) {
