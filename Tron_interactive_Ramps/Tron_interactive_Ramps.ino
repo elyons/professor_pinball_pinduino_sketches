@@ -62,7 +62,7 @@ void checkPinStates(){
   if ( !zuse && pd.pinState()->J6(4) && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) { // zuse
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
-    pd.chaseAllAdr2RGBFromPoint (50, 0,0,255, 255,255,255, 7, 0);
+    pd.chaseAllAdr2RGBFromPoint (40, 0,0,255, 255,255,255, 7, 0);
 //    pd.adrLED1()->chase2RGBFromPoint(50, 0,0,255, 255,0,0, 10, 1);
 //    delay(1000);
 //    pd.adrLED2()->chase2RGBFromPoint(50,  0,0,255, 0,255,0, 10, 1);
@@ -132,7 +132,7 @@ void checkPinStates(){
   } 
   
   if ( pd.pinState()->J6(5) ){ // recognizer
-    pd.chaseAllAdr2Color("red", "orange", 5, 0, 1);
+    pd.chaseAllAdr2Color("red", "orange", 8, 0, 1);
 //    pd.chaseAllAdr2Color("blue", "orange", 20, 0, 1);
 //    pd.chaseAllAdr2Color("orange", "blue", 20, 0, 1);
     trigger = 1; 
