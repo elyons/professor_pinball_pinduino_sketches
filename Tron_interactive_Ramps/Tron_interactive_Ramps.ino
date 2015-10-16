@@ -52,6 +52,13 @@ void loop(){
 
 void checkPinStates(){
   int trigger =0;
+  
+    if (pd.pinState()->J7(3) ) { // Video Game
+    pd.chaseAllAdr2RGBFromPoint (20, 0,0,255, 0,0,0, 7, 0);
+    delay(100);
+    trigger = 1;
+  }
+
   if ( pd.pinState()->J6(1) && pd.pinState()->J7(4) && pd.pinState()->J7(8) && pd.pinState()->J7(9) && 
       !pd.pinState()->J6(2) && !pd.pinState()->J6(3) && !pd.pinState()->J6(7) && !pd.pinState()->J6(8) ) { // light cycle
     pd.adrLED2()->chase2Color("yellow", "yellow", 25, 0, 1);
