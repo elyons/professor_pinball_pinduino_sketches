@@ -60,6 +60,15 @@ void loop(){
 
 void checkPinStates(){
   int trigger =0;
+  
+  if (pd.pinState()->J7(3) ) { // Video Game
+    pd.adrLED1()->color("cyan", 255);
+    pd.adrLED2()->color("blue", 255);
+    delay(200);
+    pd.fadeOutAllAdr(100);
+    trigger = 1;
+  }
+  
   if ( pd.pinState()->J6(1) && pd.pinState()->J7(4) && pd.pinState()->J7(8) && pd.pinState()->J7(9) && 
       !pd.pinState()->J6(2) && !pd.pinState()->J6(3) && !pd.pinState()->J6(7) && !pd.pinState()->J6(8) ) { // light cycle
     pd.adrLED2()->clear();
@@ -67,6 +76,7 @@ void checkPinStates(){
     pd.adrLED1()->chase2Color("blue", "bue", 50, 1, -1);
     trigger =1;    
   }
+  
   if ( !zuse && pd.pinState()->J6(4) && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) { // zuse
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
@@ -97,8 +107,8 @@ void checkPinStates(){
      && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) {// disc open and hit
  //    pd.adrLED1()->fadeColor2Color("green", "yellow",50);
      for (int i=0; i<3; i=i+1) {
-       pd.fadeAllAdrColor2Color("green", "yellow",50);
-       pd.fadeAllAdrColor2Color("yellow", "red",50);
+       pd.fadeAllAdrColor2Color("blue", "yellow",50);
+       pd.fadeAllAdrColor2Color("yellow", "blue",50);
      }
 //    for (int i=0; i<4; i=i+1) {     
 //      pd.adrLED1()->clear();
