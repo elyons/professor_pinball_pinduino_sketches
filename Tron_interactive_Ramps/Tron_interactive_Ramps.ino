@@ -32,7 +32,7 @@ void setup() {
 }
 
 void loop(){
-//  if (bg_chase_on){backgroundChase();}
+  if (bg_chase_on){backgroundChase();}
   for (int i=0; i<1000; i=i+1) {     
     pd.pinState()->update();
   }
@@ -176,5 +176,12 @@ void checkPinStates(){
 
 
 void backgroundChase() {
+    pd.adrLED2()->chase2Color("yellow", "yellow", 35, 0, 1);
+    pd.adrLED1()->chase2Color("blue", "blue", 35, 0, 1);
+    for (int i=0; i<500; i=i+1){
+      delay(1);
+      checkPinStates();
+    }
+    pd.chaseAllAdr2RGBFromPoint (30, 255,0,0, 0,0,0, 20, 0);
   }
 
