@@ -19,7 +19,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
 int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWhiteTime = 50;
+int bgWhiteTime = 1000;
 
 void setup() {
   Serial.begin(115200);
@@ -31,13 +31,16 @@ void setup() {
 
 void loop(){
   if (bg_on){background();}
-  pd.pinState()->update();
+  for (int i=0; i<1000; i=i+1) { //check pinstates for a while    
+    pd.pinState()->update();
+  }
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
   if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
 //    pd.adrLED1()->color("white", 255);
+    pd.adrLED1()->clear();
     pd.adrLED2()->color("white", 255);
   }
 }
@@ -45,76 +48,60 @@ void loop(){
 void checkPinStates(){
   int trigger =0;
   
-  if ( pd.pinState()->J6(1) ){
-//    pd.adrLED1()->color("blue", 1);
-//    pd.adrLED2()->color("purple", 1);
-//    pd.fadeInAllAdr(200);
-//    delay(200);
-//    pd.fadeOutAllAdr(200);
-      pd.adrLED2()->fadeIn("purple", 300);
-      delay(120);
-      pd.adrLED2()->fadeOut(300);
+  
+
+  
+  if ( pd.pinState()->J6(1) ){ // billion
+    for (int i=0; i<100; i++) {
+     pd.adrLED2()->chase2Color("red", "blue", 1,  20,  -1);
+     pd.adrLED2()->chase2Color("blue", "red", 1,  20,  1);
+    }
     trigger = 1; 
   }
-  if ( pd.pinState()->J6(2) ){
-    pd.adrLED1()->color("blue", 255);
-    pd.adrLED2()->color("red", 255);
-    delay(1200);
-    trigger = 1; 
-  }
-  if ( pd.pinState()->J6(3) ){ 
-    pd.adrLED1()->color("green", 255);
-    pd.adrLED2()->color("cyan", 255);    
-    delay(500);
-    trigger = 1; 
-  }
-  if ( pd.pinState()->J6(4) ){ //Monger chest
-  }
-  if ( pd.pinState()->J6(5) ){ // whiplash
-    pd.adrLED1()->color("white", 255);
-    pd.adrLED2()->color("cyan", 255);
-    delay(500);
-    pd.adrLED1()->clear();
-    pd.adrLED2()->clear();
-    delay(900);
-    trigger = 1; 
-  }
-  if ( pd.pinState()->J6(6) ){ // Make VI
-    pd.adrLED1()->color("blue", 255);
-    pd.adrLED2()->color("white", 255);
-    delay(500);
-    trigger = 1; }
-  if ( pd.pinState()->J6(7) ){ //Left ramp bottom
-    pd.adrLED1()->color("red", 255);
-    pd.adrLED2()->color("red", 255);
-    delay(1200);
-    trigger = 1; 
-  }
-  if ( pd.pinState()->J6(8) ){ //Right ramp bottom
-    pd.adrLED1()->color("red", 255);
-    pd.adrLED2()->color("red", 255);
-    delay(1200);
-    trigger = 1;
-  }
-  if ( pd.pinState()->J7(6) ){ //pops
-    pd.adrLED1()->color("green", 255);
-    pd.adrLED2()->color("white", 255);
-    delay(50);
-    trigger = 1; 
-  }
-  if ( pd.pinState()->J7(7) ){ //Left ramp top
-    pd.adrLED1()->color("yellow", 255);
+
+ if ( pd.pinState()->J6(2) ){ //left ramp shuttle
+//    pd.adrLED1()->color("blue", 255);
     pd.adrLED2()->color("blue", 255);
-    delay(1200);
+    pd.adrLED1()->chase("blue", 2,  5,  -1);
+    pd.adrLED2()->fadeOut(1000);
     trigger = 1; 
   }
-  if ( pd.pinState()->J7(8) ){//War Machine front
-    pd.adrLED1()->color("green", 255);
-    pd.adrLED2()->color("cyan", 255);
-    delay(500);
+
+  if ( pd.pinState()->J6(3) ){ //jackpot
+    pd.adrLED1()->chase2ColorFromPoint(23, "green", "red", 10,5);
     trigger = 1; 
   }
-  if ( pd.pinState()->J7(9) ){//monger center lane
+  if ( pd.pinState()->J6(4) ){ // right shuttle skill shot
+    pd.adrLED2()->color("red", 255);
+    pd.adrLED2()->fadeOut(200);
+    trigger=1;
+  }
+  if ( pd.pinState()->J6(5) ){ // left helmet
+    pd.adrLED2()->color("yellow", 255);
+    delay(100);
+    pd.adrLED2()->clear();    
+    trigger = 1; 
+    trigger = 1; 
+  }
+  
+  if ( pd.pinState()->J6(6) ){ // right helmet
+    pd.adrLED2()->color("purple", 255);
+    delay(100);
+    pd.adrLED2()->clear();    
+    trigger = 1; 
+  }
+  
+  if ( pd.pinState()->J6(7) ){ //right boob
+    pd.adrLED2()->color("red", 255);
+    delay(100);
+    pd.adrLED2()->clear();
+    trigger = 1; 
+  }
+  if ( pd.pinState()->J6(8) && ! pd.pinState()->J6(7) ){ // 8==left boob, 7==right boob
+    pd.adrLED2()->color("blue", 255);
+    pd.adrLED1()->chase2Color("red", "orange", 60,  1,  -1);
+    pd.adrLED2()->clear();
+    trigger = 1;
   }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
