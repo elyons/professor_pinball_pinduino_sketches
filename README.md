@@ -25,4 +25,3 @@ This repo is for various Pinduino sketches.  Pinduino is an Arduino shield to in
 
 
 
-<iframe src="https://genomevolution.org/coge/GenomeView.pl?gid=16911&embed=1" style="width:100%;height:100%"></iframe>
