@@ -22,3 +22,7 @@ This repo is for various Pinduino sketches.  Pinduino is an Arduino shield to in
 * [![X-Men interactive LED ramps test mode](http://img.youtube.com/vi/6Ac9xAAr4ow/0.jpg)](http://www.youtube.com/watch?v=6Ac9xAAr4ow)
 * X-Men interactive LED ramps gameplay
 * [![X-Men interactive LED ramps gameplay](http://img.youtube.com/vi/Uaz5NHAFTFk/0.jpg)](http://www.youtube.com/watch?v=Uaz5NHAFTFk)
+
+
+
+<iframe src="https://genomevolution.org/coge/GenomeView.pl?gid=16911&embed=1" style="width:100%;height:100%"></iframe>
