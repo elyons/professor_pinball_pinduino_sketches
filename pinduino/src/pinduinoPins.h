@@ -27,10 +27,12 @@ class pinduinoPins
 		void update(); // update pin states by scanning input pins
 		int get(int pin); // gets the pin state for a given Arduino pin
 		int numPins(); // returns the number of pins being monitors (default: 16)
-		int J6(int pin); // interface to retrieve pin state by J6 pin
-		void resetJ6(int pin); // interface to retrieve pin state by J6 pin
-		int J7(int pin); // interface to retrieve pin state by J7 pin 
-		void resetJ7(int pin); // interface to retrieve pin state by J7 pin 
+		int J6(int pin); // interface to retrieve pin state by Stern J6 pin
+		void resetJ6(int pin); // interface to retrieve pin state by Stern J6 pin
+		int J7(int pin); // interface to retrieve pin state by Stern J7 pin 
+		void resetJ7(int pin); // interface to retrieve pin state by Stern J7 pin 
+		int J126(int pin); // interface to retrieve pin state by WPC J126 pin 
+		void resetJ126(int pin); // interface to retrieve pin state by WPC J126 pin 
 		int any(); // returns true if any pinStates have non-zero values
 
   private:
