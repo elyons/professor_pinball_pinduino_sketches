@@ -22,7 +22,14 @@
 
 pinduinoPins::pinduinoPins()
 {
+	arduinoType = "Mega";
 }
+
+pinduinoPins::pinduinoPins(String val)
+{
+	arduinoType = val;
+}
+
 
 void pinduinoPins::reset()
 {
@@ -126,7 +133,17 @@ void pinduinoPins::update()
 	int i;
 	for (i = 0; i < _numPins; i = i + 1) 
 	{
-		int state = digitalRead(_pins[i]);
+		int state;
+		if (arduinoType=="Mega")
+		{
+			state = digitalRead(_pinsMega[i]);
+		}
+		else if (arduinoType=="Nano")
+		{
+			state = digitalRead(_pinsNano[i]);
+		}
+		
+		
 		if (state == 1) 
 		{ //circuit being checked has been activated
 			_pinStates[i] = _pinStates[i] + 1;
