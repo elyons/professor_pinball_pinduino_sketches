@@ -13,26 +13,56 @@
 
 pinduino::pinduino()
 {
-	init(1,1,1);
+	init(1,1,1, "Mega");
 }
+
+
+pinduino::pinduino(int aledNum1, String arduinoType)
+{
+	init(aledNum1, 1, 1, arduinoType);
+}
+
+pinduino::pinduino(int aledNum1, int aledNum2, String arduinoType)
+{
+	init(aledNum1, aledNum2, 1, arduinoType);
+}
+
 pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3)
 {
-	init(aledNum1, aledNum2, aledNum3);
+	init(aledNum1, aledNum2, aledNum3, "Mega");
 }
 
-void pinduino::init(int aledNum1, int aledNum2, int aledNum3)
+pinduino::pinduino(int aledNum1, int aledNum2, int aledNum3, String arduinoType)
 {
-	_pinState = new pinduinoPins();
+	init(aledNum1, aledNum2, aledNum3, arduinoType);
+}
 
-	RGB1 = new RGBStrip(11,12,13); // pins 11,12,13 
- 	RGB2 = new RGBStrip(8,9,10); // pins 8,9,10 
- 	RGB3 = new RGBStrip(5,6,7); // pins 5,6,7 
- 	RGB4 = new RGBStrip(2,3,4); // pins 2,3,4 
+void pinduino::init(int aledNum1, int aledNum2, int aledNum3, String arduinoType)
+{
+	_pinState = new pinduinoPins(arduinoType);
 
- 	ALED1 = new AddressableStrip(aledNum1, A15, _pinState);
- 	ALED2 = new AddressableStrip(aledNum2, A14, _pinState);
- 	ALED3 = new AddressableStrip(aledNum3, A13, _pinState);
-
+  if (arduinoType=="Mega") 
+	{
+ 		ALED1 = new AddressableStrip(aledNum1, 69, _pinState); // A15 (analog port):  Changed to a number for compiling compatibility when board is set to Nano
+ 		ALED2 = new AddressableStrip(aledNum2, 68, _pinState); // A14
+ 		ALED3 = new AddressableStrip(aledNum3, 67, _pinState); // A13
+		RGB1 = new RGBStrip(11,12,13); // pins 11,12,13 
+ 		RGB2 = new RGBStrip(8,9,10); // pins 8,9,10 
+ 		RGB3 = new RGBStrip(5,6,7); // pins 5,6,7 
+ 		RGB4 = new RGBStrip(2,3,4); // pins 2,3,4 
+	}
+	else if (arduinoType == "Nano") 
+	{
+ 		ALED1 = new AddressableStrip(aledNum1, 10, _pinState);
+ 		ALED2 = new AddressableStrip(aledNum2, 11, _pinState);
+ 		ALED3 = new AddressableStrip(aledNum3, 0, _pinState);
+	}
+	else
+	{
+		Serial.print("Unsupported Arduino board: ");
+		Serial.println(arduinoType);
+	}
+	//I think these are never used.
 	ALED1->setNext(ALED2);
 	ALED1->setPrevious(ALED3);
 	ALED2->setNext(ALED3);
