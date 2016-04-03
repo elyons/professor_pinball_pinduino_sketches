@@ -15,7 +15,11 @@ class pinduinoPins
   public:
     //Constructor
     pinduinoPins();
+    pinduinoPins(String val);
 		
+		//Variables
+		String arduinoType;
+
 		//Arduino pin functions
 		void reset(); // resets values of all pin states to 0
 		void resetPin(int pin); // resets the value of a pin State to 0
@@ -32,7 +36,11 @@ class pinduinoPins
   private:
 		//internal array for input pins getting signal from pinball machine
 		const static int _numPins = 16;
-		int _pins[_numPins] = {22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52};
+		//array 0-7 are J6 pins 1-8 (pin 9 is key and pin 10 is power)
+		//array 8-15 are J7 pins 2-10 (pin 1 is power and pin 5 is key)
+		int _pinsMega[_numPins] = {22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52};
+		//		int _pinsNano[_numPins] = {A2,A3,A4,A5,A1,A0,13,12,5,4,3,2,9,8,7,6};
+		int _pinsNano[_numPins] = {A1,A0,13,12,A2,A3,A4,A5,5,4,3,2,9,8,7,6};
 		int _pinStates[_numPins];
 };
 
