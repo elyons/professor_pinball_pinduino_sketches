@@ -111,6 +111,46 @@ void pinduinoPins::resetJ6 (int pin)
 	else if (pin == 8) { resetPin(7);}
 }
 
+int pinduinoPins::J126 (int pin)
+{
+	if (pin == 1) { return get(4);}
+	else if (pin == 2) { return get(5);}
+	else if (pin == 3) { return get(6);}
+	else if (pin == 4) { return get(7);}
+	else if (pin == 5) { return get(0);}
+	else if (pin == 6) { return get(1);}
+	else if (pin == 7) { return get(2);}
+	else if (pin == 8) { return get(3);}
+	else if (pin == 9) { return get(8);}
+	else if (pin == 10) { return get(9);}
+	else if (pin == 11) { return get(10);}
+	else if (pin == 12) { return get(11);}
+	else if (pin == 13) { return get(12);}
+	else if (pin == 14) { return get(13);}
+	else if (pin == 15) { return get(14);}
+	else if (pin == 16) { return get(15);}
+	else return 0;
+}
+
+void pinduinoPins::resetJ126 (int pin)
+{
+	if (pin == 1) { resetPin(4);}
+	else if (pin == 2) { resetPin(5);}
+	else if (pin == 3) { resetPin(6);}
+	else if (pin == 4) { resetPin(7);}
+	else if (pin == 5) { resetPin(0);}
+	else if (pin == 6) { resetPin(1);}
+	else if (pin == 7) { resetPin(2);}
+	else if (pin == 8) { resetPin(3);}
+	else if (pin == 9) { resetPin(8);}
+	else if (pin == 10) { resetPin(9);}
+	else if (pin == 11) { resetPin(10);}
+	else if (pin == 12) { resetPin(11);}
+	else if (pin == 13) { resetPin(12);}
+	else if (pin == 14) { resetPin(13);}
+	else if (pin == 15) { resetPin(14);}
+	else if (pin == 16) { resetPin(15);}
+}
 int pinduinoPins::numPins()
 {
 	return _numPins;
