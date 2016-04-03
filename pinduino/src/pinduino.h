@@ -19,10 +19,16 @@ class pinduino
   	//Constructor with no parameters
   	pinduino();
   	
-    //Overloaded Constructor for addressable strips
+    //Overloaded Constructor for addressable strips (arduinoType defaults to Mega)
     pinduino(int num1, int num2, int num3);
+
+
+    //Overloaded Constructor for addressable strips
+    pinduino(int num1, String arduinoType);
+    pinduino(int num1, int num2, String arduinoType);
+    pinduino(int num1, int num2, int num3, String arduinoType);
 		
-    //functions for controlling 12V RGB strips
+    //initialize pins for communication to/from arduino
 		pinduinoPins* pinState();
 
     //functions for controlling 12V RGB strips
@@ -85,7 +91,7 @@ class pinduino
     AddressableStrip* ALED2;
     AddressableStrip* ALED3;
     
-    void init(int aledNum1, int aledNum2, int aledNum3);
+    void init(int aledNum1, int aledNum2, int aledNum3, String arduinoType);
 };
 
 
