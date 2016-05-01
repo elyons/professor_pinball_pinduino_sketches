@@ -19,7 +19,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWhiteTime = 1000;
+int bgWhiteTime = 5wsqwe00;
 
 void setup() {
   Serial.begin(115200);
@@ -31,7 +31,7 @@ void setup() {
 
 void loop(){
   if (bg_on){background();}
-  for (int i=0; i<1000; i=i+1) { //check pinstates for a while    
+  for (int i=0; i<500; i=i+1) { //check pinstates for a while    
     pd.pinState()->update();
   }
 //   Print the pin states out to serial 
@@ -52,7 +52,7 @@ void checkPinStates(){
 
   
   if ( pd.pinState()->J126(1) ){ // billion
-    for (int i=0; i<100; i++) {
+    for (int i=0; i<50; i++) {
      pd.adrLED2()->chase2Color("red", "blue", 1,  20,  -1);
      pd.adrLED2()->chase2Color("blue", "red", 1,  20,  1);
     }
@@ -123,8 +123,8 @@ void checkPinStates(){
 
 
 void background() {
-  pd.adrLED2()->fadeOut(1000);
-  delay(1000);
+  pd.adrLED2()->fadeOut(500);
+  delay(500);
   pd.adrLED1()->chase2Color("red", "orange", 35,  5,  -1);
   delay(200);
   for (int i=0; i<40; i++) {
@@ -133,12 +133,12 @@ void background() {
      if (time < 20){time = 20;}
      pd.adrLED2()->chase("red", 1,  time,  -1);
     }  
-  pd.adrLED2()->fadeIn("red", 2000);
-  pd.adrLED2()->fadeColor2Color("red", "purple", 3000);
-  delay(2000);
-  pd.adrLED2()->fadeColor2Color("purple", "white", 3000);
-  delay(2000);
-  pd.adrLED2()->fadeColor2Color("white", "blue", 3000);
-  delay(2000);
+  pd.adrLED2()->fadeIn("red", 1000);
+  pd.adrLED2()->fadeColor2Color("red", "purple", 1500);
+  delay(1000);
+  pd.adrLED2()->fadeColor2Color("purple", "white", 1500);
+  delay(1000);
+  pd.adrLED2()->fadeColor2Color("white", "blue", 1500);
+  delay(1000);
   }
 
