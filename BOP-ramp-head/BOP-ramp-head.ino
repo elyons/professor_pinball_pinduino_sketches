@@ -19,7 +19,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWhiteTime = 5wsqwe00;
+int bgWhiteTime = 500;
 
 void setup() {
   Serial.begin(115200);
