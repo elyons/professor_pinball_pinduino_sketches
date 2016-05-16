@@ -13,9 +13,10 @@ int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-int bg_chase_on = 1;
+int bg_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int bgWhiteTime = 500; // time after last event to turn all LEDs to white
 
 void setup() {
   Serial.begin(115200);
@@ -26,12 +27,18 @@ void setup() {
 }
 
 void loop(){
-  if (bg_chase_on){backgroundChase();}
+  if (bg_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-//  pd.pinState()->print();
+  pd.pinState()->print();
   checkPinStates();
-  if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
+  if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
+    if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+//    pd.adrLED1()->color("white", 255);
+    pd.adrLED1()->clear();
+    pd.adrLED2()->color("white", 255);
+  }
+
 }
 
 void checkPinStates(){
@@ -63,7 +70,7 @@ void checkPinStates(){
     pd.adrLED1()->fadeOut(200);
     trigger=1;
   }
-  if ( pd.pinState()->J6(6)  and bg_chase_on==0 ){
+  if ( pd.pinState()->J6(6)  and bg_on==0 ){
     pd.adrLED1()->color("red",255);
     pd.adrLED1()->spreadOutFromPoint (R_START, 400);
     trigger =1;
@@ -133,10 +140,9 @@ void checkPinStates(){
    pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger =0;
-   bg_chase_on = 0;
+   bg_on = 0;
    timeLastEvent = millis();
   }
-  pd.adrLED1()->color("white", 200);
 
 //end function checkPinStates
 }
