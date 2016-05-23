@@ -4,14 +4,14 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 28;
+int N_LEDS = 27;
 int R_START = 13;
 
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
 int aLEDNum3 = 0;
 
-pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
+pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
@@ -29,7 +29,7 @@ void loop(){
   if (bg_chase_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
 }
