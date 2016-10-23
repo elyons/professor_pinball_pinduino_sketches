@@ -22,7 +22,7 @@ void setup() {
 void loop(){
   pd.pinState()->update();
 //   Print the pin states out to serial 
-//  pd.pinState()->print();
+  pd.pinState()->print();
   checkPinStates();
 }
 
