@@ -19,7 +19,7 @@ int aLEDNum1 = 50;
 int aLEDNum2 = 30;
 int aLEDNum3 = 1;
 
-pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
+pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 int disc_motor = 0; // flag for sensing disc motor
