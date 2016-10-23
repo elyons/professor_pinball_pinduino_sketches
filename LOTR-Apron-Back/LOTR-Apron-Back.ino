@@ -1,6 +1,6 @@
 //Eric Lyons 2015
 //Note to self:  Play more pinball!
-//Interfaced for pinduino shield v0.2
+//Interfaced for pinduino shield v0.3
 //Uses pinduino library
 
 #include <pinduino.h>
@@ -8,14 +8,15 @@ int N_LEDS = 28;
 int R_START = 14;
 
 int aLEDNum1 = N_LEDS;
-int aLEDNum2 = 0;
+int aLEDNum2 = N_LEDS;
 int aLEDNum3 = 0;
 
-pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
+pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int bgWhiteTime = 50;
 
 void setup() {
   Serial.begin(115200);
@@ -29,9 +30,10 @@ void loop(){
   if (bg_chase_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime) { pd.adrLED1()->color("white", 255); }
 }
 
 void checkPinStates(){
@@ -137,6 +139,7 @@ void backgroundChase() {
       if (pd.pinState()->any()) {skip =1;}
       if (!skip) {delay(10);}
   }  
+  if (!skip) {pd.adrLED1()->fadeColor2Color("white", "green", 1000);}
   if (!skip) {pd.adrLED1()->fadeColor2Color("green", "red", 5000);}
 
   if (pd.pinState()->any()) {skip =1;}
@@ -147,6 +150,7 @@ void backgroundChase() {
       if (!skip) {delay(10);}
   }  
  if (!skip) {pd.adrLED1()->fadeColor2Color("red","green",5000);}
+ if (!skip) {pd.adrLED1()->fadeColor2Color("green","white",1000);}
 
   if (pd.pinState()->any()) {skip =1;}
 }
