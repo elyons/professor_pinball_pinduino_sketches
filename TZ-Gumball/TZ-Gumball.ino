@@ -14,7 +14,8 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int bg_chase_on = 0;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int whiteWaitTime = 100; //Amount of time to wait before gumball goes to white
+int whiteWaitTime = 1000; //Amount of time to wait before gumball goes to white
+int gb_white = 0; // determine if gumball is already set to white
 
 void setup() {
   Serial.begin(115200);
@@ -25,7 +26,6 @@ void setup() {
 }
 
 void loop(){
-  if (bg_chase_on){backgroundChase();}
   for (int i = 0; i < 500; i = i + 1) { //check pinstates for a while
     pd.pinState()->update();
   }
@@ -34,9 +34,12 @@ void loop(){
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
   if (millis()-timeLastEvent > whiteWaitTime) {
-    pd.adrLED1()->color("white", 255);
-    pd.adrLED2()->color("white", 0);
-}
+    if (!gb_white) {
+      pd.adrLED1()->fadeIn("white", 200);
+      gb_white = 1;
+    }
+  }
+  if (bg_chase_on){backgroundChase();}
 }
 
 void checkPinStates(){
@@ -45,46 +48,43 @@ void checkPinStates(){
   if ( pd.pinState()->J126(1) ){
     pd.adrLED1()->color("blue",255);
 //    pd.adrLED2()->color("blue",255);
-    delay(50);
+    delay(500);
     trigger=1;
   }
   if ( pd.pinState()->J126(2) ){ 
     pd.adrLED1()->color("red",255);
     pd.adrLED2()->fadeIn("red",500);
-    delay(100);
+    delay(500);
     pd.adrLED2()->fadeOut(500);
     trigger=1;
   }
   if ( pd.pinState()->J126(3) ){ 
-    pd.adrLED1()->color("cyan",255);
-//    pd.adrLED2()->color("cyan",255);
-    delay(50);
+    pd.adrLED1()->fadeIn("magenta",1000);
+    delay(500);
+    pd.adrLED1()->fadeOut(200);
     trigger=1;
   }
   if ( pd.pinState()->J126(4) ){ 
-    pd.adrLED1()->color("magenta",255);
-//   pd.adrLED2()->color("magenta",255);
+    pd.adrLED1()->fadeIn("red",200);
     delay(50);
+    pd.adrLED1()->fadeColor2Color("red","blue",200);
+    pd.adrLED1()->fadeOut(50);
     trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ 
-    pd.adrLED1()->color("green",255);
-//   pd.adrLED2()->color("green",255);
-    delay(50);
-    trigger=1;
+//    pd.adrLED1()->color("green",255);
+//    delay(50);
+//    trigger=1;
   }
   if ( pd.pinState()->J126(6) ){ 
-    pd.adrLED1()->color("red",255);
- //   pd.adrLED2()->fadeIn("red",500);
-    delay(100);
-//    pd.adrLED2()->fadeOut(500);
-    trigger=1;
+//    pd.adrLED1()->color("red",255);
+//    delay(100);
+//    trigger=1;
   }
   if ( pd.pinState()->J126(7) ){ 
-    pd.adrLED1()->color("blue",255);
- //   pd.adrLED2()->color("cyan",255);
-    delay(50);
-    trigger=1;
+//    pd.adrLED1()->color("blue",255);
+//    delay(50);
+//    trigger=1;
   }
   if ( pd.pinState()->J126(8) ){ 
     pd.adrLED1()->color("lime",255);
@@ -108,6 +108,7 @@ void checkPinStates(){
    trigger =0;
    bg_chase_on = 0;
    timeLastEvent = millis();
+   gb_white = 0;
   }
 //end function checkPinStates
 }
