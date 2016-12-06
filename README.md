@@ -1,7 +1,9 @@
 professor_pinball_pinduino_sketches
 ===================================
 
-Sketches for the Pinduino sheild for the Arduino
+Sketches for the Pinduino sheild for the Arduino.
+
+### TO USE THESE SKETCHES, you will need [pinduino arduino library (github repo)] (https://github.com/elyons/pinduino)
 
 # Welcome
 
