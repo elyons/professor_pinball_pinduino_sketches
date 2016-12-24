@@ -5,7 +5,7 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 104;
+int N_LEDS = 95;
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
 int aLEDNum3 = 0;
