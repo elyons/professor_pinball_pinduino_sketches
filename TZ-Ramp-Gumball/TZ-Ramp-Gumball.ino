@@ -31,7 +31,7 @@ void loop(){
   }
   
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
   if (millis()-timeLastEvent > whiteWaitTime) {
