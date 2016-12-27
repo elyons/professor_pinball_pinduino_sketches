@@ -14,6 +14,7 @@ This repo is for various Pinduino sketches.  Pinduino is an Arduino shield to in
 * [Pinduino arduino library] (https://github.com/elyons/pinduino)
 
 # Videos
+For a full list of videos, see my YouTube channel for the Pinduino: https://www.youtube.com/playlist?list=PL5ef5BY1kPknPXMwk0Jci0zVyLWubq0l2
 * Ironman LED ramps gameplay
 * [![Ironman interactive LED ramps](http://img.youtube.com/vi/QuvIWuW5m-Q/0.jpg)](http://www.youtube.com/watch?v=QuvIWuW5m-Q)
 * Tron LED ramps gameplay
