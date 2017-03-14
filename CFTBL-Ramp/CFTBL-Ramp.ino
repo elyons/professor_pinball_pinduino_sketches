@@ -12,7 +12,7 @@ int N_LEDS=aLEDNum1;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-int bg_chase_on = 0;
+int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int whiteWaitTime = 100; //Amount of time to wait before gumball goes to white
