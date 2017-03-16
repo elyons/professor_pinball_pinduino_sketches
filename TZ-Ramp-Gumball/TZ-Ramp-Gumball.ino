@@ -35,7 +35,7 @@ void loop(){
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
   if (millis()-timeLastEvent > whiteWaitTime) {
-    pd.adrLED2()->color("white", 255);
+    pd.adrLED2()->color("white", 200);
 }
   if (bg_chase_on){backgroundChase();}
 
@@ -52,20 +52,20 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J126(2) ){ //Power Payoff
     pd.adrLED2()->color("orange",255);
-    pd.adrLED1()->spreadInFromPoint2Color (1, "white", "blue", 300);
+    pd.adrLED1()->spreadInFromPoint2RGB (1, 150,150,150, 0,0,255, 300);
     delay(500);
     pd.adrLED1()->fadeOut(500);    
     trigger=1;
   }
   if ( pd.pinState()->J126(3) ){ // Mini Playfield
     pd.adrLED2()->color("blue",255);
-    pd.adrLED1()->spreadInFromPoint2Color(N_LEDS/2,"white", "blue", 700);
+    pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,150,150,150, 0,0,255, 700);
     delay(100);
     pd.adrLED1()->fadeOut(500);
     trigger=1;
   }
   if ( pd.pinState()->J126(4) ){ //Upper left ramp
-    pd.adrLED2()->color("green",255);
+    pd.adrLED2()->color("orange",255); // orange
     pd.adrLED1()->chase2Color("white", "blue",N_LEDS, 8, -1);
     trigger=1;
   }
@@ -83,9 +83,9 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(8) ){ //Gumball motor
-    pd.adrLED2()->fadeColor2Color("red","green",200);
-    pd.adrLED2()->fadeColor2Color("green","blue",200);
-    pd.adrLED2()->fadeColor2Color("green","red",200);
+    pd.adrLED2()->fadeColor2Color("red","orange",200);
+    pd.adrLED2()->fadeColor2Color("orange","blue",200);
+    pd.adrLED2()->fadeColor2Color("orange","red",200);
     delay(200);
     pd.adrLED2()->fadeOut(200);
     trigger=1;
@@ -118,13 +118,13 @@ void backgroundChase() {
   if (!skip) {pd.adrLED1()->fadeIn("red", 1000);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("purple",255);
-  if (!skip) {pd.adrLED1()->fadeColor2Color("red", "white", 1000);}
+  if (!skip) {pd.adrLED1()->fadeRGB2RGB(255,0,0, 0,0,255, 1000);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("white",255);
   if (!skip) {pd.adrLED1()->fadeOut(1000);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("purple",255);
-  if (!skip) {pd.adrLED1()->chase2Color("white", "purple",N_LEDS/4, 20, -1);}
+  if (!skip) {pd.adrLED1()->chase2RGB(0,0,255, 255,0,255 ,N_LEDS/4, 20, -1);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("red",255);
   if (!skip) {pd.adrLED1()->chase2Color("purple", "red",N_LEDS/4, 20, 1);}
@@ -132,11 +132,11 @@ void backgroundChase() {
   pd.adrLED2()->color("yellow",255);
   if (!skip) {pd.adrLED1()->chase2Color("red", "yellow",N_LEDS/4, 20, -1);}
   if (pd.pinState()->any()) {skip =1;}
-  pd.adrLED2()->color("green",255);
-  if (!skip) {pd.adrLED1()->chase2Color("yellow", "green",N_LEDS/4, 20, 1);}
+  pd.adrLED2()->color("orange",255);
+  if (!skip) {pd.adrLED1()->chase2Color("yellow", "orange",N_LEDS/4, 20, 1);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("sky",255);
-  if (!skip) {pd.adrLED1()->chase2Color("green", "sky",N_LEDS/4, 20, -1);}
+  if (!skip) {pd.adrLED1()->chase2Color("orange", "sky",N_LEDS/4, 20, -1);}
   if (pd.pinState()->any()) {skip =1;}
   pd.adrLED2()->color("blue",255);
   if (!skip) {pd.adrLED1()->chase2Color("sky", "blue",N_LEDS/4, 20, 1);}
