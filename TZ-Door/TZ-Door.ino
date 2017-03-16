@@ -35,7 +35,7 @@ void loop(){
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
   if (millis()-timeLastEvent > whiteWaitTime) {
-      pd.adrLED1()->color("white",255);}
+      pd.adrLED1()->color("white",150);}
   if (bg_chase_on){backgroundChase();}
 }
 
@@ -150,7 +150,7 @@ void backgroundChase() {
     delay(70*i);
     if (pd.pinState()->any()) {skip =1;}
   }
-  if (!skip) {pd.adrLED1()->fadeIn("white", 1000);}
+  if (!skip) {pd.adrLED1()->fadeIn("blue", 1000);}
   for (int i = 0; i < 5000; i = i + 1) { //check pinstates for a while
     pd.pinState()->update();
   }
