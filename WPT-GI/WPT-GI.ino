@@ -15,14 +15,15 @@ int aLEDNum1 = 50;  // backpanel led count is 15 and undercabinet led count is 3
 int aLEDNum2 = 0;  // trough led count is 9.  Trough led's are on their own string so there is more flexibility to color them white to provide more while light on the playfield between the flippers
 int aLEDNum3 = 0;
 
-int LED1FlashDelay = 50;  // variable to input flash delays for LED1 (does not affect BGChase function)
+int N_LEDS = aLEDNum1;
+int LED1FlashDelay = 100;  // variable to input flash delays for LED1 (does not affect BGChase function)
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWhiteTime = 500; //Amount of time to wait before gumball goes to white
+int bgWhiteTime = 200; //Amount of time to wait before gumball goes to white
 
 void setup() {
   Serial.begin(115200);
@@ -35,13 +36,13 @@ void setup() {
 void loop(){
   if (bg_chase_on){backgroundChase();}
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   pd.pinState()->update();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
-//  if (millis()-timeLastEvent > bgWhiteTime && !bg_chase_on) {
-//    pd.adrLED1()->color("white", 255);
- // }
+  if (millis()-timeLastEvent > bgWhiteTime && !bg_chase_on) {
+    pd.adrLED1()->color("white", 255);
+  }
 
 }
 
@@ -50,27 +51,24 @@ void checkPinStates(){
   
   if ( pd.pinState()->J6(1) ) // left:spinner
   {
-     pd.adrLED1()->color("green", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
-     delay(LED1FlashDelay);
+    pd.adrLED1()->chase2Color("white","red",1, 5, -1);
+    pd.adrLED1()->chase2Color("red","white",1, 5, 1);
+    //pd.adrLED1()->color("green", 255);
+    //delay(LED1FlashDelay);
+    //pd.adrLED1()->fadeOut(50);
      trigger =1;
   }
   
   if ( pd.pinState()->J6(2) ) // back panel 1
   { 
-     pd.adrLED1()->color("yellow", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
+     pd.adrLED1()->color("blue", 255);
      delay(LED1FlashDelay);
      trigger =1; 
   }
   
   if ( pd.pinState()->J6(3) )// back panel 2
   { 
-     pd.adrLED1()->color("blue", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
+     pd.adrLED1()->color("yellow", 255);
      delay(LED1FlashDelay);
      trigger =1; 
   }
@@ -79,17 +77,16 @@ void checkPinStates(){
   {
      pd.adrLED1()->color("green", 255);
      delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
-     delay(LED1FlashDelay);
      trigger =1; 
   }
   
   if ( pd.pinState()->J6(5) ) // back panel 4
   { 
-     pd.adrLED1()->color("red", 255);
-     delay(LED1FlashDelay);
+//     pd.adrLED1()->color("red", 255);
      pd.adrLED1()->clear();
+     pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,0,255,0, 255,0,0,  150);
      delay(LED1FlashDelay);
+     pd.adrLED1()->fadeOut(150);
      trigger =1; 
  
    }
@@ -98,17 +95,16 @@ void checkPinStates(){
   {
      pd.adrLED1()->color("purple", 255);
      delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
-     delay(LED1FlashDelay);
      trigger =1;
   }
   
   if ( pd.pinState()->J6(7) ) // right VUK
   {
-     pd.adrLED1()->color("red", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
-     delay(LED1FlashDelay);
+    pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,0,255,0, 255,0,0,  700);
+    delay(100);
+    pd.adrLED1()->fadeOut(200);
+//     pd.adrLED1()->color("red", 255);
+//     delay(LED1FlashDelay);
      trigger =1;
   }
   
@@ -124,9 +120,10 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J7(4) ) // jail latch
   { 
+    pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,255,0,0, 255,255,0, 700);
+    delay(100);
+    pd.adrLED1()->fadeOut(500);
      pd.adrLED1()->color("blue", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
      delay(LED1FlashDelay);
      trigger =1;
   }
@@ -141,17 +138,13 @@ void checkPinStates(){
   
   if ( pd.pinState()->J7(8) ) // left sling
   {
-     pd.adrLED1()->color("green", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
+     pd.adrLED1()->color("red", 255);
      delay(LED1FlashDelay);
      trigger =1;
   }
 
   if ( pd.pinState()->J7(9) ){ // right sling
      pd.adrLED1()->color("green", 255);
-     delay(LED1FlashDelay);
-     pd.adrLED1()->clear();
      delay(LED1FlashDelay);
      trigger =1;
   }
@@ -164,14 +157,11 @@ void checkPinStates(){
   if (trigger) 
   {
    pd.adrLED1()->clear();
-   pd.adrLED2()->clear();
    pd.pinState()->reset();
    trigger =0;
    bg_chase_on = 0;
    timeLastEvent = millis();
-  }
-  if (millis() - timeLastEvent > 500) {
-    pd.adrLED1()->color("white", 200);  // LED1 string defaults to blue color when nothing happening
+   delay(10);
   }
 
 //end function checkPinStates
@@ -182,8 +172,7 @@ void checkPinStates(){
 void backgroundChase() {
   int skip = 0; //if game has started, 
   pd.adrLED1()->clear();
-  pd.adrLED2()->color("white", 255);  //keep trough white
-  pd.adrLED1()->spreadInFromPoint(R_START,"red",500);  // testing undercabinet lighting effects here.  Most noticeable on long LED strips
+  pd.adrLED1()->spreadInFromPoint2Color(R_START,"green","red",500);  // testing undercabinet lighting effects here.  Most noticeable on long LED strips
   for (int i=0; i<50; i=i+1){
       pd.pinState()->update();
       if (pd.pinState()->any()) {skip =1;}
