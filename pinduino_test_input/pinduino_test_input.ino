@@ -9,7 +9,7 @@ int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
 int aLEDNum3 = 0;
 
-pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3);
+pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 void setup() {
   Serial.begin(115200);
