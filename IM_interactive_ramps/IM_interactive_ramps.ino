@@ -79,7 +79,7 @@ void checkPinStates(){
     pd.adrLED1()->fadeOut(200);
     trigger =1;
   }
-  if ( pd.pinState()->J6(6) ){ // Make VI
+  if ( pd.pinState()->J6(6) ){ // Mark VI
     pd.adrLED1()->fadeInRGB(100,100,255, 200);
     delay(20);
     pd.adrLED1()->fadeOut(200);
