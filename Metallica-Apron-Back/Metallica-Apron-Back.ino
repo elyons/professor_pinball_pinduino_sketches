@@ -1,6 +1,6 @@
 //Eric Lyons 2015
 //Note to self:  Play more pinball!
-//Interfaced for pinduino shield v0.2
+//Interfaced for pinduino shield v0.3
 //Uses pinduino library
 
 #include <pinduino.h>
