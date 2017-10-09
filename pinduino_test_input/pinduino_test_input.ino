@@ -35,32 +35,32 @@ void checkPinStates(){
     trigger = 1; 
   }
   if ( pd.pinState()->J6(2) ){
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("green",255);
     delay(1000);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(3) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("blue",255);
     delay(1000);
     trigger = 1; 
   }
   if ( pd.pinState()->J6(4) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("yellow",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J6(5) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("pruple",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J6(6) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("cyan",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J6(7) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("sky",255);
     delay(1000);
     trigger =1;
   }
@@ -70,32 +70,32 @@ void checkPinStates(){
     trigger =1;
   }
   if ( pd.pinState()->J7(2) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("green",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J7(3) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("blue",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J7(4) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("yellow",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J7(6) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("orange",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J7(7) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("cyan",255);
     delay(1000);
     trigger =1;
   }
   if ( pd.pinState()->J7(8) ){
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("purple",255);
     delay(1000);
     trigger=1;
   }
@@ -105,7 +105,7 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J7(10) ){ 
-    pd.adrLED1()->color("red",255);
+    pd.adrLED1()->color("green",255);
     delay(1000);
     trigger =1;
   }
