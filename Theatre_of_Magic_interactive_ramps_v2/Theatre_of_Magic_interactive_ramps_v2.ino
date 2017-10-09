@@ -18,7 +18,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 //J124-3 Jets
 //J124-5 Trunk
 
-int backgroundOn = 0;
+int backgroundOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 
