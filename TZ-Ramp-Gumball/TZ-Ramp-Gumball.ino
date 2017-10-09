@@ -5,14 +5,14 @@
 
 #include <pinduino.h>
 
-int aLEDNum1 = 44; // ramp
+int aLEDNum1 = 42; // ramp
 int aLEDNum2 = 3; // gumball
 int aLEDNum3 = 0;
 int N_LEDS=aLEDNum1;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-int bg_chase_on = 0;
+int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int whiteWaitTime = 100; //Amount of time to wait before gumball goes to white
@@ -70,17 +70,10 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ //Left Magnet
-    pd.adrLED2()->color("purple",255);
-    trigger=1;
   }
   if ( pd.pinState()->J126(6) ){ // Upper right Magenet
-    pd.adrLED2()->color("red",255);
-    trigger=1;
   }
   if ( pd.pinState()->J126(7) ){ // Lower right magnet
-    pd.adrLED2()->color("orange",255);
-//    pd.adrLED1()->chase2ColorFromPoint(N_LEDS/2,"blue","white", 10,5);
-    trigger=1;
   }
   if ( pd.pinState()->J126(8) ){ //Gumball motor
     pd.adrLED2()->fadeColor2Color("red","orange",200);
@@ -92,8 +85,6 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J126(9) ){ 
     pd.adrLED2()->color("yellow",255);
-//    pd.adrLED1()->spreadInFromPoint2Color(1, "yellow", "red", 5);
-//    pd.adrLED1()->fadeOut(200);
     trigger=1;
   }
 
