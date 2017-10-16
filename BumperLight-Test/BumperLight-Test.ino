@@ -1,7 +1,9 @@
 //Eric Lyons 2017
 //Note to self:  Play more pinball!
+//Testing BumperLights by Herbet Holler.  Each BumberLight has 10 LEDs and three were wired in series 
+//for this test
+
 //Interfaced for pinduino shield v0.3 
-// (now using Arduino Nano and LEDs mounted on the side of the ramps)
 //Uses pinduino library
 
 #include <pinduino.h>
