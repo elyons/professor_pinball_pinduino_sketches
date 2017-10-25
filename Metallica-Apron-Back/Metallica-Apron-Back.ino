@@ -37,21 +37,24 @@ void loop(){
 void checkPinStates(){
   int trigger =0;
   
-  if ( pd.pinState()->J6(1) ){
+  if ( pd.pinState()->J6(1) ) // pop bumpers
+  {
      pd.adrLED1()->color("red", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
-  if ( pd.pinState()->J6(2) ){ 
+  if ( pd.pinState()->J6(2) ) // grave marker flash
+  { 
      pd.adrLED1()->color("purple", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
-  if ( pd.pinState()->J6(3) ){ 
+  if ( pd.pinState()->J6(3) ) // electric chair
+  { 
      pd.adrLED1()->color("blue", 255);
      delay(50);
      pd.adrLED1()->clear();
@@ -62,28 +65,32 @@ void checkPinStates(){
 //    pd.adrLED1()->fadeOut(500);
 //    trigger =1;   
   }
-  if ( pd.pinState()->J6(4) ){
+  if ( pd.pinState()->J6(4) )  // electric chair spot
+  {
      pd.adrLED1()->color("red", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1; 
   }
-  if ( pd.pinState()->J6(5) ){ 
+  if ( pd.pinState()->J6(5) )  // right ramp
+  { 
     pd.adrLED1()->clear();
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "yellow", "red", 200);
     delay(50);
     pd.adrLED1()->fadeOut(100);
     trigger=1;
    }
-  if ( pd.pinState()->J6(6)){
-     pd.adrLED1()->color("red", 255);
+  if ( pd.pinState()->J6(6))  // snake
+  {
+     pd.adrLED1()->color("green", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
-  if ( pd.pinState()->J6(7) ){
+  if ( pd.pinState()->J6(7) )  // coffin insert
+  {
      pd.adrLED1()->color("red", 255);
      delay(50);
      pd.adrLED1()->clear();
@@ -97,7 +104,8 @@ void checkPinStates(){
 //    pd.adrLED1()->fadeOut(300);
 //    trigger =1;
   }
-  if ( pd.pinState()->J6(8) ){ 
+  if ( pd.pinState()->J6(8) )  // electric chair insert
+  { 
     pd.adrLED1()->fadeIn("red",100);
     delay(50);
     pd.adrLED1()->fadeOut(100);
@@ -106,43 +114,50 @@ void checkPinStates(){
 
 ///J7
 
-  if ( pd.pinState()->J7(3) ){
+  if ( pd.pinState()->J7(3) )  // not used
+  {
   }
-  if ( pd.pinState()->J7(4) ){ 
+  if ( pd.pinState()->J7(4) )  // flash grave marker
+  { 
      pd.adrLED1()->color("purple", 150);
      delay(50);
      pd.adrLED1()->clear();
      trigger =1;
   }
-  if ( pd.pinState()->J7(6) ){
+  if ( pd.pinState()->J7(6) )  // grave marker motor
+  {
     pd.adrLED1()->clear();
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "green", "green", 100);
     delay(50);
     pd.adrLED1()->fadeOut (100);
     trigger =1;
   }
-  if ( pd.pinState()->J7(7) ){
+  if ( pd.pinState()->J7(7) )  // flash back panel left
+  {
      pd.adrLED1()->color("blue", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
-  if ( pd.pinState()->J7(8) ){
+  if ( pd.pinState()->J7(8) )  // flash back panel right
+  {
      pd.adrLED1()->color("red", 255);
      delay(50);
      pd.adrLED1()->clear();
      delay(50);
      trigger =1;
   }
-  if ( pd.pinState()->J7(9) ){
+  if ( pd.pinState()->J7(9) )  // flash left ramp
+  {
     pd.adrLED1()->clear();
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "red", "yellow", 100);
     delay(100);
     pd.adrLED1()->fadeOut(100);
     trigger=1;
   }
-  if ( pd.pinState()->J7(10) ){
+  if ( pd.pinState()->J7(10) )  // not used
+  {
   }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
