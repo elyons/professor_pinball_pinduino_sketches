@@ -15,8 +15,10 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 500; // time after last event to turn all LEDs to white
+int bgOn=1;
+String color = "white"; //attract color
 
 void setup() {
   Serial.begin(115200);
@@ -34,11 +36,8 @@ void loop(){
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
     if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
-    pd.adrLED1()->color("white", 255);
-    pd.adrLED1()->clear();
-//    pd.adrLED2()->color("white", 255);
+      pd.adrLED1()->color("white", 255);
   }
-
 }
 
 void checkPinStates(){
@@ -137,11 +136,11 @@ void checkPinStates(){
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
+   if (pd.pinState()->J6(6) == 0) timeLastEvent = millis();
    pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger =0;
    bg_on = 0;
-   timeLastEvent = millis();
   }
 
 //end function checkPinStates
@@ -150,22 +149,30 @@ void checkPinStates(){
 
 
 void backgroundChase() {
-  pd.adrLED1()->clear();
-  pd.adrLED1()->spreadInFromPoint2Color(R_START,"sky", "blue", 500);
-  pd.adrLED1()->fadeOut(200);
-  delay(100);
-  pd.adrLED1()->color("blue",150);
-  pd.adrLED1()->fadeOut(200);
-  delay(100);
-  pd.adrLED1()->color("blue",100);
-  pd.adrLED1()->fadeOut(200);
-  delay(400);
-  pd.adrLED1()->color("blue",100);
-  pd.adrLED1()->fadeOut(300);
-  for (int i=0; i<100; i=i+1){
-      pd.pinState()->update();
-      delay(10);
-  }  
+  pd.adrLED1()->sparkle(color,20);
+  if (random(1000) == 0) {
+    if (color == "blue") color = "red";
+    else if (color == "red") color = "white";
+    else if (color == "white") color = "yellow";
+    else color = "blue";
+  }
+
+//  pd.adrLED1()->clear();
+//  pd.adrLED1()->spreadInFromPoint2Color(R_START,"sky", "blue", 500);
+//  pd.adrLED1()->fadeOut(200);
+//  delay(100);
+//  pd.adrLED1()->color("blue",150);
+//  pd.adrLED1()->fadeOut(200);
+//  delay(100);
+//  pd.adrLED1()->color("blue",100);
+//  pd.adrLED1()->fadeOut(200);
+//  delay(400);
+//  pd.adrLED1()->color("blue",100);
+//  pd.adrLED1()->fadeOut(300);
+//  for (int i=0; i<100; i=i+1){
+//      pd.pinState()->update();
+//      delay(10);
+//  }  
 }
 
 
