@@ -15,10 +15,11 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 500; // time after last event to turn all LEDs to white
 int bgOn=1;
 String color = "white"; //attract color
+int magneto_count = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -35,8 +36,8 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
-    if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
-      pd.adrLED1()->color("white", 255);
+  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+    pd.adrLED1()->color("white", 255);
   }
 }
 
@@ -70,9 +71,12 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J6(6)  and bg_on==0 ){
-    pd.adrLED1()->color("red",255);
-    pd.adrLED1()->spreadOutFromPoint (R_START, 400);
-    trigger =1;
+    if (magneto_count < 10) {
+      pd.adrLED1()->color("red",255);
+      pd.adrLED1()->spreadOutFromPoint (R_START, 400);
+      trigger =1;
+      magneto_count = magneto_count + 1;
+    }
   }
   if ( pd.pinState()->J6(7) ){
     pd.adrLED1()->clear();
@@ -136,11 +140,14 @@ void checkPinStates(){
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
-   if (pd.pinState()->J6(6) == 0) timeLastEvent = millis();
-   pd.adrLED1()->clear();
-   pd.pinState()->reset();
-   trigger =0;
-   bg_on = 0;
+    if (pd.pinState()->J6(6) == 0) {
+      magneto_count = 0;
+      timeLastEvent = millis();
+      bg_on = 0;
+    }
+    pd.adrLED1()->clear();
+    pd.pinState()->reset();
+    trigger =0;
   }
 
 //end function checkPinStates
@@ -152,8 +159,8 @@ void backgroundChase() {
   pd.adrLED1()->sparkle(color,20);
   if (random(1000) == 0) {
     if (color == "blue") color = "red";
-    else if (color == "red") color = "white";
-    else if (color == "white") color = "yellow";
+    else if (color == "red") color = "yellow";
+    else if (color == "white") color = "blue";
     else color = "blue";
   }
 
