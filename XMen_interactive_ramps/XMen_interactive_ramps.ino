@@ -32,10 +32,11 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWaitTime = 300; //Amount of time to wait before backglass turns on
 int bgOn=1;
 String color = "white"; //attract color
+int magneto_count = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -50,6 +51,7 @@ void loop(){
   pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
+//  Serial.println (millis()-timeLastEvent);
   checkPinStates();
   if (millis()-timeLastEvent > bgWaitTime && bgOn == 0) {
     bgOn =1;
@@ -68,13 +70,12 @@ void checkPinStates(){
     trigger =1;
   }
   if ( pd.pinState()->J6(2) ){ 
-    pd.adrLED1()->fadeOut(10);
-    pd.adrLED1()->color("blue");
-    trigger =1;
   }
   if ( pd.pinState()->J6(3) ){
     pd.adrLED1()->fadeOut(10); 
     pd.adrLED1()->chase2RGB(R_START, 0,0,255, 255,255,255, 0, -1);
+    delay(200);
+    pd.adrLED1()->fadeOut(100);
     trigger =1;
   }
   if ( pd.pinState()->J6(4) ){
@@ -90,11 +91,14 @@ void checkPinStates(){
 //    trigger =1;
   }
   if ( pd.pinState()->J6(6)  and bg_chase_on==0 ){
-    pd.adrLED1()->fadeOut(10);
+    if (magneto_count < 10) {
+      pd.adrLED1()->fadeOut(10);
 //    pd.adrLED1()->color("red",255);
-    pd.adrLED1()->spreadInFromPoint (R_START, "red", 0);
-    pd.adrLED1()->spreadOutFromPoint (R_START, 0);
-    trigger =1;
+      pd.adrLED1()->spreadInFromPoint (R_START, "red", 0);
+      pd.adrLED1()->spreadOutFromPoint (R_START, 0);
+      trigger = 1;
+      magneto_count = magneto_count +1;
+    }  
   }
   if ( pd.pinState()->J6(7) ){
     pd.adrLED1()->fadeOut(10);
@@ -153,7 +157,10 @@ void checkPinStates(){
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
-  if (pd.pinState()->J6(6) == 0) timeLastEvent = millis();
+  if (pd.pinState()->J6(6) == 0) {
+      magneto_count = 0;
+      timeLastEvent = millis();
+  }
    pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger =0;
@@ -170,9 +177,9 @@ void backgroundChase() {
   pd.adrLED1()->sparkle(color,20);
   if (random(1000) == 0) {
       if (color == "blue") color = "red";
-      else if (color == "red") color = "white";
-      else if (color == "white") color = "yellow";
-      else color = "blue";
+      else if (color == "red") color = "yellow";
+      else if (color == "white") color = "blue";
+      else color = "white";
   }  
 //  pd.adrLED1()->spreadInFromPoint2Color(R_START,"yellow", "blue", 10);
 //  pd.adrLED1()->fadeOut(100);
