@@ -4,7 +4,7 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 107;
+int N_LEDS = 109;
 int R_START = 67;
 
 int aLEDNum1 = N_LEDS;
@@ -93,9 +93,10 @@ void checkPinStates(){
   if ( pd.pinState()->J6(6)  and bg_chase_on==0 ){
     if (magneto_count < 10) {
       pd.adrLED1()->fadeOut(10);
+      pd.adrLED1()->bulletFromPoint2Color("red","blue", 20, 0, R_START);
 //    pd.adrLED1()->color("red",255);
-      pd.adrLED1()->spreadInFromPoint (R_START, "red", 0);
-      pd.adrLED1()->spreadOutFromPoint (R_START, 0);
+//      pd.adrLED1()->spreadInFromPoint (R_START, "red", 0);
+//      pd.adrLED1()->spreadOutFromPoint (R_START, 0);
       trigger = 1;
       magneto_count = magneto_count +1;
     }  
@@ -125,16 +126,18 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J7(4) ){
     pd.adrLED1()->fadeOut(10);
-    pd.adrLED1()->spreadInFromPoint2RGB (R_START, 255,0,0, 50,0,0, 0);
-    delay(100);
-    pd.adrLED1()->fadeOut(50);
+    pd.adrLED1()->bulletFromPoint2RGB(255,0,0,0,100,0, 5, 0, R_START);
+//    pd.adrLED1()->spreadInFromPoint2RGB (R_START, 255,0,0, 50,0,0, 0);
+//    delay(100);
+//    pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
   if ( pd.pinState()->J7(6) ){
     pd.adrLED1()->fadeOut(10);
-    pd.adrLED1()->spreadInFromPoint2RGB (R_START, 0,0,255, 0,0,50, 0);
-    delay(100);
-    pd.adrLED1()->fadeOut(50);
+    pd.adrLED1()->bulletFromPoint2RGB(0,0,255,255,255,0, 5, 0, R_START);
+//    pd.adrLED1()->spreadInFromPoint2RGB (R_START, 0,0,255, 0,0,50, 0);
+//    delay(100);
+//    pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
   if ( pd.pinState()->J7(7) ){
