@@ -55,6 +55,7 @@ void checkPinStates(){
     pd.adrLED1()->clear();
     pd.adrLED1()->color("blue", 255);
     delay(300);
+    trigger = 1;
   }
   if ( pd.pinState()->J6(4) ){ 
     pd.adrLED1()->clear();
