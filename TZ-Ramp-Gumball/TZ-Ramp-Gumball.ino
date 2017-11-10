@@ -46,20 +46,20 @@ void checkPinStates(){
   
   if ( pd.pinState()->J126(1) ){ // Bumpers
     pd.adrLED2()->color("blue",255);
-    pd.adrLED1()->chase("white",1, 5, -1);
-    pd.adrLED1()->chase("white",1, 5, 1);
+    pd.adrLED1()->chaseRGB(50,50,50,1, 5, -1);
+    pd.adrLED1()->chaseRGB(50,50,50,1, 5, 1);
     trigger=1;
   }
   if ( pd.pinState()->J126(2) ){ //Power Payoff
-    pd.adrLED2()->color("orange",255);
-    pd.adrLED1()->spreadInFromPoint2RGB (1, 150,150,150, 0,0,255, 300);
+    pd.adrLED2()->color("red",255);
+    pd.adrLED1()->spreadInFromPoint2RGB (1, 50,50,50, 0,0,255, 300);
     delay(500);
     pd.adrLED1()->fadeOut(500);    
     trigger=1;
   }
   if ( pd.pinState()->J126(3) ){ // Mini Playfield
     pd.adrLED2()->color("blue",255);
-    pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,150,150,150, 0,0,255, 700);
+    pd.adrLED1()->spreadInFromPoint2RGB(N_LEDS/2,50,50,50, 0,0,255, 700);
     delay(100);
     pd.adrLED1()->fadeOut(500);
     trigger=1;
