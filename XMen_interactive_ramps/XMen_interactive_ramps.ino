@@ -32,7 +32,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWaitTime = 300; //Amount of time to wait before backglass turns on
 int bgOn=1;
 String color = "white"; //attract color
@@ -166,7 +166,7 @@ void checkPinStates(){
   }
    pd.adrLED1()->clear();
    pd.pinState()->reset();
-   trigger =0;
+   trigger = 0;
    bg_chase_on = 0;
    bgOn=0;
   }
