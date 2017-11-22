@@ -27,9 +27,12 @@ int disc_motor_wait = 10000;//time to wait with no disc motor activity to reset 
 int zuse = 0; // flag for sensing zuse
 int zuse_wait = 500;//time to wait with no zuse activity to reset zuse flag
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+unsigned long discEvent = 0; // time since disc lights last went
+int startChaseWaitTime = 10000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
-String chaseColor = "red"; // var to hold bg chase color
+int bgTime = 10000; // time till lights are set to background color
+String bgColor = "blue";
+
 
 void setup() {
   Serial.begin(115200);
@@ -40,7 +43,7 @@ void setup() {
 }
 
 void loop(){
-//  if (bg_chase_on){backgroundChase();}
+  if (bg_chase_on){backgroundChase();}
   for (int i=0; i<1000; i=i+1) {     
     pd.pinState()->update();
   }
@@ -48,7 +51,9 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
-  if (millis()-timeLastEvent > bgWhiteTime) {
+  if (!pd.pinState()->J6(7) && !pd.pinState()->J6(8) && millis()-discEvent > bgTime) {bgColor="blue";}
+
+  if (millis()-timeLastEvent > bgWhiteTime && !bg_chase_on) {
     pd.adrLED1()->color("white", 255);
     pd.adrLED2()->color("white", 255);
   }
@@ -61,7 +66,16 @@ void loop(){
 void checkPinStates(){
   int trigger =0;
   
-  if (pd.pinState()->J7(3) ) { // Video Game
+  if ( pd.pinState()->J6(2) )
+    { // flashes if quora his hit and nothing else
+      // let monitor for a bit longer to see if something else goes 
+      // used to sense disc
+      for (int i=0; i<1000; i=i+1) {     
+        pd.pinState()->update();
+      }
+    }
+ 
+   if (pd.pinState()->J7(3) ) { // Video Game
     pd.adrLED1()->color("cyan", 255);
     pd.adrLED2()->color("blue", 255);
     delay(200);
@@ -69,20 +83,25 @@ void checkPinStates(){
     trigger = 1;
   }
   
-  if ( pd.pinState()->J6(1) && pd.pinState()->J7(4) && pd.pinState()->J7(8) && pd.pinState()->J7(9) && 
-      !pd.pinState()->J6(2) && !pd.pinState()->J6(3) && !pd.pinState()->J6(7) && !pd.pinState()->J6(8) ) { // light cycle
+  if ( pd.pinState()->J6(1)  && pd.pinState()->J7(8) ) { // light cycle
     pd.adrLED2()->clear();
-    pd.adrLED1()->chase2Color("yellow", "yellow", 50, 1, 1);
-    pd.adrLED1()->chase2Color("blue", "bue", 50, 1, -1);
+    pd.adrLED1()->bullet2Color("yellow", "yellow", 50, 0, 1);
+//    pd.adrLED1()->chase2Color("blue", "bue", 50, 1, -1);
+    trigger =1;    
+  }
+  if (  pd.pinState()->J7(4)  && pd.pinState()->J7(9) ) { // light cycle
+    pd.adrLED2()->clear();
+//    pd.adrLED1()->chase2Color("yellow", "yellow", 50, 1, 1);
+    pd.adrLED1()->bullet2Color("blue", "bue", 50, 0, -1);
     trigger =1;    
   }
   
-  if ( !zuse && pd.pinState()->J6(4) && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) { // zuse
+  if ( !zuse && pd.pinState()->J6(4) && ! pd.pinState()->J7(4) ) { // zuse
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
     delay(30);
     for (int i=0; i<3; i=i+1) {
-      pd.adrLED1()->color("white", 255);
+      pd.adrLED1()->color("blue", 255);
       pd.adrLED2()->color("white", 255);
       delay(30);
       pd.adrLED1()->clear();
@@ -94,30 +113,16 @@ void checkPinStates(){
    }
    
    if ( pd.pinState()->J6(2) && !pd.pinState()->J6(3) && ! pd.pinState()->J6(5)){//quora
-//    Serial.print( pd.pinState()->J6(2));
-//    Serial.print (" ");
-//    Serial.println( pd.pinState()->J6(3));
     pd.adrLED2()->color("blue", 255);
-    pd.adrLED1()->fadeColor2Color("blue", "red",50);
-//    delay(300);
-    pd.fadeOutAllAdr(200);
+    pd.adrLED1()->fadeColor2Color("red", "green",50);
+    pd.fadeOutAllAdr(500);
     trigger = 1; 
   }
-   if (pd.pinState()->J6(2) && pd.pinState()->J6(3) && pd.pinState()->J6(7) && pd.pinState()->J6(8) 
-     && ! pd.pinState()->J7(4) && ! pd.pinState()->J7(8) && ! pd.pinState()->J7(9) ) {// disc open and hit
- //    pd.adrLED1()->fadeColor2Color("green", "yellow",50);
+   if (pd.pinState()->J6(2) && pd.pinState()->J6(3) ) {// disc open and hit
      for (int i=0; i<3; i=i+1) {
        pd.fadeAllAdrColor2Color("blue", "yellow",50);
        pd.fadeAllAdrColor2Color("yellow", "blue",50);
      }
-//    for (int i=0; i<4; i=i+1) {     
-//      pd.adrLED1()->clear();
-//      pd.adrLED2()->clear();
-//      delay(50);
-//      pd.adrLED1()->color("blue",255);
-//      pd.adrLED2()->color("red",255);
-//      delay(50);
-//    }    
     trigger = 1;
   } 
   
@@ -134,7 +139,6 @@ void checkPinStates(){
     pd.adrLED2()->clear();
     pd.adrLED1()->chase2Color("green", "green", 10, 10, 1);
     pd.adrLED1()->chase2Color("blue", "white", 10, 10, -1);
-//    pd.adrLED1()->color("green", 255);
     pd.adrLED2()->fadeIn("red", 200);
     pd.adrLED1()->fadeIn("blue", 200);
     pd.adrLED1()->fadeColor2Color("blue","green", 500);
@@ -142,16 +146,21 @@ void checkPinStates(){
     disc_motor=1;
     trigger = 1; 
   }
-//  if ( pd.pinState()->J6(6) ) { pd.pinState()->resetJ6(6);}
+
   if ( pd.pinState()->J6(7) ){ //RED disc left (flashers under disc)
+    bgColor="orange";
+    discEvent = millis();   
   }
+  
   if ( pd.pinState()->J6(8) ){ //RED disc right (flashers under disc)
+    bgColor="red";
+    discEvent = millis();   
   }
   
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
    pd.pinState()->reset();
-   trigger =0;
+   trigger = 0;
    bg_chase_on = 0;
    timeLastEvent = millis();
   }
@@ -160,5 +169,8 @@ void checkPinStates(){
 
 
 void backgroundChase() {
-  }
+  if (bgColor == "red" || bgColor == "orange") {pd.adrLED1()->sparkle("green",20,5);}
+  else {pd.adrLED1()->sparkle(bgColor,20,5);}
+  pd.adrLED2()->sparkle(bgColor,20,5);
+}
 
