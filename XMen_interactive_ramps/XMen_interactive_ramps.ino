@@ -4,7 +4,8 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 109;
+//int N_LEDS = 109; // Without Iceman ramp LEDs
+int N_LEDS = 135; // With Icreman ramp LEDs
 int R_START = 67;
 
 int aLEDNum1 = N_LEDS;
@@ -35,7 +36,7 @@ unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWaitTime = 300; //Amount of time to wait before backglass turns on
 int bgOn=1;
-String color = "white"; //attract color
+String color = "blue"; //attract color
 int magneto_count = 0;
 
 void setup() {
@@ -181,8 +182,8 @@ void backgroundChase() {
   if (random(1000) == 0) {
       if (color == "blue") color = "red";
       else if (color == "red") color = "yellow";
-      else if (color == "white") color = "blue";
-      else color = "white";
+      else if (color == "yellow") color = "green";
+      else color = "blue";
   }  
 //  pd.adrLED1()->spreadInFromPoint2Color(R_START,"yellow", "blue", 10);
 //  pd.adrLED1()->fadeOut(100);
