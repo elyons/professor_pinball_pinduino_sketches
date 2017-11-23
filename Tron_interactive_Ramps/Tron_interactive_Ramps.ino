@@ -71,12 +71,12 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(1) & pd.pinState()->J7(8) ) { // light cycle
     pd.adrLED2()->bullet2Color("yellow", "yellow", 20, 0, -1);
-//    pd.adrLED1()->bullet2Color("blue", "blue", 20, 0, -1);
+    pd.adrLED1()->bullet2Color("blue", "blue", 20, 0, -1);
     trigger =1;    
   }
 
   if (  pd.pinState()->J7(4) && pd.pinState()->J7(9) ) { // light cycle
-//    pd.adrLED2()->bullet2Color("yellow", "yellow", 20, 0, -1);
+    pd.adrLED2()->bullet2Color("yellow", "yellow", 20, 0, -1);
     pd.adrLED1()->bullet2Color("blue", "blue", 20, 0, -1);
     trigger =1;    
   }
