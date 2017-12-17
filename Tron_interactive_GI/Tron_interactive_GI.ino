@@ -44,7 +44,7 @@ void setup() {
 
 void loop(){
   if (bg_chase_on){backgroundChase();}
-  for (int i=0; i<1000; i=i+1) {     
+  for (int i=0; i<50; i=i+1) {     
     pd.pinState()->update();
   }
 //   Print the pin states out to serial 
@@ -170,7 +170,7 @@ void checkPinStates(){
 
 void backgroundChase() {
   if (bgColor == "red" || bgColor == "orange") {pd.adrLED1()->sparkle("green",20,5);}
-  else {pd.adrLED1()->sparkle(bgColor,20,5);}
+  else {pd.adrLED1()->sparkle(bgColor,20,1);}
   pd.adrLED2()->sparkle(bgColor,20,5);
 }
 
