@@ -51,7 +51,7 @@ void checkPinStates(){
 
   
   if ( pd.pinState()->J126(1) ){ // billion
-    for (int i=0; i<20; i++) {
+    for (int i=0; i<10; i++) {
      pd.adrLED2()->chase2Color("red", "blue", 1,  20,  -1);
      pd.adrLED2()->chase2Color("blue", "red", 1,  20,  1);
     }
@@ -59,7 +59,6 @@ void checkPinStates(){
   }
 
  if ( pd.pinState()->J126(2) ){ //left ramp shuttle
-//    pd.adrLED1()->color("blue", 255);
     pd.adrLED2()->color("blue", 255);
     pd.adrLED1()->chase2Color("purple","blue", 2,  10,  -1);
     pd.adrLED2()->fadeOut(1000);
@@ -105,16 +104,11 @@ void checkPinStates(){
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
-//   pd.adrLED1()->clear();
-//   pd.adrLED2()->clear();
    pd.pinState()->reset();
    trigger =0;
    bg_on = 0;
    timeLastEvent = millis();
   }
-//   delay(100);
-//   pd.adrLED1()->color("white", 255);
-//   pd.adrLED2()->color("white", 255);
 
 //end function checkPinStates
 }
@@ -126,17 +120,17 @@ void background() {
   delay(500);
   pd.adrLED1()->chase2Color("red", "orange", 35,  5,  -1);
   delay(200);
-  for (int i=0; i<20; i++) {
-     int cor = i*10;
+  for (int i=0; i<10; i++) {
+     int cor = i*15;
      int time = 110-cor;
      if (time < 20){time = 20;}
      pd.adrLED2()->chase("red", 1,  time,  -1);
     }  
-  pd.adrLED2()->fadeIn("red", 1000);
-  pd.adrLED2()->fadeColor2Color("red", "purple", 800);
-  delay(500);
-  pd.adrLED2()->fadeColor2Color("purple", "white", 800);
-  delay(500);
-  pd.adrLED2()->fadeColor2Color("white", "blue", 800);
-  delay(500);
+  pd.adrLED2()->fadeIn("red", 500);
+  pd.adrLED2()->fadeColor2Color("red", "purple", 500);
+  delay(300);
+  pd.adrLED2()->fadeColor2Color("purple", "white", 500);
+  delay(300);
+  pd.adrLED2()->fadeColor2Color("white", "blue", 500);
+  delay(300);
   }
