@@ -1,4 +1,4 @@
-//Eric Lyons 2016
+//Eric Lyons 2017
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2 and v0.3
 //Uses pinduino library
@@ -8,8 +8,8 @@
 
 
 #include <pinduino.h>
-int aLEDNum1 = 99; //ramp
-int aLEDNum2 = 59; //head
+int aLEDNum1 = 99; //left ramp
+int aLEDNum2 = 59; //right ramp
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
