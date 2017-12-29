@@ -9,8 +9,8 @@
 
 
 #include <pinduino.h>
-int aLEDNum1 = 150; //left ramp
-int aLEDNum2 = 150; //right ramp
+int aLEDNum1 = 94; //left ramp
+int aLEDNum2 = 40; //right ramp
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
@@ -78,26 +78,30 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ // Pursuit Left
-    pd.adrLED1()->bullet2Color("red", "orange", 25,  4,  1);
+    pd.adrLED1()->bullet2Color("red", "white", 10, 0, 1);
+    pd.adrLED1()->bullet2Color("white", "blue", 10, 0, 1);
+    pd.adrLED1()->bullet2Color("blue", "red", 10, 0, 1);
     trigger=1;
   }
   
   if ( pd.pinState()->J126(6) ){ // Pursuit Right
-    pd.adrLED1()->bullet2Color("red", "white", 2,  4,  1);
-    pd.adrLED1()->bullet2Color("white", "blue", 2,  4,  -1);
-    pd.adrLED1()->bullet2Color("blue", "red", 2,  4,  1);
-    trigger =1;
+    pd.adrLED2()->bullet2Color("red", "white", 10, 0, 1);
+    pd.adrLED2()->bullet2Color("white", "blue", 10, 0, 1);
+    pd.adrLED2()->bullet2Color("blue", "red", 10, 0, 1);
+    trigger = 1;
   }
   
   if ( pd.pinState()->J126(7) ){ // Black Out
     //using RGB to specify dark blue
-    pd.adrLED1()->bullet2RGB(0,0,200, 0,0,50, 25,  4,  1);
-    trigger =1;
+    pd.adrLED2()->bullet2RGB(0,0,200, 0,0,50, 25,  4,  1);
+    trigger = 1;
   }
   
   if ( pd.pinState()->J126(8) ){ // Cursed Earth
   }
   if ( pd.pinState()->J126(13) ){ // Lower Left
+    pd.chaseAllAdr2Color("orange", "blue", 10, 0, 1);
+    trigger = 1;
   }
 
 
@@ -108,7 +112,7 @@ void checkPinStates(){
        pd.adrLED1()->bullet2Color("green", "yellow", 2,  4,  1);
     }
     if (lock_count == 3) {lock_count = 0;}
-    trigger =1;
+    trigger = 1;
   }
   
   if ( pd.pinState()->J126(15) ){ // Right Ramp
