@@ -136,6 +136,7 @@ void checkPinStates(){
 
 void background() {
   pd.adrLED1()->sparkle(color,20);
+  pd.adrLED2()->sparkle(color,20);
   if (random(1000) == 0) {
     if (color == "red") color = "blue";
     else if (color == "blue") color = "white";
