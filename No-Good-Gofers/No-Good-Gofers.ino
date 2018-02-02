@@ -33,8 +33,8 @@ void setup() {
 void loop(){
   if (bg_on){background();}
 //   Print the pin states out to serial 
+//  pd.pinState()->print();
   pd.pinState()->update();
-  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
   if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
