@@ -55,7 +55,7 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(2) ){ //Prison (TOP)
     pd.adrLED1()->color("blue");
-    pd.adrLED2()->color("blue");
+    pd.adrLED2()->color("white ");
     delay(100);
     trigger = 1; 
   }
@@ -82,26 +82,26 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J6(7) ){ // Left Loop
-   pd.adrLED1()->color("blue");
-   pd.adrLED2()->color("white");
-   trigger=1;
+//   pd.adrLED1()->color("blue");
+//   pd.adrLED2()->color("white");
+//   trigger=1;
   }
 
   if ( pd.pinState()->J6(8) ){ // Center Loop
-   pd.adrLED1()->clear(); 
-   pd.adrLED2()->clear(); 
-   delay(100);
-   pd.adrLED1()->color("white"); 
-   pd.adrLED2()->color("white"); 
-   delay(100);
-   pd.adrLED1()->clear(); 
-   pd.adrLED2()->clear();    
-   trigger=1;
+//   pd.adrLED1()->clear(); 
+//   pd.adrLED2()->clear(); 
+//   delay(100);
+//   pd.adrLED1()->color("white"); 
+//   pd.adrLED2()->color("white"); 
+//   delay(100);
+//   pd.adrLED1()->clear(); 
+//   pd.adrLED2()->clear();    
+//   trigger=1;
   }
 
   if ( pd.pinState()->J7(4) ){ // Well Walker
-    pd.adrLED1()->color("red");
-    pd.adrLED2()->color("red");
+    pd.adrLED1()->color("green");
+    pd.adrLED2()->color("white");
     delay(100);
 
    trigger=1;
