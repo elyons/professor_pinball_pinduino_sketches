@@ -105,7 +105,6 @@ void checkPinStates() {
 
 
 void backgroundChase() {
-  pd.adrLED1()->clear();
   pd.adrLED1()->sparkle("red",20);
 }
 
