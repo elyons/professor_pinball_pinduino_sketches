@@ -13,7 +13,7 @@ int aLEDNum1 = 47;
 
 pinduino pd (aLEDNum1, "Nano");
 
-int bg_chase_on = 0;
+int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 
@@ -24,10 +24,8 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < 25; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
-  }
-
+  pd.pinState()->update();
+  
   //   Print the pin states out to serial
   //  pd.pinState()->print();
 
