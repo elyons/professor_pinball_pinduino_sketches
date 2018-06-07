@@ -29,8 +29,8 @@ void setup() {
 
 void loop(){
   if (bg_on){background();}
-//   Print the pin states out to serial 
   pd.pinState()->update();
+//   Print the pin states out to serial 
   pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
@@ -42,29 +42,40 @@ void checkPinStates(){
   
 
   
-  if ( pd.pinState()->J126(1) ){ // Goal cage top
+ if ( pd.pinState()->J126(1) ){ // Goal cage top
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED1()->bulletFromPoint2Color("white", "white", 5, 2, 75);
     pd.adrLED2()->bulletFromPoint2Color("white", "white", 5, 2, 75);
     trigger = 1; 
   }
 
  if ( pd.pinState()->J126(2) ){ //goal
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.chaseAllAdr2Color("white", "white", 5, 2, 75);
     delay(100);
     trigger = 1; 
   }
 
   if ( pd.pinState()->J126(3) ){ //skill shot
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED1()->color("red", 255);
     pd.adrLED1()->spreadOutToPoint(54, 200);
     pd.adrLED1()->fadeOut(10);
     trigger = 1; 
   }
   if ( pd.pinState()->J126(4) ){ // jet bumpers
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED2()->bullet2Color("lime", "green", 25,  4,  -1);
     trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ // goalie drive
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
+    pd.adrLED2()->bullet2Color("blue", "red", 25,  4,  1);
     pd.adrLED1()->bullet2Color("red", "green", 25,  4,  1);
     trigger=1;
   }
@@ -75,21 +86,29 @@ void checkPinStates(){
   //126-8 lights purple, and green, left to right
   
   if ( pd.pinState()->J126(6) ){ // spinning ball
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED1()->bullet2Color("red", "yellow", 10, 3, 1);
     trigger =1;
   }
   
   if ( pd.pinState()->J126(7) ){ // ball clockwise
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED1()->bullet2Color("blue", "green", 10, 3, -1);
     trigger =1;
   }
   if ( pd.pinState()->J126(8) ){ // Ball Counter-clockwise
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
     pd.adrLED1()->bullet2Color("purple", "green", 10, 3, 1);
     trigger =1;
   }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
+    pd.adrLED1()->clear();
+    pd.adrLED2()->clear();
    pd.pinState()->reset();
    trigger =0;
    bg_on = 0;
@@ -111,8 +130,11 @@ void background() {
       else color = "green";
     }
   }
-  else {
+  else if (millis()-timeLastEvent <  sparkleTime && millis()-timeLastEvent < sparkleTime+sparkleTime/2) {
     pd.adrLED1()->colorRGB(200,100,0);
     pd.adrLED2()->colorRGB(200,100,0);
+  }
+  else {
+    pd.fadeOutAllAdr(5);
   }
 }
