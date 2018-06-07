@@ -136,5 +136,6 @@ void background() {
   }
   else {
     pd.fadeOutAllAdr(5);
+    timeLastEvent = millis();
   }
 }
