@@ -18,7 +18,7 @@ unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 4000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 String color = "green";
 int sparkleTime = 10000; // run sparkle effect on ramps for 10 seconds when game are turned on
-
+int attractHold = 0; // variable to hold solid color in attract mode
 void setup() {
   Serial.begin(115200);
   pd.adrLED1()->clear();
@@ -95,7 +95,7 @@ void checkPinStates(){
   if ( pd.pinState()->J126(7) ){ // ball clockwise
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
-    pd.adrLED1()->bullet2Color("blue", "green", 10, 3, -1);
+    pd.adrLED2()->bullet2Color("blue", "green", 10, 3, -1);
     trigger =1;
   }
   if ( pd.pinState()->J126(8) ){ // Ball Counter-clockwise
@@ -121,21 +121,27 @@ void checkPinStates(){
 
 
 void background() {
+  Serial.println(millis()-timeLastEvent);
   if (millis()-timeLastEvent <  sparkleTime) {
     pd.adrLED1()->sparkle(color,20);
     pd.adrLED2()->sparkle(color,20);
-    if (random(1000) == 0) {
+    if (random(200) == 0) {
       if (color == "green") color = "red";
       else if (color == "red") color = "blue";
+      else if (color == "blue") color = "orange";
       else color = "green";
     }
   }
-  else if (millis()-timeLastEvent <  sparkleTime && millis()-timeLastEvent < sparkleTime+sparkleTime/2) {
-    pd.adrLED1()->colorRGB(200,100,0);
-    pd.adrLED2()->colorRGB(200,100,0);
+  else if ((millis()-timeLastEvent >  sparkleTime) && (millis()-timeLastEvent < sparkleTime+sparkleTime/2)                  && attractHold == 0 ){
+    pd.fadeOutAllAdr(100);
+    pd.fadeAllAdrRGB2RGB(0,0,0,200,50,0,1);
+    attractHold = 1;
+//    pd.adrLED1()->colorRGB(200,100,0);
+//    pd.adrLED2()->colorRGB(200,100,0);
   }
   else {
-    pd.fadeOutAllAdr(5);
+    pd.fadeOutAllAdr(20);
     timeLastEvent = millis();
+    attractHold = 0;
   }
 }
