@@ -31,7 +31,7 @@ void loop(){
   if (bg_on){background();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
 }
@@ -121,7 +121,6 @@ void checkPinStates(){
 
 
 void background() {
-  Serial.println(millis()-timeLastEvent);
   if (millis()-timeLastEvent <  sparkleTime) {
     pd.adrLED1()->sparkle(color,20);
     pd.adrLED2()->sparkle(color,20);
