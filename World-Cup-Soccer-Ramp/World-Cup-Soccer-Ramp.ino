@@ -61,7 +61,7 @@ void checkPinStates(){
   if ( pd.pinState()->J126(3) ){ //skill shot
     pd.adrLED1()->clear();
     pd.adrLED2()->clear();
-    pd.adrLED1()->color("red", 255);
+    pd.adrLED1()->fadeIn("red", 50);
     pd.adrLED1()->spreadOutToPoint(54, 200);
     pd.adrLED1()->fadeOut(10);
     trigger = 1; 
