@@ -4,8 +4,9 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-//int N_LEDS = 109; // Without Iceman ramp LEDs
-int N_LEDS = 135; // With Icreman ramp LEDs
+
+int N_LEDS = 109; // Without Iceman ramp LEDs
+//int N_LEDS = 135; // With Icreman ramp LEDs
 int R_START = 67;
 
 int aLEDNum1 = N_LEDS;
@@ -31,11 +32,9 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 // pin 14: Flash: Magneto Left/right x2 (VIO-BLU)
 // pin 15: Flash: Wolverine (VIO-GRN)
 
-int bg_chase_on = 1;
+int bg_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWaitTime = 300; //Amount of time to wait before backglass turns on
-int bgOn=1;
+unsigned long startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 String color = "blue"; //attract color
 int magneto_count = 0;
 
@@ -48,16 +47,12 @@ void setup() {
 }
 
 void loop(){
-  if (bg_chase_on){backgroundChase();}
+  if (bg_on){backgroundChase();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
-//  Serial.println (millis()-timeLastEvent);
   checkPinStates();
-  if (millis()-timeLastEvent > bgWaitTime && bgOn == 0) {
-    bgOn =1;
-  }
-  if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
+  if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
 }
 
 void checkPinStates(){
@@ -91,7 +86,7 @@ void checkPinStates(){
 //    pd.adrLED1()->fadeOut(100);
 //    trigger =1;
   }
-  if ( pd.pinState()->J6(6)  and bg_chase_on==0 ){
+  if ( pd.pinState()->J6(6)  and bg_on==0 ){
     if (magneto_count < 10) {
       pd.adrLED1()->fadeOut(10);
       pd.adrLED1()->bulletFromPoint2Color("red","blue", 20, 0, R_START);
@@ -104,7 +99,7 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J6(7) ){
     pd.adrLED1()->fadeOut(10);
-    pd.adrLED1()->color("yellow", 255);
+    pd.adrLED1()->color("orange", 255);
     delay(100);
     pd.adrLED1()->clear();
     trigger =1;
@@ -143,7 +138,7 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J7(7) ){
     pd.adrLED1()->fadeOut(10);
-    pd.adrLED1()->color("yellow");
+    pd.adrLED1()->color("orange");
     delay(100);
     pd.adrLED1()->fadeOut(50);
     trigger =1;
@@ -168,8 +163,7 @@ void checkPinStates(){
    pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger = 0;
-   bg_chase_on = 0;
-   bgOn=0;
+   bg_on = 0;
   }
 
 //end function checkPinStates
