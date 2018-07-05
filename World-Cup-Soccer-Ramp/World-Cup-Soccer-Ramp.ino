@@ -7,8 +7,8 @@
 /// 
 
 #include <pinduino.h>
-int aLEDNum1 = 150; //left ramp
-int aLEDNum2 = 150; //right ramp
+int aLEDNum1 = 120; //left ramp
+int aLEDNum2 = 145; //right ramp
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
