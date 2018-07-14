@@ -170,8 +170,8 @@ void checkPinStates(){
 
 
 void backgroundChase() {
-    pd.adrLED1()->dataStream(led1Color,1000, 0, -1); 
-    pd.adrLED2()->dataStream(led2Color,1000, 0, -1);
+    pd.adrLED1()->dataStream(led1Color,50, 0, -1); 
+    pd.adrLED2()->dataStream(led2Color,50, 0, -1);
     if (random(1000) == 0) {
       pd.adrLED1()->fadeOut(10); pd.adrLED2()->fadeOut(10);
       pd.adrLED2()->bullet2Color("orange", "yellow", 50, 0, -1);
