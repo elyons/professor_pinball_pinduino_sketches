@@ -14,7 +14,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int whiteWaitTime = 100; //Amount of time to wait before gumball goes to white
 
 void setup() {
@@ -26,15 +26,13 @@ void setup() {
 }
 
 void loop(){
-  for (int i = 0; i < 100; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
-  }
+  pd.pinState()->update();
+  checkPinStates();
+  if (bg_chase_on){backgroundChase();}
   
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
-  checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
-  if (bg_chase_on){backgroundChase();}
 
 }
 
@@ -42,11 +40,15 @@ void checkPinStates(){
   int trigger =0;
   
   if ( pd.pinState()->J126(1) ){ // Bottom left
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED2()->bullet2RGB(0,100,0, 0,0,100, 1, 14, -1);
     pd.adrLED2()->clear();
     trigger=1;
   }
   if ( pd.pinState()->J126(2) ){ //Right Ramp
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED2()->fadeInRGB(0,0,100,400);
     delay(100);
     pd.adrLED2()->fadeRGB2RGB(0,0,100, 0,100,0,400);
@@ -55,6 +57,8 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(3) ){ // Left Ramp
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED2()->bullet2RGB(0,100,0, 0,0,100, 1, 14, 1);
     pd.adrLED2()->clear();
     trigger=1;
@@ -63,6 +67,8 @@ void checkPinStates(){
 //    trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ //Hologram Push motor 
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED1()->chase2RGB(0,200,155, 0,255,0, N_LEDS/4, 10, -1);
     pd.adrLED2()->bullet2RGB(0,255,0, 0,255,0, 1, 17, -1);
     pd.adrLED2()->bullet2RGB(0,255,0, 0,255,0, 1, 16, -1);
@@ -97,6 +103,8 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(6) ){ //Center Hole Flasher 
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED1()->chase2RGB(50,0,0, 255,0,50, N_LEDS/2, 4, 1);
     trigger=1;
   }
@@ -133,6 +141,11 @@ void checkPinStates(){
 
 
 void backgroundChase() {
+  pd.adrLED1()->sparkle("green",20);
+  pd.adrLED2()->sparkle("green",20);
+  if (random(1000) == 0) {   
+    pd.adrLED1()->fadeOut(50);
+    pd.adrLED2()->fadeOut(50);
     pd.adrLED1()->chase2RGB(0,200,155, 0,255,0, N_LEDS/4, 10, -1);
     pd.adrLED2()->bullet2RGB(0,255,0, 0,255,0, 1, 17, -1);
     pd.adrLED2()->bullet2RGB(0,255,0, 0,255,0, 1, 16, -1);
@@ -162,7 +175,7 @@ void backgroundChase() {
     pd.adrLED2()->bullet2RGB(0,25,0, 0,25,0, 1, 1, -1);
     pd.adrLED2()->bullet2RGB(0,25,0, 0,10,0, 1, 1, -1);
     pd.adrLED2()->bullet2RGB(0,10,0, 0,0,0, 1, 1, -1);
-  timeLastEvent = millis();
+  }
 }
 
 
