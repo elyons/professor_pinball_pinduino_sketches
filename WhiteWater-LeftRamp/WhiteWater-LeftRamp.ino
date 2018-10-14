@@ -1,11 +1,11 @@
-//Eric Lyons 2016
+//Eric Lyons 2018
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.3
 //Uses pinduino library
 
 #include <pinduino.h>
 
-int aLEDNum1 = 120;
+int aLEDNum1 = 100;
 int aLEDNum2 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, "Nano");
@@ -13,7 +13,7 @@ pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 int attract_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int attractWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-String color = "white"; // color of LEDs that attract mode starts with
+String color = "blue"; // color of LEDs that attract mode starts with
 
 void setup() {
   Serial.begin(115200);
@@ -40,24 +40,25 @@ void checkPinStates(){
   if ( pd.pinState()->J126(2) ){ 
     trigger=1;
   }
-  if ( pd.pinState()->J126(3) ){ 
+  if ( pd.pinState()->J126(3) ){  // left mountain
     trigger=1;
   }
-  if ( pd.pinState()->J126(4) ){ 
-    pd.adrLED1()->fadeOut(20);
-    pd.adrLED1()->bullet2Color("blue", "white", 20, 10, 1);
+  if ( pd.pinState()->J126(4) ){ // Upper left playfield
+    pd.adrLED1()->bullet2Color("blue", "white", 10, 5, 1);
     trigger=1;
   }
-  if ( pd.pinState()->J126(5) ){ 
+  if ( pd.pinState()->J126(5) ){ // Insantify falls
     trigger=1;
   }
   if ( pd.pinState()->J126(6) ){ 
     trigger=1;
   }
-  if ( pd.pinState()->J126(7) ){ 
-//    trigger=1;
+  if ( pd.pinState()->J126(7) ){ //whirlpool enter
+    pd.adrLED1()->chase2ColorFromPoint(50, "blue", "white", 15, 1);
+    trigger=1;
   }
-  if ( pd.pinState()->J126(8) ){ 
+  if ( pd.pinState()->J126(8) ){
+//    pd.adrLED1()->fire(10,10);
     trigger=1;
   }
   if ( pd.pinState()->J126(9) ){ 
