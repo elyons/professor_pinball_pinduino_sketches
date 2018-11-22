@@ -143,7 +143,7 @@ void checkPinStates(){
 void backgroundChase() {
   pd.adrLED1()->sparkle("green",20);
   pd.adrLED2()->sparkle("green",20);
-  if (random(1000) == 0) {   
+  if (random(500) == 0) {   
     pd.adrLED1()->fadeOut(50);
     pd.adrLED2()->fadeOut(50);
     pd.adrLED1()->chase2RGB(0,200,155, 0,255,0, N_LEDS/4, 10, -1);
