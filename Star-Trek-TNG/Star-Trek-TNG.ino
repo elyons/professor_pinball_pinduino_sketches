@@ -67,7 +67,7 @@ void checkPinStates(){
     trigger =1;
   }
   if ( pd.pinState()->J126(7) ){ //Shields
-    pd.fadeInAllAdr("cyan",10);
+    pd.fadeInAllAdr("blue",10);
     delay(50);
     pd.fadeOutAllAdr(10); 
     trigger =1;
@@ -76,14 +76,18 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(13) ){ // Exit Underground
-    pd.adrLED1()->bulletFromPoint2Color( "orange", "red",5, 5, R_START);
+    pd.adrLED1()->bulletFromPoint2RGB( 50,50,100, 0,0,255,15, 5, R_START);
     trigger=1;
   }
-  if ( pd.pinState()->J126(14) ){ //Right Borg ship
+  if ( pd.pinState()->J126(14) and pd.pinState()->J126(15)) {
+    pd.chaseAllAdr2RGBFromPoint(45, 0, 255, 0, 0, 255, 0, 5, 2);
+    trigger=1;
+  }
+  else if ( pd.pinState()->J126(14) ){ //Right Borg ship
     pd.adrLED2()->bullet("green", 5, 10, 1);
     trigger =1;
   }
-  if ( pd.pinState()->J126(15) ){ //Left Borg ship
+  else if ( pd.pinState()->J126(15) ){ //Left Borg ship
     pd.adrLED1()->bulletFromPoint( "green", 5, 5, R_START);
     trigger =1;
   }
