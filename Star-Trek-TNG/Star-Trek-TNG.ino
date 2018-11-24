@@ -41,13 +41,18 @@ void loop(){
 
 void checkPinStates(){
   int trigger =0;
-  
-  if ( pd.pinState()->J126(1) ){  //  Left Gun Motor
+
+  if ( pd.pinState()->J126(1) and pd.pinState()->J126(2) ){ // both motors running
+    pd.fadeInAllAdr("red", 50);
+    pd.fadeOutAllAdr(50);
+    trigger = 1;
+  }
+  else if ( pd.pinState()->J126(1) ){  //  Left Gun Motor
     pd.adrLED1()->fadeIn("red",50);
     pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
-  if ( pd.pinState()->J126(2) ){ //  Right Gun Motor
+  else if ( pd.pinState()->J126(2) ){ //  Right Gun Motor
     pd.adrLED2()->fadeIn("red",50);
     pd.adrLED2()->fadeOut(50);
     trigger =1;
@@ -79,8 +84,10 @@ void checkPinStates(){
     pd.adrLED1()->bulletFromPoint2RGB( 50,50,100, 0,0,255,15, 5, R_START);
     trigger=1;
   }
-  if ( pd.pinState()->J126(14) and pd.pinState()->J126(15)) {
-    pd.chaseAllAdr2RGBFromPoint(45, 0, 255, 0, 0, 255, 0, 5, 2);
+  if ( pd.pinState()->J126(14) and pd.pinState()->J126(15)) { //both left/right borg flashers are going
+//    pd.chaseAllAdr2RGBFromPoint(45, 0, 255, 0, 0, 255, 0, 5, 2);
+    pd.fadeInAllAdr("green", 5);
+    pd.fadeOutAllAdr(5);
     trigger=1;
   }
   else if ( pd.pinState()->J126(14) ){ //Right Borg ship
@@ -113,11 +120,10 @@ void checkPinStates(){
 
 void attractMode() {
 //  if (attract_style) {
-    pd.adrLED1()->sparkle(color,40,20);
-    pd.adrLED2()->sparkle(color,40,20);
+    pd.adrLED1()->sparkle(color,80,20);
+    pd.adrLED2()->sparkle(color,80,20);
     if (random(1000) == 0) {
-        if (color == "blue") color = "purple";
-        if (color == "purple") color = "white";
+        if (color == "blue") {color = "purple";}
         else color = "blue";
     }
 //  }
