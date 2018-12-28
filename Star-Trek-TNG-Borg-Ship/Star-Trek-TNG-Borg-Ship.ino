@@ -125,16 +125,6 @@ void checkPinStates(){
 
 void attractMode() {
   pd.adrLED1()->sparkle(color,20,20);
-//  if (random(1000) == 0) {
-//      int num = random(3);
-//      if (num == 1) {
-//        color == "cyan";
-//      }
-//      else if (num == 2) {
-//        color = "blue";
-//      }
-//      else color = "green";
-//  }
 }
 
 
