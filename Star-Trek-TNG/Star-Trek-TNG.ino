@@ -12,11 +12,6 @@ int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-//J124-1 Sprit Ring
-//J124-2 Saw
-//J124-3 Jets
-//J124-5 Trunk
-
 int attractOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 unsigned long startChaseWaitTime = 40000; //Amount of time to wait before chase lights start up again 1000 == 1 second
@@ -119,23 +114,12 @@ void checkPinStates(){
 
 
 void attractMode() {
-//  if (attract_style) {
-    pd.adrLED1()->sparkle(color,80,20);
-    pd.adrLED2()->sparkle(color,80,20);
-    if (random(1000) == 0) {
-        if (color == "blue") {color = "purple";}
-        else color = "blue";
-    }
-//  }
-//  else {
-//    pd.adrLED1()->dataStreamNoTail2Color("white", "blue", 20, 10, 1);
-//    pd.adrLED2()->dataStreamNoTail2Color("white", "blue", 20, 10, -1);
-//  }
-//  if (random(2000) == 0) {
-//    pd.fadeOutAllAdr(100);
-//    if (attract_style) { attract_style = 0;}
-//    else {attract_style = 1;}
-//  }
+  pd.adrLED1()->sparkle(color,80,20);
+  pd.adrLED2()->sparkle(color,80,20);
+  if (random(1000) == 0) {
+    if (color == "blue") {color = "purple";}
+    else color = "blue";
+  }
 }
 
 
