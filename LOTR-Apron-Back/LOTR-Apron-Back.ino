@@ -4,7 +4,7 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 28;
+int N_LEDS = 27;
 int R_START = 14;
 
 int aLEDNum1 = N_LEDS;
@@ -13,11 +13,10 @@ int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-int bg_chase_on = 1;
+int attractMode_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
-
 void setup() {
   Serial.begin(115200);
   pd.adrLED1()->clear();
@@ -27,13 +26,13 @@ void setup() {
 }
 
 void loop(){
-  if (bg_chase_on){backgroundChase();}
+  if (attractMode_on){attractMode();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
-  if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
-  if (millis()-timeLastEvent > bgWhiteTime) { pd.adrLED1()->color("white", 255); }
+  if (millis()-timeLastEvent > startChaseWaitTime) {attractMode_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime && attractMode_on==0) { pd.adrLED1()->color("white", 255); }
 }
 
 void checkPinStates(){
@@ -122,37 +121,17 @@ void checkPinStates(){
    pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger =0;
-   bg_chase_on = 0;
+   attractMode_on = 0;
    timeLastEvent = millis();
   }
-//  pd.adrLED1()->color("white", 200);
 
 //end function checkPinStates
 }
 
 
 
-void backgroundChase() {
-  int skip = 0; //if game has started, 
-  for (int i=0; i<500; i=i+1){
-      pd.pinState()->update();
-      if (pd.pinState()->any()) {skip =1;}
-      if (!skip) {delay(10);}
-  }  
-  if (!skip) {pd.adrLED1()->fadeColor2Color("white", "green", 1000);}
-  if (!skip) {pd.adrLED1()->fadeColor2Color("green", "red", 5000);}
-
-  if (pd.pinState()->any()) {skip =1;}
-
-  for (int i=0; i<200; i=i+1){
-      pd.pinState()->update();
-      if (pd.pinState()->any()) {skip =1;}
-      if (!skip) {delay(10);}
-  }  
- if (!skip) {pd.adrLED1()->fadeColor2Color("red","green",5000);}
- if (!skip) {pd.adrLED1()->fadeColor2Color("green","white",1000);}
-
-  if (pd.pinState()->any()) {skip =1;}
+void attractMode() {
+  pd.adrLED1()->fire(20,10);
 }
 
 
