@@ -21,6 +21,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int backgroundOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+String color = "orange"; //attract color
 
 void setup() {
   Serial.begin(115200);
@@ -104,23 +105,12 @@ void checkPinStates(){
 
 
 void background() {
-  int skip = 0; //if game has started, 
-  if (!skip) {pd.adrLED1()->fadeIn("yellow", 100);}
-  if (!skip) {pd.adrLED1()->fadeColor2Color("yellow", "red", 1000);}
-  if (!skip) {pd.adrLED1()->fadeOut(1000);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("red", "yellow",N_LEDS/8, 10, 1);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("yellow", "red",N_LEDS/8, 10, -1);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("red", "purple",N_LEDS/8, 7, 1);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("purple", "red",N_LEDS/8, 7, -1);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("red", "yellow",N_LEDS/8, 5, 1);}
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->chase2Color("yellow", "red",N_LEDS/8, 5, -1);}
+  pd.adrLED1()->sparkle(color,20,20);
+  if (random(1000) == 0) {
+    if (color == "orange") {color = "red";}
+    if (color == "red") {color = "yellow";}
+    else color = "orange";
+  }
 }
 
 
