@@ -29,7 +29,7 @@ void loop(){
   if (attract_mode_on){attractMode();}
   pd.pinState()->update();
 //   Print the pin states out to serial 
-  pd.pinState()->print();
+//  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {attract_mode_on=1;}
 }
