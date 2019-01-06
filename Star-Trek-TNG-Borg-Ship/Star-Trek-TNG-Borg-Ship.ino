@@ -41,11 +41,13 @@ void checkPinStates(){
 
   if ( pd.pinState()->J126(1) ){  //  Left Gun Motor
     pd.adrLED1()->fadeIn("red",50);
+    delay(2000);
     pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
   if ( pd.pinState()->J126(2) ){ //  Right Gun Motor
     pd.adrLED1()->fadeIn("red",50);
+    delay(2000);
     pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
