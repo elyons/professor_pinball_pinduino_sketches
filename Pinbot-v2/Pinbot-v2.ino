@@ -104,7 +104,7 @@ void checkPinStates(){
   }
 
   //P12-6
-  if ( pd.pinState()->P12(6)  ){ //visor motor
+  if ( pd.pinState()->J7(7)  ){ //visor motor
     pd.adrLED1()->bullet2Color("blue", "red", 40, 10, 1);
     pd.adrLED1()->bullet2Color("red", "blue", 40, 10, -1);
     trigger =1;
@@ -132,6 +132,7 @@ void checkPinStates(){
   }
 
   //clear out if there is noise due to coils
+ //if ( pd.pinState()->J7(4) && pd.pinState()->J7(6) && pd.pinState()->J7(7) && pd.pinState()->J7(8)){ 
  if ( pd.pinState()->J7(4) && pd.pinState()->J7(6) && pd.pinState()->J7(7) && pd.pinState()->J7(8)){ 
     trigger =1;
   }
