@@ -100,9 +100,9 @@ void checkPinStates(){
   }
 
   //P12-5
-  if ( pd.pinState()->J7(6) ){ //playfield GI
+  if ( !pd.pinState()->J7(6) ){ //playfield GI
     pd.adrLED1()->clear();
-    delay (2000);
+    delay (500);
   }
 
   //P12-6
