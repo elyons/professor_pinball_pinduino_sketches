@@ -16,7 +16,6 @@ int bg_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 unsigned long startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 String color = "white"; //attract color
-int bg_style = 1;
 
 void setup() {
   Serial.begin(115200);
@@ -33,7 +32,7 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
-  else if (color == "white") {color="red"; bg_style=1;}
+  else if (color == "white") {color="red";}
 }
 
 void checkPinStates(){
@@ -102,6 +101,8 @@ void checkPinStates(){
 
   //P12-5
   if ( pd.pinState()->J7(6) ){ //playfield GI
+    pd.adrLED1()->clear();
+    delay (2000);
   }
 
   //P12-6
@@ -152,20 +153,10 @@ void checkPinStates(){
 }
 
 void backgroundChase() {
-  if (bg_style) {
-    pd.adrLED1()->sparkle(color,20,30);
-    if (random(1000) == 0) {
-        if (color == "white") color = "red";
-        else if (color == "red") color = "blue";
-        else color = "white";
-    }
-    
-  }
-  else {
-    pd.adrLED1()->dataStreamNoTail2Color("blue", "red", 20, 20, 1);
-  }
+  pd.adrLED1()->sparkle(color,20,30);
   if (random(1000) == 0) {
-    if (bg_style) { bg_style = 0;}
-    else {bg_style = 1;}
+      if (color == "white") color = "red";
+      else if (color == "red") color = "blue";
+      else color = "white";
   }
 }
