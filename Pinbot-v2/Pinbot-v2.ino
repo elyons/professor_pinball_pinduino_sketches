@@ -105,8 +105,8 @@ void checkPinStates(){
 
   //P12-6
   if ( pd.pinState()->J7(7)  ){ //visor motor
-    pd.adrLED1()->bullet2Color("blue", "red", 40, 10, 1);
-    pd.adrLED1()->bullet2Color("red", "blue", 40, 10, -1);
+    pd.adrLED1()->bullet2Color("blue", "red", 20, 10, 1);
+    pd.adrLED1()->bullet2Color("red", "blue", 20, 10, -1);
     trigger =1;
   }
 
