@@ -27,12 +27,13 @@ void setup() {
 }
 
 void loop(){
-  if (bg_on){backgroundChase();}
+  backgroundChase();
   pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
+  else if (color == "white") {color="red"; bg_style=1;}
 }
 
 void checkPinStates(){
@@ -48,7 +49,7 @@ void checkPinStates(){
   
   //P11-3
   if ( pd.pinState()->J6(2) && pd.pinState()->J7(8) && !pd.pinState()->J7(4) && !pd.pinState()->J7(6)){ // upper playfield and top flashers (2)
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "red", 10, 5);
+    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "red", 10, 30);
     trigger = 1; 
   }
 
@@ -62,7 +63,7 @@ void checkPinStates(){
 
   //P11-6
   if ( pd.pinState()->J6(5) && pd.pinState()->J7(8) && !pd.pinState()->J7(4) && !pd.pinState()->J7(6)){ //lower playfield and top flashers (1)
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 5);
+    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 30);
     trigger = 1; 
   
   }
@@ -76,7 +77,7 @@ void checkPinStates(){
 
   //P11-8
   if ( pd.pinState()->J6(7) && pd.pinState()->J7(8) && !pd.pinState()->J7(4) && !pd.pinState()->J7(6)){ //left playfield flasher
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 5);
+    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 30);
     trigger =1;
   }
 
@@ -159,6 +160,7 @@ void backgroundChase() {
         else if (color == "red") color = "blue";
         else color = "white";
     }
+    
   }
   else {
     pd.adrLED1()->dataStreamNoTail2Color("blue", "red", 20, 20, 1);
