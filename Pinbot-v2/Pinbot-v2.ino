@@ -143,7 +143,6 @@ void checkPinStates(){
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
    timeLastEvent = millis();
-   pd.adrLED1()->clear();
    pd.pinState()->reset();
    trigger = 0;
    bg_on = 0;
