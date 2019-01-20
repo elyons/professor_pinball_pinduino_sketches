@@ -70,10 +70,10 @@ void checkPinStates(){
     pd.port1()->high();
     delay(1000);    
   }
-  if ( pd.pinState()->J126(15) ){ //  J113-8 saucer shake
+  if ( pd.pinState()->J126(15) ){ //  
 //    trigger =1;
   }
-  if ( pd.pinState()->J126(16) ){ // J113-4
+  if ( pd.pinState()->J126(16) ){ //
 //    trigger =1;
   }
  
