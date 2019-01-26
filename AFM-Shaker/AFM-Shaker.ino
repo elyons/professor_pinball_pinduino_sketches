@@ -54,6 +54,7 @@ void checkPinStates(){
   if ( pd.pinState()->J126(7) && millis()-timeLastEvent < attractModeTime){ // J111-7 saucer dome ***
     pd.port1()->high();
     delay(1000);    
+    pd.port1()->low();
   }
   if ( pd.pinState()->J126(8) ){ // J111-8 motor bank ***
     trigger=1;
@@ -62,13 +63,13 @@ void checkPinStates(){
   }
   if ( pd.pinState()->J126(13) ){ // J113-1 Left slingshot ***
     trigger =1;
-    pd.port1()->high();
-    delay(1000);    
+//    pd.port1()->high();
+//    delay(1000);    
   }
   if ( pd.pinState()->J126(14) ) { // J113-2 right slingshot ***
     trigger =1;
-    pd.port1()->high();
-    delay(1000);    
+//    pd.port1()->high();
+//    delay(1000);    
   }
   if ( pd.pinState()->J126(15) ){ //  
 //    trigger =1;
