@@ -11,6 +11,7 @@ int aLEDNum2 = 0;
 pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
 unsigned long timeLastEvent = 0; // time last event was last triggered
+unsigned long attractModeTime = 20000; // time of no activity and game is in attract mode
 
 void setup() {
   Serial.begin(115200);
@@ -50,8 +51,7 @@ void checkPinStates(){
     pd.port1()->high();
     delay(1000);    
   }
-  if ( pd.pinState()->J126(7) ){ // J111-7 saucer dome ***
-    trigger=1;
+  if ( pd.pinState()->J126(7) && millis()-timeLastEvent < attractModeTime){ // J111-7 saucer dome ***
     pd.port1()->high();
     delay(1000);    
   }
