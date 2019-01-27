@@ -1,4 +1,4 @@
-//Eric Lyons 2019
+//Eric Lyons and Philip Forrester  2019
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.3
 //Uses pinduino library
@@ -49,17 +49,20 @@ void checkPinStates(){
   if ( pd.pinState()->J126(6) ){ // J111-6 jets ***
     trigger =1;
     pd.port1()->high();
-    delay(1000);    
+    delay(250);    
   }
   if ( pd.pinState()->J126(7) && millis()-timeLastEvent < attractModeTime){ // J111-7 saucer dome ***
     trigger =1;
     pd.port1()->high();
-    delay(1000);    
+    delay(150);    
+    pd.port1()->low();
   }
   if ( pd.pinState()->J126(8) ){ // J111-8 motor bank ***
     trigger=1;
     pd.port1()->high();
-    delay(1000);    
+    delay(125);
+    pd.port1()->low();
+    delay(500);  //pulse when bank active
   }
   if ( pd.pinState()->J126(13) ){ // J113-1 Left slingshot ***
     trigger =1;
