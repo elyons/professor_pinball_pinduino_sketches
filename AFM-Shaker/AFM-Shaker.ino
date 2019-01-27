@@ -50,12 +50,15 @@ void checkPinStates(){
     trigger =1;
     pd.port1()->high();
     delay(250);    
+    pd.port1()->low();
+    delay(250);      
   }
   if ( pd.pinState()->J126(7) && millis()-timeLastEvent < attractModeTime){ // J111-7 saucer dome ***
     trigger =1;
     pd.port1()->high();
     delay(150);    
     pd.port1()->low();
+    delay(250); 
   }
   if ( pd.pinState()->J126(8) ){ // J111-8 motor bank ***
     trigger=1;
@@ -83,7 +86,6 @@ void checkPinStates(){
  
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
-   pd.port1()->low();
    pd.pinState()->reset();
    trigger =0;
    timeLastEvent = millis();
