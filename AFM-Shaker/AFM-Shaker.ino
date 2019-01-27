@@ -52,9 +52,9 @@ void checkPinStates(){
     delay(1000);    
   }
   if ( pd.pinState()->J126(7) && millis()-timeLastEvent < attractModeTime){ // J111-7 saucer dome ***
+    trigger =1;
     pd.port1()->high();
     delay(1000);    
-    pd.port1()->low();
   }
   if ( pd.pinState()->J126(8) ){ // J111-8 motor bank ***
     trigger=1;
@@ -88,4 +88,3 @@ void checkPinStates(){
 
 //end function checkPinStates
 }
-
