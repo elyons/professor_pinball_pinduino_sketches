@@ -38,7 +38,7 @@ void loop(){
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
   if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
-    pd.adrLED1()->color("white");
+    pd.adrLED1()->colorRGB(128,128,128);
   }
 }
 
