@@ -1,7 +1,10 @@
-//Eric Lyons 2015
+//Eric Lyons 2019
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.3
 //Uses pinduino library
+//
+// This update is for when the LEDs are installed starting at the ramp entrance 
+// and not at the ramp exits.  
 
 
 #include <pinduino.h>
