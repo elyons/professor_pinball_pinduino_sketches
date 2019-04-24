@@ -73,7 +73,10 @@ void checkPinStates(){
   if (pd.pinState()->J7(3) ) { // Video Game
 //    pd.adrLED1()->bullet2Color("black", "blue", 16, 0, 1);
     pd.adrLED1()->fadeOut(10); pd.adrLED2()->fadeOut(10);
-    pd.adrLED2()->bullet2Color("orange", "red", 31, 0, 1);
+// EHL: 4/24/19 changing this from LED2 to LED1 and making effect stay orange with no red fade.  
+// May look good with a yellow to orange fade
+//    pd.adrLED2()->bullet2Color("orange", "red", 31, 0, 1);
+    pd.adrLED1()->bullet2Color("orange", "orange", 31, 0, 1);
     trigger = 1;
   }
 
