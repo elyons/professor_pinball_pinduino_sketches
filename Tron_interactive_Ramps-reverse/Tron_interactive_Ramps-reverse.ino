@@ -125,7 +125,7 @@ void checkPinStates(){
   
   if ( pd.pinState()->J6(5) ){ // recognizer
     pd.adrLED1()->fadeOut(10); pd.adrLED2()->fadeOut(10);
-    pd.chaseAllAdr2Color("red", "red", 10, 0, -1);
+    pd.chaseAllAdr2Color("orange", "orange", 10, 0, -1);
     led1Color="red";
     led2Color="red";
 
