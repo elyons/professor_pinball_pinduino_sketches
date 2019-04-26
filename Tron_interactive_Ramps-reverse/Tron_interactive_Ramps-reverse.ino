@@ -58,9 +58,10 @@ void loop(){
 void checkPinStates(){
   int trigger =0;
   if (pd.pinState()->J7(2)) // zen
-    {
-//       bg_chase_on = 0;
-//       timeLastEvent = millis();
+    {      
+      pd.fadeInAllAdrRGB(0, 0, 128, 100); //fade in both LED strips to blue at 50% brightness over 100 milliseconds
+      pd.fadeOutAllAdr(100); //fade out both LED strips over 100 milliseconds
+      trigger = 1;
     }
   if ( pd.pinState()->J6(2) )
     { // flashes if quora his hit and nothing else
