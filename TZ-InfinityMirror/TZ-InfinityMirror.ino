@@ -6,7 +6,7 @@
 #include <pinduino.h>
 
 int aLEDNum1 = 73;
-int aLEDNum2 = 0;
+int aLEDNum2 = 17;
 int aLEDNum3 = 0;
 int N_LEDS=aLEDNum1;
 
@@ -29,7 +29,9 @@ void setup() {
 }
 
 void loop(){
-//   Print the pin states out to serial 
+  pd.pinState()->update();
+  pd.adrLED2()->sparkle("white",20);
+  //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
 
@@ -40,7 +42,6 @@ void loop(){
 //  }
 ////  if ( attract_on){attract(color);}
 
-  pd.pinState()->update();
   pd.adrLED1()->sparkle(color,20);
   if (random(1000) == 0) {
       if (color == "blue") color = "red";
