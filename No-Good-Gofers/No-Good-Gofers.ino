@@ -48,7 +48,7 @@ void checkPinStates(){
   if ( pd.pinState()->J126(12) ){ // upper right 1 (blue)
 //   pd.adrLED1()->fadeOut(50); 
 //   pd.adrLED1()->bullet2Color("blue", "white", 20, 2, 1);
-    pd.adrLED1()->color("white");
+    pd.adrLED1()->color("blue");
     delay(100);
    trigger = 1; 
   }
