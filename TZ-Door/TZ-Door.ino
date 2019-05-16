@@ -12,10 +12,10 @@ int N_LEDS=aLEDNum1;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
-int bg_chase_on = 0;
+int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-long startChaseWaitTime = 120000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int whiteWaitTime = 500; //Amount of time to wait before gumball goes to white
+long startChaseWaitTime = 1000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+String  color = "white";
 
 void setup() {
   Serial.begin(115200);
@@ -26,16 +26,12 @@ void setup() {
 }
 
 void loop(){
-  for (int i = 0; i < 1000; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
-  }
-  
+  pd.pinState()->update();
+
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
-  if (millis()-timeLastEvent > whiteWaitTime) {
-      pd.adrLED1()->color("white",150);}
   if (bg_chase_on){backgroundChase();}
 }
 
@@ -106,53 +102,12 @@ void checkPinStates(){
 
 
 void backgroundChase() {
-  pd.adrLED1()->fadeOut(500);
-  int skip = 0; //if game has started, 
-  if (!skip) {pd.adrLED1()->fadeIn("blue", 1000);}
-  if (pd.pinState()->any()) {skip =1;}
-  delay(500);
-  if (!skip) {pd.adrLED1()->fadeColor2Color("blue", "red", 1000);}
-  delay(500);
-  if (pd.pinState()->any()) {skip =1;}
-  if (!skip) {pd.adrLED1()->fadeOut(1000);}
-  if (pd.pinState()->any()) {skip =1;}
-  for (int i=15; i >1; i=i-1){
-    if (!skip) {pd.adrLED1()->chase("red", 15, i, 1);}
-    if (!skip) {pd.adrLED1()->chase("red", 15, i, -1);}
-    if (pd.pinState()->any()) {skip =1;}
-  }
-  for (int i=10; i >0; i=i-1){
-    if (!skip) {pd.adrLED1()->chase2Color("blue", "red",15, 1, 1);}
-    if (!skip) {pd.adrLED1()->chase2Color("red", "blue",15, 1, -1);}
-    if (pd.pinState()->any()) {skip =1;}
-  }
-  if (!skip) {pd.adrLED1()->fadeOut(100);}  
-  for (int i=10; i >0; i=i-1){
-    if (!skip) {pd.adrLED1()->color("blue", 255);}
-    delay(100);
-    pd.adrLED1()->clear();
-    delay(20*i);
-    if (pd.pinState()->any()) {skip =1;}
-  }
-  delay (500);
-  for (int i=10; i >0; i=i-1){
-    if (!skip) {pd.adrLED1()->color("red", 255);}
-    delay(100);
-    pd.adrLED1()->clear();
-    delay(50*i);
-    if (pd.pinState()->any()) {skip =1;}
-  }
-  delay (500);
-  for (int i=5; i >0; i=i-1){
-    if (!skip) {pd.adrLED1()->color("blue", 255);}
-    delay(100);
-    pd.adrLED1()->clear();
-    delay(70*i);
-    if (pd.pinState()->any()) {skip =1;}
-  }
-  if (!skip) {pd.adrLED1()->fadeIn("blue", 1000);}
-  for (int i = 0; i < 5000; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
+  pd.adrLED1()->sparkle(color,20);
+  if (random(1000) == 0) {
+      if (color == "white") color = "blue";
+      else if (color == "blue") color = "red";
+      else color = "blue";
+
   }
 
 }
