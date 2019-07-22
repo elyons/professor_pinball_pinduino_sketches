@@ -8,8 +8,9 @@
 #include <pinduino.h>
 
 int aLEDNum1 = 64;
+int aLEDNum2 = 5;
 
-pinduino pd (aLEDNum1, "Nano");
+pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
 int attractModeOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
@@ -19,6 +20,7 @@ String color = "red";
 void setup() {
   Serial.begin(115200);
   pd.adrLED1()->clear();
+  pd.adrLED2()->color("white");
   pd.pinState()->reset();
 }
 
@@ -42,12 +44,12 @@ void checkPinStates() {
   int trigger = 0;
 
   if ( pd.pinState()->J126(1) ) { //3 blue flashers
-//    pd.adrLED1()->bullet("blue", 10, 2, -1);
-//    pd.adrLED1()->bullet("blue", 10, 2, 1);
+    pd.adrLED2()->color("blue");    
     pd.adrLED1()->chase2ColorFromPoint(32, "blue", "red", 20, 2);
     trigger = 1;
   }
   if ( pd.pinState()->J126(2) ) {  //Dummy flasher
+    pd.adrLED2()->color("red");    
     pd.adrLED1()->bullet2Color("red", "orange", 15, 0, -1);
     pd.adrLED1()->bullet2Color("orange", "yellow", 15, 0, -1);
     pd.adrLED1()->bullet2Color("yellow", "green", 15, 0, -1);
