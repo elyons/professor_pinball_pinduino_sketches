@@ -20,13 +20,13 @@ String color = "red";
 void setup() {
   Serial.begin(115200);
   pd.adrLED1()->clear();
-  pd.adrLED2()->color("white");
+  pd.adrLED2()->clear();
   pd.pinState()->reset();
 }
 
 void loop() {
   pd.pinState()->update();
-
+  pd.adrLED2()->color("white"); 
   //  Print the pin states out to serial
   //  pd.pinState()->print();
 
@@ -51,11 +51,17 @@ void checkPinStates() {
   if ( pd.pinState()->J126(2) ) {  //Dummy flasher
     pd.adrLED2()->color("red");    
     pd.adrLED1()->bullet2Color("red", "orange", 15, 0, -1);
+    pd.adrLED2()->color("orange");    
     pd.adrLED1()->bullet2Color("orange", "yellow", 15, 0, -1);
+    pd.adrLED2()->color("yellow");
     pd.adrLED1()->bullet2Color("yellow", "green", 15, 0, -1);
+    pd.adrLED2()->color("green");
     pd.adrLED1()->bullet2Color("green", "blue", 15, 0, -1);
+    pd.adrLED2()->color("blue");
     pd.adrLED1()->bullet2Color("blue", "purple", 15, 0, -1);
+    pd.adrLED2()->color("purple");
     pd.adrLED1()->bullet2Color("purple", "red", 15, 0, -1);
+    pd.adrLED2()->color("red");
     trigger = 1;
   }
   if ( pd.pinState()->J126(3) ) { //2 clock flasher
@@ -75,6 +81,7 @@ void checkPinStates() {
    trigger = 1;
   }
   if ( pd.pinState()->J126(4) ) { //superdog
+    pd.adrLED2()->color("red");
     pd.adrLED1()->fadeIn("red",10);
     delay(10);
     trigger = 1;
@@ -84,7 +91,8 @@ void checkPinStates() {
   if ( pd.pinState()->J126(6) ) {  //updown driver
   }
   if ( pd.pinState()->J126(7) ) { //3 red flasher
-        pd.adrLED1()->chase2ColorFromPoint(32, "red", "orange", 20, 2);
+    pd.adrLED2()->color("red");
+    pd.adrLED1()->chase2ColorFromPoint(32, "red", "orange", 20, 2);
     trigger = 1;
 
   }
@@ -96,6 +104,7 @@ void checkPinStates() {
   //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
     pd.adrLED1()->clear();
+    pd.adrLED2()->color("white");
     pd.pinState()->reset();
     trigger = 0;
     attractModeOn = 0;
