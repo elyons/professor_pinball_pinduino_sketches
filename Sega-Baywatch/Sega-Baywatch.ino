@@ -14,6 +14,7 @@ int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int whiteWaitTime = 200; //Amount of time to wait before gumball goes to white
+String color = "cyan";
 
 void setup() {
   Serial.begin(115200);
@@ -24,14 +25,12 @@ void setup() {
 }
 
 void loop(){
-  for (int i = 0; i < 500; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
-  }
+  pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) { bg_chase_on=1; }
-  if (millis()-timeLastEvent > whiteWaitTime) { pd.adrLED1()->color("white", 255);}
+  if (millis()-timeLastEvent > whiteWaitTime && bg_chase_on ==0) { pd.adrLED1()->color("white", 255);}
   if (bg_chase_on){backgroundChase();}
 }
 
@@ -126,30 +125,13 @@ void checkPinStates(){
 
 
 void backgroundChase() {
-  for (int i = 0; i < 20000; i = i + 1) { //check pinstates for a while
-    pd.pinState()->update();
+    pd.adrLED1()->sparkle(color,10);
+    pd.adrLED2()->sparkle(color,10);
+    if (random(1000) == 0) {
+    if (color == "cyan") color = "blue";
+    else if (color == "blue") color = "sky";
+    else color = "white";
   }
-  pd.pinState()->update();
-  delay(500);
-  pd.pinState()->update(); 
-  pd.adrLED1()->fadeColor2Color("white","blue",500);
-  pd.pinState()->update();
-  pd.adrLED1()->fadeColor2Color("blue","red",500);
-  pd.adrLED2()->bullet2Color("blue", "red", 30,30,1);
-  pd.pinState()->update();
-  pd.adrLED1()->fadeColor2Color("red","yellow",500);
-  pd.adrLED2()->bullet2Color("red", "yellow", 30,30,-1);
-  pd.pinState()->update();
-  pd.adrLED1()->fadeColor2Color("yellow","green",500);
-  pd.adrLED2()->bullet2Color("yellow", "green", 30,30,1);
-  pd.pinState()->update();
-  pd.adrLED1()->fadeColor2Color("green","blue",500);
-  pd.adrLED2()->bullet2Color("green", "blue", 30,30,-1);
-  pd.pinState()->update();
-  pd.adrLED1()->fadeColor2Color("blue", "white", 500);
-  pd.pinState()->update();
-  delay(500);
-  pd.pinState()->update();
 }
 
 
