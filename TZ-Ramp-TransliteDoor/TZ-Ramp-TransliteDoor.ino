@@ -1,7 +1,8 @@
-//Eric Lyons 2018
+//Eric Lyons 2019
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.3
 //Uses pinduino library
+//Thanks to MarklarD on pinside for this suggestion!
 
 #include <pinduino.h>
 
