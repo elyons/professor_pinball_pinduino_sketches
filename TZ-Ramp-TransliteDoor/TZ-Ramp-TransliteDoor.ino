@@ -68,11 +68,12 @@ void checkPinStates(){
     trigger=1;
   }
   if ( pd.pinState()->J126(4) ){ //Upper left ramp
+    pd.adrLED2()->color("white");
     pd.adrLED1()->chase2Color("white", "blue",N_LEDS, 8, -1);
-    pd.adrLED2()->chase2Color("white", "white",N_LEDS, 8, -1);
-    pd.adrLED2()->chase2Color("white", "blue",N_LEDS, 8, 1);
-    pd.adrLED2()->chase2Color("blue", "blue",N_LEDS, 8, -1);
-    pd.adrLED2()->chase2Color("blue", "white",N_LEDS, 8, 1);
+    pd.adrLED2()->chase2Color("white", "white",aLEDNum2, 8, -1);
+    pd.adrLED2()->chase2Color("white", "blue",aLEDNum2, 8, 1);
+    pd.adrLED2()->chase2Color("blue", "blue",aLEDNum2, 8, -1);
+    pd.adrLED2()->chase2Color("blue", "white",aLEDNum2, 8, 1);
 
     trigger=1;
   }
@@ -118,7 +119,7 @@ void attractRamp() {
 }
 
 void attractDoor() {
-  pd.adrLED1()->sparkle(doorColor,20);
+  pd.adrLED2()->sparkle(doorColor,20);
   if (random(1000) == 0) {
     if (doorColor == "white") doorColor = "blue";
     else if (doorColor == "blue") doorColor = "red";
