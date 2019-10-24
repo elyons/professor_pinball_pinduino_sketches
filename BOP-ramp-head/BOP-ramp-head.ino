@@ -117,6 +117,7 @@ void checkPinStates(){
 
 void background() {
   pd.adrLED2()->fadeOut(500);
+  pd.adrLED2()->clear();
   delay(500);
   pd.adrLED1()->chase2Color("red", "orange", 35,  5,  -1);
   delay(200);
