@@ -14,9 +14,7 @@ int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int whiteWaitTime = 200; //Amount of time to wait before gumball goes to white
-String color1 = "blue";
-String color2 = "white";
-String color3 = "cyan";
+String color = "cyan";
 
 void setup() {
   Serial.begin(115200);
@@ -27,11 +25,12 @@ void setup() {
 }
 
 void loop(){
+  pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) { bg_chase_on=1; }
-  if (millis()-timeLastEvent > whiteWaitTime) { pd.adrLED1()->color("white", 255);}
+  if (millis()-timeLastEvent > whiteWaitTime && bg_chase_on ==0) { pd.adrLED1()->color("white", 255);}
   if (bg_chase_on){backgroundChase();}
 }
 
@@ -123,16 +122,16 @@ void checkPinStates(){
 //end function checkPinStates
 }
 
-
-
 void backgroundChase() {
-  pd.adrLED1()->sparkle(color1, 20);
-  pd.adrLED1()->sparkle(color2, 20);
-  pd.adrLED1()->sparkle(color3, 20);
-  pd.adrLED2()->sparkle(color1, 20);
-  pd.adrLED2()->sparkle(color2, 20);
-  pd.adrLED2()->sparkle(color3, 20);
-  
+    pd.adrLED1()->sparkle(color,10);
+    pd.adrLED2()->sparkle(color,10);
+    pd.adrLED1()->sparkle("white",10);
+    pd.adrLED2()->sparkle("white",10);
+    if (random(1000) == 0) {
+    if (color == "cyan") color = "blue";
+    else if (color == "blue") color = "sky";
+    else color = "white";
+  }
 }
 
 

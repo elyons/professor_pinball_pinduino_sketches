@@ -5,8 +5,8 @@
 
 #include <pinduino.h>
 
-int aLEDNum1 = 17; // ramp
-int aLEDNum2 = 0; // gumball
+int aLEDNum1 = 17; // translite
+int aLEDNum2 = 0; 
 int aLEDNum3 = 0;
 int N_LEDS=aLEDNum1;
 
