@@ -9,7 +9,7 @@
 #include <pinduino.h>
 
 int aLEDNum1 = 60;  // GI lights
-int aLEDNum2 = 50;  // side rails
+int aLEDNum2 = 48;  // side rails
 
 String color1 = "green";
 String color2 = "blue";
@@ -19,7 +19,7 @@ pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
 int attractModeOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startAttractMode = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startAttractMode = 40000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 
 void setup() {
   Serial.begin(115200);
@@ -43,18 +43,19 @@ void checkPinStates(){
   
   if ( pd.pinState()->J6(1) ) //Venom Flashers
   {
-    pd.adrLED1()->clear();
-    pd.adrLED1()->color("blue");
-    pd.adrLED2()->color("blue");
+//    pd.adrLED1()->clear();
+//    pd.adrLED1()->color("blue");
     delay(400);
     trigger =1; 
   }
   if ( pd.pinState()->J6(2) ) //Sandman arrow flasher
   { 
-     pd.adrLED1()->clear();
-     pd.adrLED1()->color("yellow");
-     pd.adrLED2()->color("yellow");
-     delay(300);
+//     pd.adrLED1()->clear();
+//     pd.adrLED1()->color("yellow");
+     pd.adrLED2()->clear();
+     pd.adrLED2()->bullet("red", "yellow", 8,  4,  -1, 0, aLEDNum1);
+//     pd.adrLED2()->color("yellow");
+//     delay(300);
      trigger =1; 
   }
   
@@ -79,8 +80,8 @@ void checkPinStates(){
   
   if ( pd.pinState()->J6(5) ) // backpanel left flasher
   { 
-     pd.adrLED1()->clear();
-     pd.adrLED1()->color("blue");
+//     pd.adrLED1()->clear();
+//     pd.adrLED1()->color("blue");
      pd.adrLED2()->color("blue");
      delay(400);
      trigger =1; 
@@ -91,8 +92,9 @@ void checkPinStates(){
   {
      pd.adrLED1()->clear();
      pd.adrLED1()->color("green");
-     pd.adrLED2()->color("red");
-     delay(500);
+//     pd.adrLED2()->color("red");
+//     delay(500);
+     pd.adrLED2()->bullet("red", "blue", 100,  0,  1, 0, aLEDNum1);
      trigger =1; 
   }
   
@@ -141,9 +143,9 @@ void checkPinStates(){
   
   if ( pd.pinState()->J7(7) ) // doc ock flasher
   {
-     pd.adrLED2()->color("red");
+     pd.adrLED1()->color("blue");
      for (int i=0; i<3; i++) {
-      pd.adrLED1()->bullet("green", 20,  0,  -1, 0, aLEDNum1);
+      pd.adrLED2()->bullet("red", 20,  0,  1, 0, aLEDNum1);
      }
      trigger =1;
   }
