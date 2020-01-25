@@ -28,7 +28,7 @@ pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
 int attractModeOn = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startAttractMode = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startAttractMode = 40000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 
 void setup() {
   Serial.begin(115200);
@@ -54,8 +54,8 @@ void checkPinStates(){
   {
      pd.adrLED1()->clear();
      pd.adrLED2()->color("blue");
-     pd.adrLED1()->bullet("blue", 7, 3, 1, L1_start, L1_stop);
-     pd.adrLED1()->bullet("blue", 7, 3, -1, L2_start, L2_stop);
+     pd.adrLED1()->bullet("blue", 12, 3, 1, L1_start, L1_stop);
+     pd.adrLED1()->bullet("blue", 12, 3, -1, L2_start, L2_stop);
      trigger =1;
   }
   
@@ -76,27 +76,24 @@ void checkPinStates(){
      pd.adrLED1()->clear();
      pd.adrLED1()->bullet("yellow", "orange", 5, 5, -1, R_start, R_stop);
      pd.adrLED1()->bullet("orange", "yellow", 5, 5, 1, R_start, R_stop);
-     delay (200);
      trigger =1; 
   }
   
   if ( pd.pinState()->J6(4) ) // green goblin flashers
   {
-     pd.adrLED1()->clear();
+     pd.adrLED1()->color("green");
      pd.adrLED2()->color("green");
-     pd.adrLED1()->bullet("green", 20, 2, 1, L2_start, L2_stop);
-     pd.adrLED1()->bullet("green", 20, 2, -1, R_start, R_stop);
-     pd.adrLED1()->bullet("green", 20, 2, 1, L1_start, L1_stop);
      delay (200);
      trigger =1; 
   }
   
   if ( pd.pinState()->J6(5) ) // backpanel left flasher
   { 
-     pd.adrLED1()->clear();
+     pd.adrLED1()->color("blue");
      pd.adrLED2()->color("blue");
-     pd.adrLED1()->bullet("blue", 10, 4, 1, L2_start, L2_stop);
-     pd.adrLED1()->bullet("blue", 10, 4, -1, L1_start, L1_stop);
+//     pd.adrLED1()->bullet("blue", 10, 4, 1, L2_start, L2_stop);
+//     pd.adrLED1()->bullet("blue", 10, 4, -1, L1_start, L1_stop);
+     delay (250); 
      trigger =1; 
  
    }
@@ -138,9 +135,10 @@ void checkPinStates(){
   if ( pd.pinState()->J7(4) ) // green goblin coil
   { 
      pd.adrLED1()->clear();
-     pd.adrLED1()->color("green");
      pd.adrLED2()->color("green");
-     delay (200);
+     pd.adrLED1()->bullet("green", 20, 2, 1, L2_start, L2_stop);
+     pd.adrLED1()->bullet("green", 20, 2, -1, R_start, R_stop);
+     pd.adrLED1()->bullet("green", 20, 2, 1, L1_start, L1_stop);
      trigger =1;
   }
   
