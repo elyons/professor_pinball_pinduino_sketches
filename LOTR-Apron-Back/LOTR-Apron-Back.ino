@@ -32,7 +32,7 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {attractMode_on=1;}
-  if (millis()-timeLastEvent > bgWhiteTime && attractMode_on==0) { pd.adrLED1()->color(255, 255, 255); }
+  if (millis()-timeLastEvent > bgWhiteTime && attractMode_on==0) { pd.adrLED1()->colorRGB(255, 255, 255); }
 }
 
 void checkPinStates(){
@@ -133,5 +133,3 @@ void checkPinStates(){
 void attractMode() {
   pd.adrLED1()->fire(20,10);
 }
-
-
