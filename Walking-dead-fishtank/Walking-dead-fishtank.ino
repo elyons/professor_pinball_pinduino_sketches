@@ -113,12 +113,14 @@ void checkPinStates(){
     pd.adrLED2()->sparkle("yellow",20); 
     lastfishstate1=fishstate1;
     delay(500);
+    pd.adrLED1()->clear();
     trigger=1;
     }    
   if ( pd.pinState()->J7(3) && fishstate2== lastfishstate2)    {  //middle head
     pd.adrLED1()->color("red");
     pd.adrLED2()->sparkle("red",20) ;
     delay(500);
+    pd.adrLED1()->clear();
      trigger=1;
      lastfishstate2=fishstate2;
   }
@@ -127,6 +129,7 @@ void checkPinStates(){
     pd.adrLED2()->bullet2Color("green", "yellow", 20, 2, -1);
     pd.adrLED2()->bullet2Color("yellow", "green", 20, 2, 1);
     delay(500);
+    pd.adrLED1()->clear();
      trigger=1;
      lastfishstate3=fishstate3; 
   }
