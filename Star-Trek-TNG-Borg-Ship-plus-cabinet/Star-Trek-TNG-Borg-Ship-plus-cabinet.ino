@@ -7,7 +7,7 @@
 int R_START = 25;
 
 int aLEDNum1 = 65;
-int aLEDNum2 = 300;
+int aLEDNum2 = 150;
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
@@ -149,5 +149,5 @@ void checkPinStates(){
 
 void attractMode() {
   pd.adrLED1()->sparkle(color,20,20);
-  pd.adrLED2()->sparkle("blue",20,20);
+  pd.adrLED2()->sparkle("blue",80,0);
 }
