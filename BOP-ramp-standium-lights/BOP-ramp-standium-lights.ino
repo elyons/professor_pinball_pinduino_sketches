@@ -116,22 +116,15 @@ void checkPinStates(){
 
 
 void background() {
-  pd.adrLED2()->fadeOut(500);
+  pd.adrLED2()->fadeOut(100);
   pd.adrLED2()->clear();
-  delay(500);
   pd.adrLED1()->chase2Color("red", "orange", 35,  5,  -1);
+  pd.adrLED2()->chase("red", 2,  1,  -1);
+  pd.adrLED2()->fadeIn("red", 300);
+  pd.adrLED2()->fadeColor2Color("red", "purple", 300);
   delay(200);
-  for (int i=0; i<10; i++) {
-     int cor = i*15;
-     int time = 110-cor;
-     if (time < 20){time = 20;}
-     pd.adrLED2()->chase("red", 1,  time,  -1);
-    }  
-  pd.adrLED2()->fadeIn("red", 500);
-  pd.adrLED2()->fadeColor2Color("red", "purple", 500);
-  delay(300);
-  pd.adrLED2()->fadeColor2Color("purple", "white", 500);
-  delay(300);
-  pd.adrLED2()->fadeColor2Color("white", "blue", 500);
-  delay(300);
+  pd.adrLED2()->fadeColor2Color("purple", "white", 300);
+  delay(200);
+  pd.adrLED2()->fadeColor2Color("white", "blue", 300);
+  delay(200);
   }
