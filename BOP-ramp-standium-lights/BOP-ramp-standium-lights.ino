@@ -31,9 +31,7 @@ void setup() {
 
 void loop(){
   if (bg_on){background();}
-  for (int i=0; i<500; i=i+1) { //check pinstates for a while    
-    pd.pinState()->update();
-  }
+  pd.pinState()->update();
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
@@ -51,9 +49,9 @@ void checkPinStates(){
 
   
   if ( pd.pinState()->J126(1) ){ // billion
-    pd.adrLED2()->chase2Color("red", "blue", 1,  20,  -1);
-    pd.adrLED2()->chase2Color("blue", "red", 1,  20,  1);
-    pd.adrLED2()->color("red", 255);
+    pd.adrLED2()->fadeOut(200);
+    pd.adrLED2()->fadeIn("red", 200);
+    delay(300);
     pd.adrLED2()->fadeOut(200);
     trigger = 1; 
   }
@@ -116,15 +114,6 @@ void checkPinStates(){
 
 
 void background() {
-  pd.adrLED2()->fadeOut(100);
-  pd.adrLED2()->clear();
-  pd.adrLED1()->chase2Color("red", "orange", 35,  5,  -1);
-  pd.adrLED2()->chase("red", 2,  1,  -1);
-  pd.adrLED2()->fadeIn("red", 300);
-  pd.adrLED2()->fadeColor2Color("red", "purple", 300);
-  delay(200);
-  pd.adrLED2()->fadeColor2Color("purple", "white", 300);
-  delay(200);
-  pd.adrLED2()->fadeColor2Color("white", "blue", 300);
-  delay(200);
+  pd.adrLED1()->sparkle("white", 20);
+  pd.adrLED2()->sparkle("purple", 20);
   }
