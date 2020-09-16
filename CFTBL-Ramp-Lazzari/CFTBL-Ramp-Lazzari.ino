@@ -1,4 +1,5 @@
 //Eric Lyons 2016
+//Updated by Andrea Lazzari 2020
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.3
 //Uses pinduino library
