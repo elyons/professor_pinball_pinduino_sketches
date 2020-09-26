@@ -239,5 +239,3 @@ void backgroundChase() {
   }  
   pd.pinState()->update(); if (pd.pinState()->any()) {skip =1;}
 }
-
-
