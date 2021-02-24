@@ -19,7 +19,6 @@ int bgWhiteTime = 500;
 unsigned long lastBoob = 0;       // time since boobs last went off
 unsigned long lastHelmet = 0;     // time since Helmet last went off
 const unsigned long timeBetweenBoobHelmetFlash = 500; //the time in ms between boobs and helmet at start of metamorphasis sequence
-bool metamophasisStarted = false;
 
 void setup() {
   Serial.begin(115200);
