@@ -74,7 +74,6 @@ void checkPinStates(){
     delay(100);
     pd.adrLED2()->clear();    
     trigger = 1; 
-    trigger = 1; 
   }
   
   if ( pd.pinState()->J126(6) ){ // right helmet
