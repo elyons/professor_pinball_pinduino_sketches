@@ -1,4 +1,4 @@
-//Rob Lewewllyn and Eric Lyons 2021
+//Rob Llewellyn and Eric Lyons 2021
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2 and v0.3
 //Uses pinduino library
@@ -73,7 +73,6 @@ void checkPinStates(){
     pd.adrLED2()->color("yellow", 255);
     delay(100);
     pd.adrLED2()->clear();    
-    trigger = 1; 
     trigger = 1; 
   }
   
@@ -150,8 +149,14 @@ bool metamorphasisCheck() { // Has metamorphasis sequence begun
 // robs new heartbeat bit ends
 
 void metamorphasisEffect() {
-  //add stuff ehre for the lighting effects for metamorphasis
-  
-}
-
-
+  int trigger = 0;
+    pd.adrLED1()->fadeIn("red", 200);
+    pd.adrLED1()->spreadOutToPoint(23, 500);
+    pd.adrLED1()->spreadInFromPoint2Color(23, "red", "yellow", 800);
+    delay(3000);
+    pd.adrLED1()->fadeIn("red", 200);
+    pd.adrLED1()->spreadOutToPoint(23, 500);
+    pd.adrLED1()->spreadInFromPoint2Color(23, "red", "yellow", 800);
+    delay(3000);
+    trigger = 1;
+  }
