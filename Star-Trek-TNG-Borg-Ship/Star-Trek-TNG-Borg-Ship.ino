@@ -128,5 +128,3 @@ void checkPinStates(){
 void attractMode() {
   pd.adrLED1()->sparkle(color,20,20);
 }
-
-
