@@ -10,7 +10,7 @@ Sketches for the Pinduino sheild for the Arduino.
 This repo is for various Pinduino sketches.  Pinduino is an Arduino shield to intercept signals from pinball machines and these sketches program the Arduino to interpret those signals for various effects.
 
 # Additional Documents
-* [Instructions on Google docs for everything -- programming, building, installing, etc] (https://drive.google.com/drive/u/0/folders/0B2njOnd06CCOdlBCVzdiWFZhUVE)
+* [Instructions on Google docs for everything -- programming, building, installing, etc] (https://drive.google.com/drive/folders/0B2njOnd06CCOdlBCVzdiWFZhUVE?resourcekey=0-DgYU0apatzmqqfANwTUaDQ&usp=sharing)
 * [Pinduino arduino library] (https://github.com/elyons/pinduino)
 
 # Videos
