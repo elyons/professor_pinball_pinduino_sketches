@@ -109,15 +109,15 @@ void checkPinStates(){
     delay(50);
     trigger=1;
   }
-  if ( pd.pinState()->J6(8) ){ 
-    pd.adrLED1()->fadeOut(20);
-    delay(50);
-    pd.adrLED1()->color("red", 255);
-    delay(100);
-    pd.adrLED1()->clear();
-    delay(50);
-    trigger=1;
-  }
+//  if ( pd.pinState()->J6(8) ){ 
+//    pd.adrLED1()->fadeOut(20);
+//    delay(50);
+//    pd.adrLED1()->color("red", 255);
+//    delay(100);
+//    pd.adrLED1()->clear();
+//    delay(50);
+//    trigger=1;
+//  }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
