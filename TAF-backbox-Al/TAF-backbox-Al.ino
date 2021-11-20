@@ -122,6 +122,7 @@ void checkPinStates(){
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
    pd.adrLED1()->fadeOut(20);
+   pd.adrLED1()->color("white");
    pd.pinState()->reset();
    trigger = 0;
    bg_chase_on = 0;
