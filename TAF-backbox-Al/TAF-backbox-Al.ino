@@ -33,7 +33,7 @@ void loop(){
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   if (millis()-timeLastEvent > bgWhiteTime && !bg_chase_on) {
-    pd.adrLED1()->color("white", 255);
+    pd.adrLED1()->colorRGB(50,50,50);
   }
 
   if (bg_chase_on){backgroundChase();}
@@ -61,26 +61,26 @@ void checkPinStates(){
     delay(300);
     trigger=1;
   }
-//  if ( pd.pinState()->J6(3) ){ 
-//    pd.adrLED1()->fadeOut(20);
-//    delay(300);
-//    pd.adrLED1()->color("purple", 255);
-//    delay(300);
-//    pd.adrLED1()->color("blue", 255);
-//    delay(300);
-//    trigger=1;
-//  }
-//  if ( pd.pinState()->J6(4) ){ 
-//    pd.adrLED1()->fadeOut(20);
-//    delay(300);  
-//    pd.adrLED1()->color("purple", 255);
-//    delay(100);
-//    pd.adrLED1()->fadeColor2Color("purple","red",500);
-//    delay(50);
-//    pd.adrLED1()->fadeOut(100);
-//    delay(300);
-//    trigger =1;
-//  }
+  if ( pd.pinState()->J6(3) ){ 
+    pd.adrLED1()->fadeOut(20);
+    delay(300);
+    pd.adrLED1()->color("purple", 255);
+    delay(300);
+    pd.adrLED1()->color("blue", 255);
+    delay(300);
+    trigger=1;
+  }
+  if ( pd.pinState()->J6(4) ){ 
+    pd.adrLED1()->fadeOut(20);
+    delay(300);  
+    pd.adrLED1()->color("purple", 255);
+    delay(100);
+    pd.adrLED1()->fadeColor2Color("purple","red",500);
+    delay(50);
+    pd.adrLED1()->fadeOut(100);
+    delay(300);
+    trigger =1;
+  }
   if ( pd.pinState()->J6(5) ){
     pd.adrLED1()->fadeOut(20);
     pd.adrLED1()->spreadInFromPoint2Color (MID, "purple", "green", 400);
@@ -109,20 +109,20 @@ void checkPinStates(){
     delay(50);
     trigger=1;
   }
-//  if ( pd.pinState()->J6(8) ){ 
-//    pd.adrLED1()->fadeOut(20);
-//    delay(50);
-//    pd.adrLED1()->color("red", 255);
-//    delay(100);
-//    pd.adrLED1()->clear();
-//    delay(50);
-//    trigger=1;
-//  }
+  if ( pd.pinState()->J6(8) ){ 
+    pd.adrLED1()->fadeOut(20);
+    delay(50);
+    pd.adrLED1()->color("red", 255);
+    delay(100);
+    pd.adrLED1()->clear();
+    delay(50);
+    trigger=1;
+  }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
   if (trigger) {
    pd.adrLED1()->fadeOut(20);
-   pd.adrLED1()->color("white");
+   //pd.adrLED1()->color("white");
    pd.pinState()->reset();
    trigger = 0;
    bg_chase_on = 0;
