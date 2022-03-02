@@ -1,3 +1,7 @@
+///
+// DO NOT USE!  Didn't get code to work correctly!
+//
+
 //Eric Lyons 2015
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2
