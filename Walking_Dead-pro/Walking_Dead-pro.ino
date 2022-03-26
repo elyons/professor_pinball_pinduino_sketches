@@ -1,4 +1,4 @@
-//Eric Lyons and Alan Miller 2022
+//Eric Lyons (Pinside: elyons) and Alan Miller (Pinside: algrande) 2022
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2 and v0.3
 //Uses pinduino library
@@ -9,7 +9,7 @@
 
 #include <pinduino.h>
 int aLEDNum1 = 24; //apron
-int aLEDNum2 = 76; //left ramp
+int aLEDNum2 = 76; //ramps
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
@@ -20,7 +20,7 @@ int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
-String color = "white";
+String color = "purple";
 
 void setup() {
   Serial.begin(115200);
@@ -135,10 +135,14 @@ void checkPinStates(){
 
 
 void attract_mode() {
+  String L1Color = color;
+  String L2Color;
+  if (L1Color = "red") L2Color = "purple";
+  else L2Color = "red";
   pd.adrLED1()->sparkle(color,20);
   pd.adrLED2()->sparkle(color,20);
   if (random(1000) == 0) {
-    if (color == "white") color = "red";
-    else color = "white";
+    if (color == "purple") color = "red";
+    else color = "purple";
   }
 }
