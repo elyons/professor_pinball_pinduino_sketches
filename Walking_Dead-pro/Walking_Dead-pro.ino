@@ -20,6 +20,7 @@ int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 String color = "purple";
+int bgWhiteTime = 50;
 
 void setup() {
   Serial.begin(115200);
@@ -36,6 +37,9 @@ void loop(){
   pd.pinState()->update();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+    pd.adrLED1()->color("white");
+  }
 }
 
 void checkPinStates(){
@@ -97,24 +101,24 @@ void checkPinStates(){
 
   if ( pd.pinState()->J7(4) ){ // Well Walker
     pd.adrLED1()->color("green");
-    pd.adrLED2()->color("white");
+    pd.adrLED2()->color("green");
     delay(100);
 
    trigger=1;
   }
 
   if ( pd.pinState()->J7(5) ){ // Right Spinner
-   pd.adrLED1()->color("green");
-   pd.adrLED2()->color("white");
-   delay(100);
-   trigger=1;
+//   pd.adrLED1()->color("green");
+//   pd.adrLED2()->color("white");
+//   delay(100);
+//   trigger=1;
   }
 
   if ( pd.pinState()->J7(7) ){ // Crossbow motor
-   pd.adrLED1()->clear();
-   pd.adrLED2()->fadeOut(50);
-   pd.adrLED2()->bullet2Color("white", "yellow", 20, 2, -1); 
-   trigger=1;
+//   pd.adrLED1()->clear();
+//   pd.adrLED2()->fadeOut(50);
+//   pd.adrLED2()->bullet2Color("white", "yellow", 20, 2, -1); 
+//   trigger=1;
   }
 
 //trigger is to take care of any cleanup after a sequence has been triggered.
