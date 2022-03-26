@@ -50,7 +50,7 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(2) ){ //Prison (TOP)
     pd.adrLED1()->color("blue");
-    pd.adrLED2()->color("red ");
+    pd.adrLED2()->color("red");
     delay(100);
     trigger = 1; 
   }
