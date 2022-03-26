@@ -139,8 +139,8 @@ void attract_mode() {
   String L2Color;
   if (L1Color = "red") L2Color = "purple";
   else L2Color = "red";
-  pd.adrLED1()->sparkle(color,20);
-  pd.adrLED2()->sparkle(color,20);
+  pd.adrLED1()->sparkle(L1Color,20);
+  pd.adrLED2()->sparkle(L2Color,20);
   if (random(1000) == 0) {
     if (color == "purple") color = "red";
     else color = "purple";
