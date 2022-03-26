@@ -88,15 +88,8 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J6(8) ){ // Center Loop
-//   pd.adrLED1()->clear(); 
-//   pd.adrLED2()->clear(); 
-//   delay(100);
-//   pd.adrLED1()->color("white"); 
-//   pd.adrLED2()->color("white"); 
-//   delay(100);
-//   pd.adrLED1()->clear(); 
-//   pd.adrLED2()->clear();    
-//   trigger=1;
+    pd.adrLED2()->bulletFromPoint2Color("purple", "red", 3, 0, 35);
+    trigger=1;
   }
 
   if ( pd.pinState()->J7(4) ){ // Well Walker
