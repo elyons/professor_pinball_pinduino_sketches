@@ -19,7 +19,6 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-int bgWhiteTime = 50;
 String color = "purple";
 
 void setup() {
