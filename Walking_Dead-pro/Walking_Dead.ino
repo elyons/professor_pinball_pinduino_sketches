@@ -8,7 +8,7 @@
 
 
 #include <pinduino.h>
-int aLEDNum1 = 12; //apron
+int aLEDNum1 = 24; //apron
 int aLEDNum2 = 23; //left ramp
 int aLEDNum3 = 0;
 
