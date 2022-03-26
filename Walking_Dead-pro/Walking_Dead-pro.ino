@@ -76,7 +76,7 @@ void checkPinStates(){
   if ( pd.pinState()->J6(5) ){ // Right Dome
 //    pd.adrLED1()->color("orange");
 //    pd.adrLED2()->color("white");
-    pd.adrLED2()->bullet2Color("green", "blue", 100, 0, -1); 
+    pd.adrLED2()->bullet2Color("green", "blue", 50, 0, -1); 
     delay(100);
    trigger=1;
   }
@@ -94,7 +94,7 @@ void checkPinStates(){
 
   if ( pd.pinState()->J7(4) ){ // Well Walker
     pd.adrLED1()->color("green");
-    pd.adrLED2()->color("green");
+//    pd.adrLED2()->color("green");
     delay(100);
 
    trigger=1;
