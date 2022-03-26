@@ -62,7 +62,7 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J6(4) ){ // Left Dome
-    pd.adrLED1()->color("white");
+//    pd.adrLED1()->color("white");
     pd.adrLED2()->bullet2Color("green", "blue", 1, 0, 1); 
 //    pd.adrLED2()->color("orange");
     delay(100);
@@ -70,8 +70,8 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J6(5) ){ // Right Dome
-    pd.adrLED1()->color("orange");
-    pd.adrLED2()->color("white");
+//    pd.adrLED1()->color("orange");
+//    pd.adrLED2()->color("white");
     pd.adrLED2()->bullet2Color("green", "blue", 100, 0, -1); 
     delay(100);
    trigger=1;
