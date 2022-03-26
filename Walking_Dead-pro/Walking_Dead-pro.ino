@@ -67,7 +67,7 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(4) ){ // Left Dome
 //    pd.adrLED1()->color("white");
-    pd.adrLED2()->bullet2Color("green", "blue", 1, 0, 1); 
+    pd.adrLED2()->bullet2Color("green", "blue", 1, 0, -1); 
 //    pd.adrLED2()->color("orange");
     delay(100);
    trigger=1;
