@@ -50,9 +50,7 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(2) ){ //Prison (TOP)
     pd.adrLED1()->color("red");
-    //pd.adrLED2()->color("red");
     pd.adrLED2()->bulletFromPoint2Color("orange", "red", 7, 2, 35);
-//    delay(100);
     trigger = 1; 
   }
 
@@ -65,7 +63,8 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(4) ){ // Left Dome
     pd.adrLED1()->color("white");
-    pd.adrLED2()->color("orange");
+    pd.adrLED2()->bullet2Color("green", "blue", 1, 0, 1); 
+//    pd.adrLED2()->color("orange");
     delay(100);
    trigger=1;
   }
@@ -73,6 +72,7 @@ void checkPinStates(){
   if ( pd.pinState()->J6(5) ){ // Right Dome
     pd.adrLED1()->color("orange");
     pd.adrLED2()->color("white");
+    pd.adrLED2()->bullet2Color("green", "blue", 100, 0, -1); 
     delay(100);
    trigger=1;
   }
