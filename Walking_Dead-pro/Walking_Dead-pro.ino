@@ -46,8 +46,8 @@ void checkPinStates(){
   int trigger = 0;
   
   if ( pd.pinState()->J6(1) ){ // pop flashers
-    pd.adrLED1()->color("white");
-    pd.adrLED2()->colorRGB(50, 1, 25); //dimmer magenta
+    pd.adrLED1()->colorRGB(100, 1, 50); //dimmer magenta
+    pd.adrLED2()->color('red'); //dimmer magenta
     delay(100);
    trigger = 1; 
   }
