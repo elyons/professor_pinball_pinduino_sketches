@@ -16,6 +16,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 int bg_chase_on = 1;
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int bgWhiteTime = 50;
 
 void setup() {
   Serial.begin(115200);
@@ -32,6 +33,7 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > startChaseWaitTime) {bg_chase_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime && bg_chase_on==0) { pd.adrLED1()->colorRGB(255, 255, 255); }
 }
 
 void checkPinStates(){
