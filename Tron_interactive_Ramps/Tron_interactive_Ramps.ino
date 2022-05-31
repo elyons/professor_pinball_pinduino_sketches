@@ -171,8 +171,14 @@ void checkPinStates(){
 
 
 void backgroundChase() {
+    //Uncomment for data stream effect in attact mode
     pd.adrLED1()->dataStream(led1Color,50, 0, -1); 
     pd.adrLED2()->dataStream(led2Color,50, 0, -1);
+    
+    //Uncomment for sparkle effect in attract mode
+    //pd.adrLED1()->sparkle("blue", 100,5);
+    //pd.adrLED2()->sparkle("blue", 100,5);
+
     if (random(1000) == 0) {
       pd.adrLED1()->fadeOut(10); pd.adrLED2()->fadeOut(10);
       pd.adrLED2()->bullet2Color("orange", "yellow", 50, 0, -1);
