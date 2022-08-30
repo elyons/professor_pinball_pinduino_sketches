@@ -7,7 +7,7 @@
 
 int N_LEDS = 109; // Without Iceman ramp LEDs
 //int N_LEDS = 135; // With Icreman ramp LEDs
-int R_START = 67;
+int R_START = 67; // start LED of right ramp 
 
 int aLEDNum1 = N_LEDS;
 int aLEDNum2 = 0;
