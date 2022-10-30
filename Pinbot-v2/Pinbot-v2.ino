@@ -1,3 +1,7 @@
+///
+// DO NOT USE!  Didn't get code to work correctly!
+//
+
 //Eric Lyons 2015
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2
@@ -104,9 +108,10 @@ void checkPinStates(){
   }
 
   //P12-6
-  if ( pd.pinState()->J7(7)  ){ //visor motor
-    pd.adrLED1()->bullet2Color("blue", "red", 20, 10, 1);
-    pd.adrLED1()->bullet2Color("red", "blue", 20, 10, -1);
+  if ( pd.pinState()->J7(7) > 100 ){ //visor motor
+    for (int i=0; i <= 255; i++){
+      pd.adrLED1()->dataStreamNoTail2Color("blue", "red", 20, 20, 1);
+    }
     trigger =1;
   }
 
