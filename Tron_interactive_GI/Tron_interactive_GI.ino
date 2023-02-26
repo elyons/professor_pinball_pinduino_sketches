@@ -28,7 +28,7 @@ int zuse = 0; // flag for sensing zuse
 int zuse_wait = 500;//time to wait with no zuse activity to reset zuse flag
 unsigned long timeLastEvent = 0; // time last event was last triggered
 unsigned long discEvent = 0; // time since disc lights last went
-int startChaseWaitTime = 10000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
 int bgTime = 10000; // time till lights are set to background color
 String bgColor = "blue";
@@ -173,4 +173,3 @@ void backgroundChase() {
   else {pd.adrLED1()->sparkle(bgColor,20,1);}
   pd.adrLED2()->sparkle(bgColor,20,5);
 }
-
