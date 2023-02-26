@@ -9,7 +9,7 @@
 #include <pinduino.h>
 
 int aLEDNum1 = 60;  // GI lights
-int aLEDNum2 = 48;  // side rails
+int aLEDNum2 = 27;  // side rails
 
 String color1 = "green";
 String color2 = "blue";
