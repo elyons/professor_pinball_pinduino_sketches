@@ -53,30 +53,30 @@ void checkPinStates(){
     pd.adrLED1()->fadeOut(50);
     trigger =1;
   }
-  if ( pd.pinState()->J126(4) ){ 
+  if ( pd.pinState()->J126(4) ){ // return lane flasher
     pd.adrLED1()->chase2Color("orange", "red",N_LEDS/8, 0, 1);
     trigger =1;
   }
-//  if ( pd.pinState()->J126(5) ){ 
+//  if ( pd.pinState()->J126(5) ){ // Top kickout
 //    pd.adrLED1()->fadeIn("green",50);
 //    pd.adrLED1()->fadeOut(50);
  //   trigger =1;
  // }
-  if ( pd.pinState()->J126(8) ){ 
+  if ( pd.pinState()->J126(8) ){ // Trap door flasher
     pd.adrLED1()->chase2ColorFromPoint( R_START, "purple", "red", 10, 0);
     pd.adrLED1()->fadeOut(50);
     trigger=1;
   }
-  if ( pd.pinState()->J126(13) ){ 
+  if ( pd.pinState()->J126(13) ){ // spirit ring flasher
     pd.adrLED1()->spreadInFromPoint2Color (R_START, "red", "yellow", 0);
     pd.adrLED1()->fadeOut(50);
     trigger=1;
   }
-  if ( pd.pinState()->J126(14) ){ 
+  if ( pd.pinState()->J126(14) ){  // saw flasher
     pd.adrLED1()->chase2Color("red", "yellow",N_LEDS/8, 0, 1);
     trigger =1;
   }
-  if ( pd.pinState()->J126(15) ){
+  if ( pd.pinState()->J126(15) ){ // Jet Flasher
 //    pd.adrLED1()->color("yellow",100);
     pd.adrLED1()->spreadInFromPoint2Color(R_START, "yellow", "red", 0);
     pd.adrLED1()->fadeOut(50);
@@ -85,7 +85,7 @@ void checkPinStates(){
     pd.pinState()->update();
     trigger =1;
   }
-  if ( pd.pinState()->J126(16)  and backgroundOn==0 ){
+  if ( pd.pinState()->J126(16)  and backgroundOn==0 ){ // Box flasher
     pd.adrLED1()->chase2Color("red", "yellow",N_LEDS/8, 0, -1);
     trigger =1;
   }
