@@ -1,4 +1,6 @@
 //Eric Lyons 2016
+
+// update 2025 with input from Seth Hartmann (go Birds)
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2 and v0.3
 //Uses pinduino library
