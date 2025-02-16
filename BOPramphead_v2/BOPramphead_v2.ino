@@ -112,6 +112,6 @@ void checkPinStates(){
 
 
 void background() {
-  pd.adrLED1()->sparkleRGB("purple", 20);
+  pd.adrLED1()->sparkle("purple", 20);
   pd.adrLED2()->sparkleRGB(100,100,100, 20);
   }
