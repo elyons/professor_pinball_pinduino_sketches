@@ -37,7 +37,8 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > attractModeTime) {bg_on=1;}
-  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+//  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+  if(!bg_on) {
     pd.adrLED1()->color("purple");
     pd.adrLED2()->color("white");
   }
