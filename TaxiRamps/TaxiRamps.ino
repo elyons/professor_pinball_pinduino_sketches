@@ -101,6 +101,9 @@ void checkPinStates(){
 
   //P11-1 01C PinBot Flasher
   if ( pd.pinState()->P11(1) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->color("blue");
+    pd.adrLED2()->color("blue");
+    delay(500);
     trigger = 1; 
   }
  
@@ -111,6 +114,9 @@ void checkPinStates(){
   
   //P11-3 02C Dracular Flasher
   if ( pd.pinState()->P11(3) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->color("purple");
+    pd.adrLED2()->color("purple");
+    delay(500);
     trigger = 1; 
   }
   
@@ -121,6 +127,9 @@ void checkPinStates(){
   
   //P11-4 03C Marilyn Flasher
   if ( pd.pinState()->P11(4) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->color("yellow");
+    pd.adrLED2()->color("yelow");
+    delay(500);
     trigger = 1; 
   }
   
@@ -131,6 +140,9 @@ void checkPinStates(){
   
   //P11-5 04C Santa Flasher
   if ( pd.pinState()->P11(5) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->color("white");
+    pd.adrLED2()->color("white");
+    delay(500);
     trigger = 1; 
   }
   
@@ -141,6 +153,9 @@ void checkPinStates(){
   
   //P11-6 05C Gorbie Flasher
   if ( pd.pinState()->P11(6) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->color("red");
+    pd.adrLED2()->color("red");
+    delay(500);
     trigger = 1; 
   }
   
@@ -151,6 +166,7 @@ void checkPinStates(){
   
   //P11-7 06C Left Ramp Flasher
   if ( pd.pinState()->P11(7) && pd.pinState()->P12(5)){ 
+    pd.adrLED1()->chase2ColorFromPoint(20, "red", "yellow", 10, 1000);
     trigger = 1; 
   }
   
@@ -161,6 +177,7 @@ void checkPinStates(){
  
   //P11-8 07C Right Ramp Flasher
   if ( pd.pinState()->P11(8) && pd.pinState()->P12(5)){ 
+    pd.adrLED2()->chase2ColorFromPoint(20, "red", "yellow", 10, 1000);
     trigger = 1; 
   }
   
@@ -171,6 +188,7 @@ void checkPinStates(){
   
   //P11-9 08C Spinout Flasher
   if ( pd.pinState()->P11(9) && pd.pinState()->P12(5)){ 
+    pd.chaseAllAdr2RGBFromPoint (40, 255,255,0, 255,0,0, 7, 0); // yellow to red
     trigger = 1; 
   }
 
@@ -212,13 +230,13 @@ void checkPinStates(){
 
   ///P12-8 JACKPOT Flasher
   if ( pd.pinState()->P12(8) && !pd.pinState()->P12(5)){ 
-
+    pd.chaseAllAdr2RGBFromPoint (40, 255,0,0, 255,255,0, 7, 0); //red to yellow
     trigger=1;
   }
 
   //P12-9 JOYRIDE Flasher
   if ( pd.pinState()->P12(9) && !pd.pinState()->P12(5)){ 
-
+    pd.chaseAllAdr2RGBFromPoint (40, 0,255,0, 0,0,255, 7, 0); //green to blue
     trigger =1;
   }
 
