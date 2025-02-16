@@ -1,6 +1,7 @@
 //Eric Lyons 2016
 
 // update 2025 with input from Seth Hartmann (go Birds)
+
 //Note to self:  Play more pinball!
 //Interfaced for pinduino shield v0.2 and v0.3
 //Uses pinduino library
@@ -12,22 +13,20 @@
 #include <pinduino.h>
 int aLEDNum1 = 46; //ramp
 int aLEDNum2 = 7; //head
-int aLEDNum3 = 1;
 
-pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
+pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
 
 
 int bg_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int attractModeTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 500;
 
 void setup() {
   Serial.begin(115200);
   pd.adrLED1()->clear();
   pd.adrLED2()->clear();
-  pd.adrLED3()->clear();
   pd.pinState()->reset();
 }
 
@@ -39,9 +38,9 @@ void loop(){
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
-  if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
+  if (millis()-timeLastEvent > attractModeTime) {bg_on=1;}
   if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
-    pd.adrLED1()->clear();
+    pd.adrLED1()->color("purple");
     pd.adrLED2()->color("white");
   }
 }
