@@ -31,7 +31,6 @@ void setup() {
 void loop(){
   if (bg_on){background();}
   else {
-      pd.adrLED1()->color("purple");
       pd.adrLED2()->color("white");
   }  
   for (int i=0; i<500; i=i+1) { //check pinstates for a while    
@@ -113,5 +112,5 @@ void checkPinStates(){
 
 void background() {
   pd.adrLED1()->sparkle("purple", 20);
-  pd.adrLED2()->sparkleRGB(100,100,100, 20);
+  pd.adrLED2()->color("white");
   }
