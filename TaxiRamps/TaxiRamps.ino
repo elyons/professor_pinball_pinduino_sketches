@@ -18,7 +18,7 @@ int bg_on = 1;
 
 unsigned long timeLastEvent = 0; // time last event was last triggered
 unsigned long startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
-String color = "white"; //attract color
+String color = "yellow"; //attract color
 int bg_style = 1;
 
 void setup() {
@@ -67,6 +67,22 @@ void loop(){
   //P12-7 Knocker
   //P12-8 JACKPOT Flasher
   //P12-9 JOYRIDE Flasher
+
+/// Note on A/C Select Relay:  P12-5 (solenoid 12)
+/// 
+/// P12-5 Off:  Relay connects the circuit A side of P11 and all of P12
+/// P12-5 On:   Relay connects the circuit C side of P11
+/// 
+/// 
+/// From the manual for Taxi: https://www.ipdb.org/files/2505/Williams_1988_Taxi_Manual.pdf
+///   In its de-energized state, the Relay connects the 'circuit A power' 
+///   to 16 "controlled" and "switched" solenoids (identified in the table
+///   with no suffix letter or the letter A, after the solenoid number).
+/// 
+///   When the game program determines that the Solenoid A/C Select Relay (sol. 12)
+///   must be energized, the relay connects 'circuit C power' to the eight group C 
+///   solenoids (01C through 08C). 
+
 ///////////////////////////////////////////
 ////////////       END        /////////////
 ///////////////////////////////////////////
@@ -74,102 +90,140 @@ void loop(){
 void checkPinStates(){
   int trigger =0;
 
-  //P11-1 01A
-  if ( pd.pinState()->J6(1) && pd.pinState()->P12(8)  && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ // outhole P11-1
-  // Trigger an event so pinduino attact mode shuts off.
-//    pd.adrLED1()->color("red",255);
-//    delay(1000);
+//////////////////////////////////////
+////////      P11-A/C        /////////
+//////////////////////////////////////
+
+  //P11-1 01A Outhole
+  if ( pd.pinState()->P11(1) && !pd.pinState()->P12(5)){ 
     trigger = 1; 
   }
 
+  //P11-1 01C PinBot Flasher
+  if ( pd.pinState()->P11(1) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+ 
+  //P11-3 02A Ball Release Shooter Lane
+  if ( pd.pinState()->P11(3) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
   
-  //P11-3
-  if ( pd.pinState()->P11(3) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ // upper playfield and top flashers (2)
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "red", 10, 5);
+  //P11-3 02C Dracular Flasher
+  if ( pd.pinState()->P11(3) && pd.pinState()->P12(5)){ 
     trigger = 1; 
   }
-
-  //P11-4
-  if ( pd.pinState()->P11(4) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ //left backglass flasher
-  }
-
-  //P11-5
-  if ( pd.pinState()->J6(4) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ // right backglass flasher
-  }
-
-  //P11-6
-  if ( pd.pinState()->P11(6) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ //lower playfield and top flashers (1)
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 5);
-    trigger = 1; 
   
+  //P11-4 03A Catapult
+  if ( pd.pinState()->P11(4) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-4 03C Marilyn Flasher
+  if ( pd.pinState()->P11(4) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-5 04A Middle 3-bank Drop Target
+  if ( pd.pinState()->P11(5) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-5 04C Santa Flasher
+  if ( pd.pinState()->P11(5) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-6 05A Top Eject Hole
+  if ( pd.pinState()->P11(6) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-6 05C Gorbie Flasher
+  if ( pd.pinState()->P11(6) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-7 06A Right 3-bank Drop Target
+  if ( pd.pinState()->P11(7) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-7 06C Left Ramp Flasher
+  if ( pd.pinState()->P11(7) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-8 07A Spinout Kickbig
+  if ( pd.pinState()->P11(8) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+ 
+  //P11-8 07C Right Ramp Flasher
+  if ( pd.pinState()->P11(8) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-9 08A Right Lock (Eject Hole)
+  if ( pd.pinState()->P11(9) && !pd.pinState()->P12(5)){ 
+    trigger = 1; 
+  }
+  
+  //P11-9 08C Spinout Flasher
+  if ( pd.pinState()->P11(9) && pd.pinState()->P12(5)){ 
+    trigger = 1; 
   }
 
-  //P11-7
-  if ( pd.pinState()->P11(7) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ //energy flasher
-    pd.adrLED1()->color("red",255);
-    delay(200);
+//////////////////////////////////////
+////////          P12        /////////
+//////////////////////////////////////
+  
+  //P12-1 Top Ball Gate
+  if ( pd.pinState()->P12(1) && !pd.pinState()->P12(5)){ 
+
     trigger =1;
   }
 
-  //P11-8
-  if ( pd.pinState()->P11(8) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ //left playfield flasher
-    pd.adrLED1()->chase2ColorFromPoint(mid, "white", "blue", 10, 5);
+  //P12-2 Insert Gen Illumin Relay
+  if ( pd.pinState()->P12(2) && !pd.pinState()->P12(5)){
+
+//    trigger =1; // Probably good to leave this alone 
+  }
+
+  //P12-4 Playfield Gen Illum
+  if ( pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ 
+
+//    trigger =1; // Probably good to leave this alone
+  }
+
+  //P12-5 A/C Select Relay  DO NOT USE FOR A LIGHTING EFFECT 
+
+  //P12-6 Bell
+  if ( pd.pinState()->P12(6) && !pd.pinState()->P12(5)){ 
+
     trigger =1;
   }
 
-  //P11-9
-  if ( pd.pinState()->P11(9) && pd.pinState()->P12(8) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5)){ //sun flasher
-    pd.adrLED1()->fadeIn("red",200);
-    delay(100);
-    pd.adrLED1()->fadeOut(200);
-  }
-
-  //P12-1
-  if ( pd.pinState()->P12(1) ){ //backglass face
-  }
-
-  //P12-2
-  if ( pd.pinState()->P12(2) ){ // right eye playfield face flasher
-  }
-
-  //P12-4
-  if ( pd.pinState()->P12(4) ){ // blackglass GI
-  }
-
-  //P12-5
-  if ( pd.pinState()->P12(5) ){ //playfield GI
-  }
-
-  //P12-6
-  if ( pd.pinState()->P12(6) && !pd.pinState()->P12(4) && !pd.pinState()->P12(5) && !pd.pinState()->P12(8)){ //visor motor
-    pd.adrLED1()->bullet2Color("blue", "red", 40, 10, 1);
-    pd.adrLED1()->bullet2Color("red", "blue", 40, 10, -1);
-    trigger =1;
-  }
-
-  //P12-7
-  if ( pd.pinState()->P12(8) ){ // solenoid select relay
-//    pd.adrLED1()->color("purple",255);
-//    delay(1000);
-//    trigger=1;
-  }
-
-  //P12-8
-  if ( pd.pinState()->P12(8) ){ // top flasher (3)
-    pd.adrLED1()->bullet("red", 3, 10,  1);
-    pd.adrLED1()->bullet("red", 3, 10,  -1);
+  //P12-7 Knocker
+  if ( pd.pinState()->P12(7) && !pd.pinState()->P12(5)){ 
+  
     trigger=1;
   }
 
-  //P12-9
-  if ( pd.pinState()->P12(9) ){ // top flasher (4)
-    pd.adrLED1()->bullet("blue", 3, 10,  1);
-    pd.adrLED1()->bullet("blue", 3, 10,  -1);
+  ///P12-8 JACKPOT Flasher
+  if ( pd.pinState()->P12(8) && !pd.pinState()->P12(5)){ 
+
+    trigger=1;
+  }
+
+  //P12-9 JOYRIDE Flasher
+  if ( pd.pinState()->P12(9) && !pd.pinState()->P12(5)){ 
+
     trigger =1;
   }
 
-  //clear out if there is noise due to coils
- if ( pd.pinState()->P12(4) && pd.pinState()->P12(5) && pd.pinState()->P12(6) && pd.pinState()->P12(8)){ 
+  //Note:  Sys 11 games have particularly "noisy" power on these circuits.  Can use this function to clear out pinstates for a fresh sweep
+ if (pd.pinState()->P12(5)){ 
     trigger =1;
   }
 
@@ -192,13 +246,13 @@ void backgroundChase() {
   if (bg_style) {
     pd.adrLED1()->sparkle(color,20,30);
     if (random(1000) == 0) {
-        if (color == "white") color = "red";
-        else if (color == "red") color = "blue";
-        else color = "white";
+        if (color == "yellow") color = "orange";
+        else if (color == "orange") color = "red";
+        else color = "yellow";
     }
   }
   else {
-    pd.adrLED1()->dataStreamNoTail2Color("blue", "red", 20, 20, 1);
+    pd.adrLED1()->dataStreamNoTail2Color("yellow", "red", 20, 20, 1);
   }
   if (random(1000) == 0) {
     if (bg_style) { bg_style = 0;}
