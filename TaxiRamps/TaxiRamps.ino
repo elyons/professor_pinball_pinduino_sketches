@@ -6,10 +6,9 @@
 //Uses pinduino library
 
 #include <pinduino.h>
-int N_LEDS = 39;
-int mid = N_LEDS/2;
-int aLEDNum1 = N_LEDS;
-int aLEDNum2 = 0;
+
+int aLEDNum1 = 54;
+int aLEDNum2 = 49;
 
 
 pinduino pd (aLEDNum1, aLEDNum2, "Nano");
@@ -166,7 +165,7 @@ void checkPinStates(){
   
   //P11-7 06C Left Ramp Flasher
   if ( pd.pinState()->P11(7) && pd.pinState()->P12(5)){ 
-    pd.adrLED1()->chase2ColorFromPoint(20, "red", "yellow", 10, 1000);
+    pd.adrLED1()->chase2ColorFromPoint(25, "red", "yellow", 10, 1000);
     trigger = 1; 
   }
   
@@ -177,7 +176,7 @@ void checkPinStates(){
  
   //P11-8 07C Right Ramp Flasher
   if ( pd.pinState()->P11(8) && pd.pinState()->P12(5)){ 
-    pd.adrLED2()->chase2ColorFromPoint(20, "red", "yellow", 10, 1000);
+    pd.adrLED2()->chase2ColorFromPoint(25, "red", "yellow", 10, 1000);
     trigger = 1; 
   }
   
@@ -188,7 +187,7 @@ void checkPinStates(){
   
   //P11-9 08C Spinout Flasher
   if ( pd.pinState()->P11(9) && pd.pinState()->P12(5)){ 
-    pd.chaseAllAdr2RGBFromPoint (40, 255,255,0, 255,0,0, 7, 0); // yellow to red
+    pd.chaseAllAdr2RGBFromPoint (25, 255,255,0, 255,0,0, 7, 0); // yellow to red
     trigger = 1; 
   }
 
