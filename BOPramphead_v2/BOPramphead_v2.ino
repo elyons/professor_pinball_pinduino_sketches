@@ -30,6 +30,10 @@ void setup() {
 
 void loop(){
   if (bg_on){background();}
+  else {
+      pd.adrLED1()->color("purple");
+      pd.adrLED2()->color("white");
+  }  
   for (int i=0; i<500; i=i+1) { //check pinstates for a while    
     pd.pinState()->update();
   }
@@ -37,11 +41,6 @@ void loop(){
 //  pd.pinState()->print();
   checkPinStates();
   if (millis()-timeLastEvent > attractModeTime) {bg_on=1;}
-//  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
-  if(!bg_on) {
-    pd.adrLED1()->color("purple");
-    pd.adrLED2()->color("white");
-  }
 }
 
 void checkPinStates(){
