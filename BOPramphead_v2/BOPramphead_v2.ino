@@ -32,6 +32,7 @@ void loop(){
   if (bg_on){background();}
   else {
       pd.adrLED2()->color("white");
+      pd.adrLED1()->color("purple");
   }  
   for (int i=0; i<500; i=i+1) { //check pinstates for a while    
     pd.pinState()->update();
