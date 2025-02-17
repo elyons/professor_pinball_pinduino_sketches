@@ -262,6 +262,7 @@ void checkPinStates(){
 void backgroundChase() {
   if (bg_style) {
     pd.adrLED1()->sparkle(color,20,30);
+    pd.adrLED2()->sparkle(color,20,30);
     if (random(1000) == 0) {
         if (color == "yellow") color = "orange";
         else if (color == "orange") color = "red";
@@ -270,6 +271,7 @@ void backgroundChase() {
   }
   else {
     pd.adrLED1()->dataStreamNoTail2Color("yellow", "red", 20, 20, 1);
+    pd.adrLED2()->dataStreamNoTail2Color("yellow", "red", 20, 20, 1);
   }
   if (random(1000) == 0) {
     if (bg_style) { bg_style = 0;}
