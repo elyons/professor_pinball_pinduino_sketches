@@ -5,8 +5,14 @@
 
 
 #include <pinduino.h>
-int aLEDNum1 = 42; // blue light cycle, ramp enrance on left; exit on right
-int aLEDNum2 = 36; // yellow light cycle, ramp entrance on right; exit on left
+//blue light cycle,  ramp entrance on left; exit on right
+#int aLEDNum1 = 42; // 70mm segments
+int aLEDNum1 = 59; // 50mm segments
+
+// yellow light cycle, ramp entrance on right; exit on left
+#int aLEDNum2 = 36; // 70mm segments
+int aLEDNum2 = 50; // 50mm segments
+
 int aLEDNum3 = 0;
 
 pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
