@@ -35,55 +35,40 @@ void checkPinStates(){
   int trigger =0;
   
   if ( pd.pinState()->J126(1) ){
-    trigger=1;
-  }
+ }
   if ( pd.pinState()->J126(2) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(3) ){  // left mountain
-    trigger=1;
   }
   if ( pd.pinState()->J126(4) ){ // Upper left playfield
     pd.adrLED1()->bullet2Color("blue", "white", 10, 5, 1);
     trigger=1;
   }
   if ( pd.pinState()->J126(5) ){ // Insantify falls
-    trigger=1;
   }
   if ( pd.pinState()->J126(6) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(7) ){ //whirlpool enter
     pd.adrLED1()->chase2ColorFromPoint(50, "blue", "white", 15, 1);
     trigger=1;
   }
   if ( pd.pinState()->J126(8) ){
-//    pd.adrLED1()->fire(10,10);
-    trigger=1;
   }
   if ( pd.pinState()->J126(9) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(10) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(11) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(12) ){ 
-    trigger=1;
   }
   if ( pd.pinState()->J126(13) ){ //extended WPC with extra 4-pin plug
-    trigger=1;
   }
   if ( pd.pinState()->J126(14) ){  //extended WPC with extra 4-pin plug
-    trigger=1;
   }
   if ( pd.pinState()->J126(15) ){  //extended WPC with extra 4-pin plug
-    trigger=1;
   }
   if ( pd.pinState()->J126(16) ){  //extended WPC with extra 4-pin plug
-    trigger=1;
   }
 
   
