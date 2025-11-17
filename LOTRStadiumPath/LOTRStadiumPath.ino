@@ -8,7 +8,7 @@
 
 
 #include <pinduino.h>
-int aLEDNum1 = 32; //stadium
+int aLEDNum1 = 15; //stadium
 int aLEDNum2 = 23; // paths
 int aLEDNum3 = 0;
 
@@ -16,7 +16,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 
 
-int bg_on = 1; //attract effect
+int attract_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
@@ -29,16 +29,17 @@ void setup() {
   pd.adrLED2()->clear();
   pd.adrLED3()->clear();
   pd.pinState()->reset();
+  pd.adrLED1()->strip()->updateType("RGB");
 }
 
 void loop(){
-  if (bg_on){attract_mode();}
+  if (attract_on){attract_mode();}
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   pd.pinState()->update();
   checkPinStates();
-  if (millis()-timeLastEvent > startChaseWaitTime) {bg_on=1;}
-  if (millis()-timeLastEvent > bgWhiteTime && !bg_on) {
+  if (millis()-timeLastEvent > startChaseWaitTime) {attract_on=1;}
+  if (millis()-timeLastEvent > bgWhiteTime && !attract_on) {
     pd.adrLED1()->color("white");
     pd.adrLED2()->color("green");
   }
@@ -68,13 +69,13 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(5) ){ // ringwraith
     pd.adrLED1()->color("purple");
-    pd.adrLED2()->chase("purple", 6, 30, -1);
+    pd.adrLED2()->chase("red", 20, 20, -1);
    trigger=1;
   }
 
   if ( pd.pinState()->J6(6) ){ // sword
    pd.adrLED1()->color("blue");
-   pd.adrLED2()->chase("blue", 6, 30, -1);
+   pd.adrLED2()->chase("blue", 20, 30, -1);
    trigger=1;
   }
   
@@ -91,9 +92,9 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J7(8) ){ // balrog motor
-    pd.adrLED1()->color("red");
-    pd.adrLED2()->chase("red", 6, 30, -1);
-   trigger=1;
+//    pd.adrLED1()->color("red");
+//    pd.adrLED2()->chase("red", 6, 30, -1);
+//   trigger=1;
   }
 
   if ( pd.pinState()->J7(4) ){ // top saucer
@@ -107,7 +108,8 @@ void checkPinStates(){
   if (trigger) {
    pd.pinState()->reset();
    trigger = 0;
-   bg_on = 0;
+   attract_on = 0;
+   timeLastEvent = millis();
   }
 
 //end function checkPinStates
@@ -118,7 +120,8 @@ void checkPinStates(){
 void attract_mode() {
   pd.adrLED1()->sparkle(color1,20);
   pd.adrLED2()->sparkle("green",20);
-  pd.adrLED2()->sparkle("red",50);
+  pd.adrLED2()->sparkle("red",20);
+  pd.adrLED2()->sparkle("orange",50);
   
   if (random(1000) == 0) {
     if (color1 == "red") color1 = "orange";
