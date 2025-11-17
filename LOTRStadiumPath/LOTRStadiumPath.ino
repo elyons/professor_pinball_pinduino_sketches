@@ -18,7 +18,7 @@ pinduino pd (aLEDNum1, aLEDNum2, aLEDNum3, "Nano");
 
 int attract_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
-int startChaseWaitTime = 20000; //Amount of time to wait before chase lights start up again 1000 == 1 second
+int startChaseWaitTime = 60000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 50;
 String color1 = "red";
 
@@ -50,13 +50,13 @@ void checkPinStates(){
   
   if ( pd.pinState()->J6(1) ){ // pop flashers x3
     pd.adrLED1()->color("red");
-    pd.adrLED2()->chase2Color("green", "red", 6, 20, 1);
+    pd.adrLED2()->chase2Color("green", "red", 6, 20, -1);
     trigger = 1; 
   }
 
   if ( pd.pinState()->J6(2) ){ // ring
     pd.adrLED1()->color("red");
-    pd.adrLED2()->chase("red", 6, 30, -1);
+    pd.adrLED2()->chase("red", 40, 10, -1);
     trigger = 1; 
   }
 
@@ -69,13 +69,16 @@ void checkPinStates(){
 
   if ( pd.pinState()->J6(5) ){ // ringwraith
     pd.adrLED1()->color("purple");
-    pd.adrLED2()->chase("red", 20, 20, -1);
-   trigger=1;
+    pd.adrLED2()->color("green");  
+    pd.adrLED2()->chase2Color("green", "red", 20, 20, -1);
+    trigger=1;
   }
 
   if ( pd.pinState()->J6(6) ){ // sword
    pd.adrLED1()->color("blue");
-   pd.adrLED2()->chase("blue", 20, 30, -1);
+   pd.adrLED2()->fadeOut(100);
+   pd.adrLED2()->fadeIn("blue",100);
+   pd.adrLED2()->chase2Color("blue", "green", 20, 20, -1);
    trigger=1;
   }
   
@@ -121,6 +124,7 @@ void attract_mode() {
   pd.adrLED1()->sparkle(color1,20);
   pd.adrLED2()->sparkle("green",20);
   pd.adrLED2()->sparkle("red",20);
+  pd.adrLED2()->sparkle("yellow",20);
   pd.adrLED2()->sparkle("orange",50);
   
   if (random(1000) == 0) {
