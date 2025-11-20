@@ -68,7 +68,7 @@ void checkPinStates(){
   }
 
   if ( pd.pinState()->J6(5) ){ // ringwraith
-    pd.adrLED1()->color("purple");
+    pd.adrLED1()->color("green");
     pd.adrLED2()->color("green");  
     pd.adrLED2()->chase2Color("green", "red", 20, 20, -1);
     trigger=1;
@@ -78,6 +78,7 @@ void checkPinStates(){
    pd.adrLED1()->color("blue");
    pd.adrLED2()->fadeOut(100);
    pd.adrLED2()->fadeIn("blue",100);
+   pd.adrLED2()->spreadInFromPoint2Color (aLEDNum2/2, "green", "blue", 50);
    pd.adrLED2()->chase2Color("blue", "green", 20, 20, -1);
    trigger=1;
   }
