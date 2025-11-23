@@ -105,12 +105,11 @@ void checkPinStates(){
 
 
 void background() {
-  pd.adrLED1()->sparkle(color,20,20);
+  pd.adrLED1()->sparkle(color,80,20);
   if (random(1000) == 0) {
     if (color == "orange") {color = "red";}
     if (color == "red") {color = "yellow";}
+    if (color == "yellow") {color = "purple";}
     else color = "orange";
   }
 }
-
-
