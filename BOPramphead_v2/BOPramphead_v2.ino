@@ -16,7 +16,7 @@ int aLEDNum2 = 7; //head
 
 pinduino pd (aLEDNum1, aLEDNum2, "Nano");
 
-int bg_on = 1; //attract effect
+int attract_on = 1; //attract effect
 unsigned long timeLastEvent = 0; // time last event was last triggered
 int attractModeTime = 30000; //Amount of time to wait before chase lights start up again 1000 == 1 second
 int bgWhiteTime = 500;
@@ -29,7 +29,7 @@ void setup() {
 }
 
 void loop(){
-  if (bg_on){background();}
+  if (attract_on){attract_mode();}
   else {
       pd.adrLED2()->color("white");
       pd.adrLED1()->color("purple");
@@ -40,7 +40,7 @@ void loop(){
 //   Print the pin states out to serial 
 //  pd.pinState()->print();
   checkPinStates();
-  if (millis()-timeLastEvent > attractModeTime) {bg_on=1;}
+  if (millis()-timeLastEvent > attractModeTime) {attract_on=1;}
 }
 
 void checkPinStates(){
@@ -102,7 +102,7 @@ void checkPinStates(){
   if (trigger) {
    pd.pinState()->reset();
    trigger =0;
-   bg_on = 0;
+   attract_on = 0;
    timeLastEvent = millis();
   }
 
@@ -111,7 +111,7 @@ void checkPinStates(){
 
 
 
-void background() {
-  pd.adrLED1()->sparkle("purple", 20);
-  pd.adrLED2()->color("white");
+void attract_mode() {
+  pd.adrLED1()->sparkle("purple", 30, 20);
+  pd.adrLED2()->sparkle("white", 30, 20);
   }
